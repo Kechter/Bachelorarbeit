@@ -1,0 +1,20 @@
+<div class="auth-container">
+    <h2>{{ isRegistering ? 'Register' : 'Login' }}</h2>
+    
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" type="email" required />
+  
+      <label for="password">Password:</label>
+      <input id="password" formControlName="password" type="password" required />
+  
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Loading...' : (isRegistering ? 'Register' : 'Login') }}
+      </button>
+    </form>
+  
+    <button (click)="toggleForm()">
+      {{ isRegistering ? 'Already have an account? Login' : "Don't have an account? Register" }}
+    </button>
+  </div>
+  
