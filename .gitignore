@@ -5,3 +5,4 @@ Thumbs.db
 *.tmp
 *.env
 node_modules/
+shared-backend/dist/
