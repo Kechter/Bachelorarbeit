@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SupabaseService } from '../supabase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -17,7 +18,8 @@ export class AuthComponent {
 
   constructor(
     private readonly supabase: SupabaseService,
-    private readonly formBuilder: FormBuilder 
+    private readonly formBuilder: FormBuilder,
+    private readonly router: Router
   ) {
     this.authForm = this.formBuilder.group({
       email: '',
@@ -33,11 +35,9 @@ export class AuthComponent {
 
       if (this.isRegistering) {
         await this.supabase.signUp(email, password);
-        alert('Account created! You can now log in.');
       } else {
         await this.supabase.login(email, password);
-        alert('Successfully logged in! Redirecting...');
-        window.location.href = '/shop';
+        this.router.navigate(['/products']);
       }
     } catch (error) {
       if (error instanceof Error) {

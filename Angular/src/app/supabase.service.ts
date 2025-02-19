@@ -24,4 +24,8 @@ export class SupabaseService {
   getSession() {
     return this.http.get(`${this.backendUrl}/session`);
   }
+
+  fetchProducts() {
+    return this.http.get(`${this.backendUrl}/products`);
+  }
 }
