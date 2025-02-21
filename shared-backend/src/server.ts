@@ -7,6 +7,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+app.post('/api/login', async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+    const data = await login(email, password);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error instanceof Error ? error.message : 'An unknown error occurred' });
+  }
+});
+
 app.post('/api/signup', async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
