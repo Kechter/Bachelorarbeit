@@ -1,0 +1,230 @@
+\documentclass[oneside]{ausarbeitung}
+\bibliography{latexlit}
+
+% ----------------------------------------------------------------------
+
+\begin{document}
+
+%--- Sprachauswahl
+% Erlaubte Werte:
+%   \selectlanguage{english}
+%   \selectlanguage{ngerman}
+\selectlanguage{ngerman}
+
+%--- Art der Arbeit
+% Erlaubte Werte:
+%   \Praxissemesterbericht
+%   \Projektbericht
+%   \Bachelorarbeit
+%   \Seminararbeit
+%   \Masterarbeit
+
+\Bachelorarbeit
+
+%--- Studiengang:
+% Erlaubte Werte:
+%   \Informatik
+%   \Elektronik
+%   \DataScience
+\Informatik
+
+\title{Component-Based Web Development: Eine Revolution in der Wiederverwendbarkeit von Webkomponenten?}
+
+\author{Jonathan Kechter}
+\matrikelnr{83701}
+
+%--- Ist der Erstbetreuer (\examinerA) an der Hochschule ein Professor?
+% Erlaubte Werte:
+%   \examinerIsAProfessortrue   % Ja
+%   \examinerIsAProfessorfalse  % Nein
+\examinerIsAProfessortrue   % Ja
+
+%--- Betreuer
+\examinerA{Prof. Dr. Carsten Lecon}
+\examinerB{Sebastian Stigler}
+
+%--- Einreichungsdatum
+\date{02. April 2025}
+
+%--- Angaben zur Firma
+% Auskommentieren, wenn die Arbeit nicht bei einer ext. Firma gemacht wurde.
+
+
+%--- Angaben zum Betreuer bei dieser Firma
+
+
+%--- Titelseite Anzeigen
+\maketitle
+\cleardoublepage
+
+%---
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+%--- Firmendaten Anzeigen
+% Auskommentieren, wenn die Arbeit nicht bei einer ext. Firma gemacht wurde.
+\makeworkplace
+\cleardoublepage
+
+%--- Eidesstattliche Erklärung anzeigen
+\makeaffirmation
+\cleardoublepage
+
+%--- Sperrvermerk (Funktioniert nur bei externen Bachelor- oder Masterarbeiten.)
+%\makeconfidentialclause
+\cleardoublepage
+
+%---
+\begin{abstract}
+  Ziel der Kurzfassung ist es, einen (eiligen) Leser zu informieren, so 
+  dass dieser entscheiden kann, ob der Bericht für ihn hilfreich ist oder 
+  nicht (neudeutsch: Management Summary). Die Kurzfassung gibt daher eine 
+  kurze Darstellung
+
+  \begin{itemize}
+    \item des in der Arbeit angegangenen Problems
+    \item der verwendeten Methode(n)
+    \item des in der Arbeit erzielten Fortschritts.
+  \end{itemize}
+
+  Dabei sollte nicht auf die Struktur der Arbeit eingegangen werden, also 
+  Kapitel~\ref{cha:grundlagen} etc. denn die Kurzfassung soll ja gerade 
+  das Wichtigste der Arbeit vermitteln, ohne dass diese gelesen werden muss.
+  Eine Kapitelbezogene Darstellung sollte sich in Kapitel~%
+  \ref{cha:einleitung} unter Vorgehen befinden.
+
+  Länge: Maximal 1 Seite.
+\end{abstract}
+%-----------------------------------------------------------------------
+\cleardoublepage
+\tableofcontents
+
+%---
+\listoffigures
+
+%---
+\listoftables
+
+%---
+\lstlistoflistings
+
+%---
+\listofabbreviations
+\begin{acronym}[Bsp.]  % Längstes Kürzel in der nachfolgenden
+                       % Liste um die Breite der Spalte für die
+                       % Abkürzungen zu bestimmen.
+
+%% Eintrag: \acro{Referenzname}[Kürzel]{Langform}
+%% Im Text wird die Abkürzung dann mit \ac{Referenzname} benutzt.
+\acro{rup}[RUP]{Rational Unified Process}
+%\acro{bsp}[Bsp.]{Beispiel}
+\end{acronym}
+%---
+
+
+\cleardoublepage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% ----------------------------------------------------------------------
+\chapter{Einleitung}
+\label{cha:einleitung}
+
+Die Einleitung dient dazu, beim Leser Interesse für die Inhalte der Bachelorarbeit zu wecken, die behandelten Probleme aufzuzeigen und die zu ihrer Lösung entwickelten Konzepte zu beschreiben.
+
+\section{Motivation}
+\label{sec:motivation}
+
+In der Motivation wird dargestellt, welche Bedeutung die im Rahmen der Arbeit entwickelten Lösungen haben.
+
+\section{Problemstellung und -abgrenzung}
+\label{sec:problemstellung}
+
+Die Problemstellung dient dazu, das zu lösende Problem klar zu definieren und abzugrenzen. 
+
+\section{Ziel der Arbeit}
+\label{sec:ziel}
+
+Mit dem Ziel der Arbeit wird der angestrebte Lösungsumfang festgelegt.
+
+\section{Vorgehen}
+\label{sec:vorgehen}
+
+Nachdem mit Problemstellung und Ziel gewissermaßen Anfangs- und Endpunkt beschrieben sind, wird hier der zur Erreichung des Ziels eingeschlagene Weg vorgestellt.
+
+% ---
+\chapter{Grundlagen}
+\label{cha:grundlagen}
+
+In diesem Kapitel werden die für die Arbeit relevanten Grundlagen dargestellt.
+
+\section{Grundlagengebiet A}
+\label{sec:grundlagengebieta}
+
+\subsection{Definition AA}
+\label{sub:definitionaa}
+
+\subsection{Definition AB}
+\label{sub:definitionab}
+
+\section{Grundlagengebiet B}
+\label{sec:grundlagengebietb}
+
+\subsection{Definition BA}
+\label{sub:definitionBa}
+
+\subsection{Definition BB}
+\label{sub:definitionbb}
+
+%---
+\chapter{Problemanalyse}
+\label{cha:problemanalyse}
+
+Die Analyse des zu lösenden Problems ist Grundlage für jedes ingenieurmäßige Vorgehen. 
+
+%---
+\chapter{Lösungskonzept}
+\label{cha:loesungskonzept}
+
+Auf der Basis der im vorangegangenen Kapitel erstellten Problemanalyse wird ein Lösungskonzept erarbeitet.
+
+%---
+\chapter{Implementierung}
+\label{cha:implementierung}
+
+In diesem Kapitel wird die konkrete Implementierung des entwickelten Lösungskonzepts beschrieben.
+
+%---
+\chapter{Evaluierung}
+
+Aufgabe des Kapitels Evaluierung ist es, in wie weit die Ziele der Arbeit erreicht wurden.
+
+%---
+\chapter{Zusammenfassung und Ausblick}
+\label{cha:zusammenfassung}
+
+\section{Erreichte Ergebnisse}
+\label{sec:ergebnisse}
+
+\section{Ausblick}
+\label{sec:ausblick}
+
+\subsection{Erweiterbarkeit der Ergebnisse}
+\label{sub:erweiterbarkeit}
+
+\subsection{Übertragbarkeit der Ergebnisse}
+\label{sub:uebertragbarkeit}
+
+%-----------------------------------------------------------------------
+\appendix
+
+%---
+\printbibliography[heading=bibintoc]
+
+%---
+\chapter{Anhang A}
+
+%---
+\chapter{Anhang B}
+
+\end{document}
