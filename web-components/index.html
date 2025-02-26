@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebComponent Test</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="module" src="./src/main.js"></script>
+    <script>
+        const app = document.getElementById('app');
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn) {
+            app.innerHTML = '<product-list></product-list>';
+        } else {
+            app.innerHTML = '<auth-component></auth-component>';
+        }
+    </script>
+</body>
+</html>
