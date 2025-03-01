@@ -1,0 +1,36 @@
+<div class="checkout-container">
+    <h1>Checkout</h1>
+  
+    <section class="order-summary">
+      <h2>Order Summary</h2>
+      <ul>
+        <li *ngFor="let item of cartItems">
+          <p>{{ item.productName }} - ${{ item.price }}</p>
+        </li>
+      </ul>
+      <p>Total: ${{ totalAmount }}</p>
+    </section>
+  
+    <section class="payment-info">
+      <h2>Payment Information</h2>
+      <div>
+        <label for="cardNumber">Card Number</label>
+        <input type="text" id="cardNumber" value="1234 5678 9012 3456" readonly>
+      </div>
+      <div>
+        <label for="expiryDate">Expiry Date</label>
+        <input type="month" id="expiryDate" value="2025-12" readonly>
+      </div>
+      <div>
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" value="123" readonly>
+      </div>
+    </section>
+  
+    <div class="checkout-button">
+      <button>Proceed to Payment</button>
+    </div>
+  </div>
+
+<button type="button" (click)="goToCart()">Cart</button>
+<button type="button" (click)="goToProducts()">Products</button>
