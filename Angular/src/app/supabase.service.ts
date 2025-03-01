@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SupabaseService {
   private backendUrl = 'http://localhost:3001/api';
+  readonly userId = 'df992ef6-af8d-4d4d-8f50-1214b7520dcf';
 
   constructor(private http: HttpClient) {}
 
@@ -28,4 +29,17 @@ export class SupabaseService {
   fetchProducts() {
     return this.http.get(`${this.backendUrl}/products`);
   }
+
+  addToCart(userId: string, productId: string, quantity: number) {
+    return this.http.post(`${this.backendUrl}/cart/add`, { userId, productId, quantity });
+  }
+
+  getCart(userId: string) {
+    return this.http.get(`${this.backendUrl}/cart?userId=${userId}`);
+  }
+
+  getProductById(productId: string) {
+    return this.http.get(`${this.backendUrl}/product/${productId}`);
+  }
+  
 }
