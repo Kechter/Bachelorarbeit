@@ -8,14 +8,5 @@
 <body>
     <div id="app"></div>
     <script type="module" src="./src/main.js"></script>
-    <script>
-        const app = document.getElementById('app');
-        const isLoggedIn = localStorage.getItem('isLoggedIn');
-        if (isLoggedIn) {
-            app.innerHTML = '<product-list></product-list>';
-        } else {
-            app.innerHTML = '<auth-component></auth-component>';
-        }
-    </script>
 </body>
 </html>

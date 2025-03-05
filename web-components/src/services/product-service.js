@@ -16,5 +16,17 @@ export class ProductService {
         
         return await response.json();
     }
+
+    async addProductToCart(product) {
+        const response = await fetch(`${this.backendUrl}/cart/add`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(product),
+        });
+  
+        if (!response.ok) {
+          throw new Error(`Failed to add product to cart: ${response.statusText}`);
+        }
+    }
   }
   

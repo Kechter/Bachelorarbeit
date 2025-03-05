@@ -8,7 +8,11 @@ class AuthComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    this.renderLoginForm();
+    if (localStorage.getItem("isLoggedIn")) {
+      window.navigateTo("/products");
+    } else {
+      this.renderLoginForm();
+    }
   }
 
   renderLoginForm() {
@@ -28,9 +32,9 @@ class AuthComponent extends HTMLElement {
         event.preventDefault();
         const email = this.shadowRoot.getElementById("email").value;
         const password = this.shadowRoot.getElementById("password").value;
-          await this.authService.login(email, password);
-          localStorage.setItem('isLoggedIn', true);
-          this.shadowRoot.querySelector("#login-form").remove();
+        await this.authService.login(email, password);
+        localStorage.setItem("isLoggedIn", true);
+        window.navigateTo("/products");
       });
 
     this.shadowRoot
@@ -60,9 +64,7 @@ class AuthComponent extends HTMLElement {
         const email = this.shadowRoot.getElementById("email").value;
         const password = this.shadowRoot.getElementById("password").value;
           await this.authService.signUp(email, password);
-          this.shadowRoot.querySelector("#register-form").remove();
-          this.shadowRoot.querySelector("h1").textContent =
-            "You are logged in!";
+          this.renderLoginForm();
       });
 
     this.shadowRoot
