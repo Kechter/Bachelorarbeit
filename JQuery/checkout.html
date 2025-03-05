@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - jQuery Shop</title>
+</head>
+<body>
+    <header>
+        <h1>Checkout</h1>
+    </header>
+    <main>
+        <div id="checkout-items"></div>
+        <h3>Total: $<span id="total-price">0.00</span></h3>
+
+        <button onclick="navigateTo('products')">Go to Products</button>
+        <button onclick="navigateTo('cart')">Go to Cart</button>
+
+        <section class="payment-info">
+            <h2>Payment Information</h2>
+            <div>
+                <label for="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" value="1234 5678 9012 3456" readonly />
+            </div>
+            <div>
+                <label for="expiryDate">Expiry Date</label>
+                <input type="month" id="expiryDate" value="2025-12" readonly />
+            </div>
+            <div>
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" value="123" readonly />
+            </div>
+        </section>
+
+        <div class="checkout-button">
+            <button onclick="proceedToPayment()">Proceed to Payment</button>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/checkout.js"></script>
+</body>
+</html>

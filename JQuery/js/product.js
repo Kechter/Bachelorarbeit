@@ -46,3 +46,11 @@ function addToCart(productId) {
         }
     });
 }
+
+function navigateTo(page) {
+    if (page === 'cart') {
+        window.location.href = 'cart.html';
+    } else if (page === 'checkout') {
+        window.location.href = 'checkout.html';
+    }
+}
