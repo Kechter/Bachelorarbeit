@@ -1,29 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - jQuery Shop</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body>
-    <header>
-        <h1>Sign Up</h1>
-        <nav>
-            <a href="login.html">Login</a>
-        </nav>
-    </header>
 
+<body>
     <main>
+        <h1>Register</h1>
         <form id="signup-form">
-            <label>Email:</label>
-            <input type="email" id="signup-email" required>
-            <label>Password:</label>
-            <input type="password" id="signup-password" required>
+            <input type="email" id="signup-email" placeholder="Email" />
+            <input type="password" id="signup-password" placeholder="Password" />
             <button type="submit">Sign Up</button>
         </form>
+        <p>Already have an account? <a href="login.html">Login</a></p>
     </main>
-
     <script src="/js/auth.js"></script>
 </body>
+
 </html>

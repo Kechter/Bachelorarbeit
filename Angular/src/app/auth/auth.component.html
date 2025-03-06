@@ -1,20 +1,18 @@
 <div class="auth-container">
-    <h2>{{ isRegistering ? 'Register' : 'Login' }}</h2>
-    
-    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
-      <label for="email">Email:</label>
-      <input id="email" formControlName="email" type="email" required />
-  
-      <label for="password">Password:</label>
-      <input id="password" formControlName="password" type="password" required />
-  
-      <button type="submit" [disabled]="loading">
-        {{ loading ? 'Loading...' : (isRegistering ? 'Register' : 'Login') }}
-      </button>
-    </form>
-  
-    <button (click)="toggleForm()">
-      {{ isRegistering ? 'Already have an account? Login' : "Don't have an account? Register" }}
+  <h1>{{ isRegistering ? 'Register' : 'Login' }}</h1>
+
+  <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+    <input id="email" formControlName="email" type="email" placeholder="Email" required />
+    <input id="password" formControlName="password" type="password" placeholder="Password" required />
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Loading...' : (isRegistering ? 'Register' : 'Login') }}
     </button>
-  </div>
-  
+  </form>
+
+  <p>
+    {{ isRegistering ? 'Already have an account? ' : "Don't have an account? " }}
+    <button type="button" (click)="toggleForm()">
+      {{ isRegistering ? 'Login' : 'Register' }}
+    </button>
+  </p>
+</div>
