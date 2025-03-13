@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
+  const navigate = useNavigate();
 
   const handleAuth = async () => {
     const endpoint = isRegistering ? "/api/signup" : "/api/login";
@@ -13,9 +15,10 @@ export default function AuthPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
-
+    
     const data = await response.json();
     localStorage.setItem("session", JSON.stringify(data));
+    navigate("/products");
   };
 
   return (
