@@ -145,7 +145,7 @@
 % Literaturverzeichnis
 \PassOptionsToPackage{toc=bib}{biblatex}
 \usepackage[%
-            style=numeric,%
+            %style=numeric,
             %style=alphabetic,%
             %style=authoryear,%
             %style=authortitle,%

@@ -1,5 +1,6 @@
 \documentclass[oneside]{ausarbeitung}
 \addbibresource{latexlit.bib}
+\usepackage{todonotes} 
 
 
 % ----------------------------------------------------------------------
@@ -28,7 +29,6 @@
 %   \Elektronik
 %   \DataScience
 \Informatik
-
 \title{Component-Based Web Development: Eine Revolution in der Wiederverwendbarkeit von Webkomponenten?}
 
 \author{Jonathan Kechter}
@@ -64,7 +64,7 @@
 
 %--- Firmendaten Anzeigen
 % Auskommentieren, wenn die Arbeit nicht bei einer ext. Firma gemacht wurde.
-\makeworkplace
+%\makeworkplace
 \cleardoublepage
 
 %--- Eidesstattliche Erklärung anzeigen
@@ -130,12 +130,12 @@
 % ----------------------------------------------------------------------
 \chapter{Einleitung}
 \label{cha:einleitung}
-
+\todo {Ausformulieren oder löschen}
 Die Einleitung dient dazu, beim Leser Interesse für die Inhalte der Bachelorarbeit zu wecken, die behandelten Probleme aufzuzeigen und die zu ihrer Lösung entwickelten Konzepte zu beschreiben.
 
 \section{Motivation}
 \label{sec:motivation}
-
+\todo {Quellen}
 Die Ursprünge der Webentwicklung begannen 1991 mit Tim Berners-Lee, welcher HTML, HTTP und den ersten Webbrowser entwickelte.
 Recht schnell wurde klar, dass statische HTML-Seiten nicht ausreichend waren, es musste mehr Interaktivität möglich sein. Daraus entwickelte sich JavaScript, welches erstmals ermöglichte, Websites interaktiv zu machen.
 Zur Trennung von Inhalt und Darstellung entstand CSS, um die visuelle Gestaltung von HTML-Seiten zu ermöglichen.
@@ -205,8 +205,18 @@ Das Ziel dieser Arbeit ist es, einen grundlegenden Vergleich zwischen verschiede
 \section{Vorgehen}
 \label{sec:vorgehen}
 
-Nachdem mit Problemstellung und Ziel gewissermaßen Anfangs- und Endpunkt beschrieben sind, wird hier der zur Erreichung des Ziels eingeschlagene Weg vorgestellt.
+Das Vorgehen der Arbeit ist in mehrere strukturierte Abschnitte unterteilt, die in den folgenden Kapiteln behandelt werden. Hierbei wird auf Basis der Grundlagen und der vorgestellten Problemstellung gezielt auf die Lösung hingearbeitet. 
+Das komplette Vorgehen lässt sich in folgende Kapitel aufteilen: 
 
+\todo {Ausformulieren sobald alle Kapitel stehen}
+\begin{enumerate}  
+	\item \textbf{Grundlagen Kapitel 2}: Hier wird auf alle relevanten technischen und theoretischen Konzepte der Arbeit eingegangen um ein gleichen Wissensstand zu garantieren. Das Kapitel befasst sich mit allen Frontendtechnologien sowie mit der Komponentenbasierten Architektur um ein grundlegendes Verständnis für das folgende Kapitel zu schaffen. 
+    \item \textbf{Problemanalyse (Kapitel 3)}: 
+    \item \textbf{Lösungskonzept (Kapitel 4)}: 
+    \item \textbf{Implementierung (Kapitel 5)}: 
+    \item \textbf{Evaluierung (Kapitel 6)}:   
+    \item \textbf{Zusammenfassung und Ausblick (Kapitel 7)}:	
+\end{enumerate}  
 % ---
 \chapter{Grundlagen}
 \label{chap:grundlagen}
@@ -215,7 +225,7 @@ Nachdem mit Problemstellung und Ziel gewissermaßen Anfangs- und Endpunkt beschr
 Im folgenden Kapitel werden alle technologischen Grundlagen der Arbeit dargestellt.
  
 \section{TypeScript}
-Typescript ist eine von Microsoft entwickelte Programmiersprache welche auf JavaScript basiert. Sie erweitert JavaScript um eine statische Typisierung wodurch Fehler schon während der Entwicklung erkannt werden können und verringert dadurch die Anzahl an Laufzeitfehlern. Typescript Code wird in normales JavaScript konvertiert und kann dadurch in allen JavaScript Umgebungen verwendet werden, wie z.B. Browsern, Node.js und Deno. 
+Typescript ist eine von Microsoft entwickelte Programmiersprache welche auf JavaScript basiert. Sie erweitert JavaScript um eine statische Typisierung wodurch Fehler schon während der Entwicklung erkannt werden können und verringert dadurch die Anzahl an Laufzeitfehlern. Typescript Code wird in normales JavaScript konvertiert und kann dadurch in allen JavaScript Umgebungen verwendet werden, wie z.B. Browsern, Node.js\footnote{https://nodejs.org/en} und Deno\footnote{https://docs.deno.com/runtime/}.
 (vgl. \parencite{typescript}). 
 
 \section{Supabase}
@@ -230,13 +240,13 @@ Zudem bietet die Plattform einen integrierten Storage, der das Speichern und Ver
 
 \section{Node.js}
 \subsection{Allgemeines}
-Node.js ist eine kostenlose, Open-Source, cross-platform JavaScript-Laufzeitumgebung, die es einem ermöglicht, Server, Web-Apps, Kommandozeilen-Tools oder Scripts zu erstellen. Node.js basiert auf der V8-Engine von Google Chrome, welche JavaScript in Maschinencode kompiliert, wodurch es eine sehr performante Lösung ist(vgl. \parencite{node.js}).
+Node.js ist eine kostenlose, Open-Source, cross-platform JavaScript-Laufzeitumgebung, die es einem ermöglicht, Server, Web-Apps, Kommandozeilen-Tools oder Scripts zu erstellen. Node.js basiert auf der V8-Engine von Google Chrome, welche JavaScript in Maschinencode kompiliert, wodurch es eine sehr performante Lösung ist (vgl. \parencite{nodejs}).
 
 \subsection{Architektur}
-Node.js-Apps laufen in einem einzelnen Prozess, ohne für weitere Anfragen neue Threads zu erstellen. Bei I/O-Operationen blockiert Node.js keine Threads, sondern lässt diese weiterlaufen, sobald eine Antwort zurückkommt. Dadurch kann Node.js tausende von nebenläufigen Verbindungen aufrechterhalten, auf einem einzelnen Server, ohne sich um das Verwalten von Threads zu kümmern(vgl. \parencite{node.js}).
+Node.js-Apps laufen in einem einzelnen Prozess, ohne für weitere Anfragen neue Threads zu erstellen. Bei I/O-Operationen blockiert Node.js keine Threads, sondern lässt diese weiterlaufen, sobald eine Antwort zurückkommt. Dadurch kann Node.js tausende von nebenläufigen Verbindungen aufrechterhalten, auf einem einzelnen Server, ohne sich um das Verwalten von Threads zu kümmern (vgl. \parencite{nodejs}).
 
 \subsection{Vorteile für Entwickler}
-Ein großer Vorteil besteht außerdem für Frontend-Entwickler, welche im Frontend bereits JavaScript nutzen und ihre Kenntnisse auch im Backend anwenden können, ohne eine neue Sprache lernen zu müssen. Dadurch wird ein schnellerer Einstieg ermöglicht (vgl. \parencite{node.js}).
+Ein großer Vorteil besteht außerdem für Frontend-Entwickler, welche im Frontend bereits JavaScript nutzen und ihre Kenntnisse auch im Backend anwenden können, ohne eine neue Sprache lernen zu müssen. Dadurch wird ein schnellerer Einstieg ermöglicht (vgl. \parencite{nodejs}).
 
 \section{npm (Node Package Manager)}
 \subsection{Allgemeines}
@@ -290,25 +300,25 @@ Mithilfe von \texttt{<template>} und \texttt{<slot>} besteht die Möglichkeit, w
 
 
 \subsection{jQuery}
-jQuery ist eine leichtgewichtige JavaScript-Bibliothek, die zur DOM-Manipulation, Event-Steuerung und Animationen verwendet werden kann (vgl. \parencite{jqueryAPI}).  
-Mithilfe von jQuery können einfachere und kürzere JavaScript-Befehle im Vergleich zu Vanilla JavaScript verwendet werden(vgl. \parencite{jqueryAPI}).  
+jQuery ist eine leichtgewichtige JavaScript-Bibliothek, die zur DOM-Manipulation, Event-Steuerung und Animationen verwendet werden kann (vgl. \parencite{jquery_api}).  
+Mithilfe von jQuery können einfachere und kürzere JavaScript-Befehle im Vergleich zu Vanilla JavaScript verwendet werden(vgl. \parencite{jquery-api}).  
 
 \subsubsection{Einbindung von jQuery}
-jQuery kann lokal über das \texttt{\textless script\textgreater}-Tag eingebunden werden und muss dabei auf eine Kopie von jQuery oder eine Version mit Versionsnummer verweisen(vgl. \parencite{jqueryAPI}).  
+jQuery kann lokal über das \texttt{\textless script\textgreater}-Tag eingebunden werden und muss dabei auf eine Kopie von jQuery oder eine Version mit Versionsnummer verweisen(vgl. \parencite{jquery_api}).  
 
 \subsubsection{DOM-Manipulation mit jQuery}
-jQuery ermittelt mithilfe von \texttt{\$(document).ready()}, dass der Code erst nach vollständigem Laden des DOMs ausgeführt wird. Die Funktion \texttt{ready} signalisiert hierbei, dass das Dokument bereit ist, um mithilfe des DOMs manipuliert zu werden(vgl. \parencite{jqueryAPI}).  
+jQuery ermittelt mithilfe von \texttt{\$(document).ready()}, dass der Code erst nach vollständigem Laden des DOMs ausgeführt wird. Die Funktion \texttt{ready} signalisiert hierbei, dass das Dokument bereit ist, um mithilfe des DOMs manipuliert zu werden(vgl. \parencite{jquery_api}).  
 
 \subsubsection{Event Handling in jQuery}
 Events wie Klicks auf Buttons oder Links können direkt an Elemente angebunden werden. Ihr Verhalten kann hierbei entsprechend angepasst werden. Mithilfe von  
-\texttt{event.preventDefault()} lässt sich das Standardverhalten eines Links oder Buttons verhindern(vgl. \parencite{jqueryAPI}).  
+\texttt{event.preventDefault()} lässt sich das Standardverhalten eines Links oder Buttons verhindern(vgl. \parencite{jquery_api}).  
 
 \subsubsection{Dynamisches CSS mit jQuery}
 jQuery bietet auch die Möglichkeit, CSS-Klassen dynamisch zu verwalten.  
-CSS-Klassen können mithilfe von \texttt{.addClass("class-name")} hinzugefügt bzw. mit \texttt{.removeClass("class-name")} entfernt werden(vgl. \parencite{jqueryAPI}).  
+CSS-Klassen können mithilfe von \texttt{.addClass("class-name")} hinzugefügt bzw. mit \texttt{.removeClass("class-name")} entfernt werden(vgl. \parencite{jquery_api}).  
 
 \subsubsection{Effekte und Animationen}
-Für Verfeinerungen lassen sich mit jQuery auch Effekte und Animationen in die Anwendung hinzufügen. Hierbei lässt sich z. B. mit \texttt{.hide()} oder \texttt{.show()} etwas ausblenden bzw. einblenden(vgl. \parencite{jqueryAPI}).  
+Für Verfeinerungen lassen sich mit jQuery auch Effekte und Animationen in die Anwendung hinzufügen. Hierbei lässt sich z. B. mit \texttt{.hide()} oder \texttt{.show()} etwas ausblenden bzw. einblenden(vgl. \parencite{jquery_api}).  
 
 \subsubsection{Callbacks und asynchrone Verarbeitung}
 Mithilfe von Callbacks lassen sich Funktionen als Argumente an eine andere Funktion übergeben. Sie werden erst dann ausgeführt, wenn die übergeordnete Elternfunktion vollständig verarbeitet wurde. Dadurch lassen sich asynchrone Operationen steuern, wie beispielsweise das Laden einer HTML-Datei mithilfe von \texttt{\$.get()}. Erst nach Abschluss des Ladevorgangs wird die Callback-Funktion aufgerufen.  
@@ -319,41 +329,43 @@ $.get("myhtmlpage.html", function() {
 });
 \end{lstlisting}
 
-In diesem Beispiel wird die Funktion \texttt{myCallBack(param1, param2)} erst dann ausgeführt, wenn der Inhalt der Datei \texttt{myhtmlpage.html} erfolgreich geladen wurde. Dadurch wird sichergestellt, dass die abhängige Verarbeitung erst nach Abschluss des Ladevorgangs beginnt(vgl. \parencite{jqueryAPI}).  
+In diesem Beispiel wird die Funktion \texttt{myCallBack(param1, param2)} erst dann ausgeführt, wenn der Inhalt der Datei \texttt{myhtmlpage.html} erfolgreich geladen wurde. Dadurch wird sichergestellt, dass die abhängige Verarbeitung erst nach Abschluss des Ladevorgangs beginnt(vgl. \parencite{jquery_api}).  
 
 
 \section{Zusätzliche Werkzeuge}
 
 \subsection{LaTeX}
+\todo {Ausformulieren}
 - Dokumentenerstellungssystem für wissenschaftliche Arbeiten  
 - Ermöglicht strukturierte und professionelle Formatierung  
 - Nutzung für die Erstellung der Bachelorarbeit  
 
 \subsection{Git}
+\todo {Git kürzen!}
 
 Git ist ein verteiltes Versionsverwaltungssystem, welches die gemeinsame Verwaltung von Quellcode über mehrere Nutzer und Geräte möglich macht.  
 
 \subsubsection{Snapshots statt Dateiunterschiede}
-Im Vergleich zu anderen Versionierungssystemen arbeitet Git mit \texttt{Snapshots} anstatt mit Dateiunterschieden. Hierbei wird eine vollständige Abbildung des ganzen Projekts erstellt und eine entsprechende Referenz gespeichert. Dabei werden Dateien, die keine Änderungen enthalten, nicht dupliziert, sondern es wird auf die ältere Version verwiesen(vgl. \parencite{what is git?}).  
+Im Vergleich zu anderen Versionierungssystemen arbeitet Git mit \texttt{Snapshots} anstatt mit Dateiunterschieden. Hierbei wird eine vollständige Abbildung des ganzen Projekts erstellt und eine entsprechende Referenz gespeichert. Dabei werden Dateien, die keine Änderungen enthalten, nicht dupliziert, sondern es wird auf die ältere Version verwiesen(vgl. \parencite{git_intro}).  
 
 \subsubsection{Arbeiten ohne Internetverbindung}
-Nutzer müssen sich keine Gedanken über eine bestehende Internetverbindung machen, da Git größtenteils offline genutzt werden kann. Dateien können somit schon früher \texttt{committed} werden und anschließend später, bei wieder bestehender Internetverbindung, \texttt{gepusht} werden(vgl. \parencite{what is git?}).  
+Nutzer müssen sich keine Gedanken über eine bestehende Internetverbindung machen, da Git größtenteils offline genutzt werden kann. Dateien können somit schon früher \texttt{committed} werden und anschließend später, bei wieder bestehender Internetverbindung, \texttt{gepusht} werden(vgl. \parencite{git_intro}).  
 
 \subsubsection{Datensicherheit und Wiederherstellung}
-Sobald eine Änderung an einer Datei \texttt{committed} wurde, ist es ziemlich schwer, diese Änderung anschließend mit Git wieder zu verlieren, da Git zum Großteil bei allen Operationen nur Daten zur Git-Datenbank hinzufügt. Jeder Zustand während der Entwicklung kann somit rückblickend verfolgt und wiederhergestellt werden, wodurch man sich keine Gedanken machen muss, neue Dinge auszuprobieren – selbst wenn diese fehlschlagen, da man jederzeit den alten Stand wiederherstellen kann(vgl. \parencite{what is git?}).  
+Sobald eine Änderung an einer Datei \texttt{committed} wurde, ist es ziemlich schwer, diese Änderung anschließend mit Git wieder zu verlieren, da Git zum Großteil bei allen Operationen nur Daten zur Git-Datenbank hinzufügt. Jeder Zustand während der Entwicklung kann somit rückblickend verfolgt und wiederhergestellt werden, wodurch man sich keine Gedanken machen muss, neue Dinge auszuprobieren – selbst wenn diese fehlschlagen, da man jederzeit den alten Stand wiederherstellen kann(vgl. \parencite{git_intro}).  
 
 \subsubsection{Die drei Zustände einer Datei}
 Bei der Arbeit mit Git können sich Dateien in drei verschiedenen Zuständen befinden: \texttt{modified}, \texttt{staged} und \texttt{committed}.  
 \texttt{Modified} bedeutet, dass die Datei geändert wurde, aber noch nicht auf die Datenbank \texttt{committed} wurde.  
 \texttt{Staged} bedeutet, dass die Datei geändert wurde und für den nächsten \texttt{Commit} markiert wurde.  
 \texttt{Committed} bedeutet, dass die Datei auf die lokale Datenbank \texttt{committed} wurde.
-(vgl. \parencite{what is git?})
+(vgl. \parencite{git_intro})
 
 \subsubsection{Branches in Git}
-Git ermöglicht mithilfe von Branches, parallel an verschiedenen Dingen zu arbeiten. Branches können genutzt werden, um Änderungen zu testen und anschließend problemlos wieder zum ursprünglichen Branch zu wechseln, um dort weiterzuarbeiten oder die gewünschten Änderungen in den aktuellen Branch zu mergen(vgl. \parencite{git branching and merging}).  
+Git ermöglicht mithilfe von Branches, parallel an verschiedenen Dingen zu arbeiten. Branches können genutzt werden, um Änderungen zu testen und anschließend problemlos wieder zum ursprünglichen Branch zu wechseln, um dort weiterzuarbeiten oder die gewünschten Änderungen in den aktuellen Branch zu mergen(vgl. \parencite{git-branching-merging}).  
 
 \subsubsection{Branching-Strategien}
-Es können außerdem Strukturen entworfen werden, die die Entwicklung einer Anwendung in verschiedene Bereiche unterteilen. So kann ein Branch den aktuellen produktiven Stand darstellen, während ein anderer den neuesten Entwicklungsstand enthält. Zur Entwicklung neuer Funktionen können Branches speziell für die Implementierung einzelner Features erstellt werden (vgl. \parencite{git branching and merging}).
+Es können außerdem Strukturen entworfen werden, die die Entwicklung einer Anwendung in verschiedene Bereiche unterteilen. So kann ein Branch den aktuellen produktiven Stand darstellen, während ein anderer den neuesten Entwicklungsstand enthält. Zur Entwicklung neuer Funktionen können Branches speziell für die Implementierung einzelner Features erstellt werden (vgl. \parencite{git-branching-merging}).
 
 
 \subsection{Sourcetree}
@@ -365,9 +377,10 @@ Bei der Nutzung im Team bietet \texttt{Sourcetree} \texttt{branching}-Diagramme,
 Visual Studio Code ist ein kostenloser, plattformübergreifender Code-Editor, der zahlreiche Programmiersprachen und Erweiterungen unterstützt. Diese helfen dem Nutzer bei der Entwicklung durch Funktionen wie \texttt{Syntax-Highlighting}, \texttt{Auto-Completion} und \texttt{Linting}.
 Es bietet außerdem eine integrierte Unterstützung für die Versionsverwaltung mit Git. Damit können Repositorys und Branches erstellt sowie Commits, Pushes usw. durchgeführt werden.
 Visual Studio Code verfügt über ein integriertes Debugging-Tool, mit dem Breakpoints gesetzt, Variablen inspiziert und Schrittweises Debugging durchgeführt werden kann.
-IntelliSense ist eine intelligente Code-Vervollständigung, die abhängig vom Kontext und installierten Erweiterungen passenden Code zur Vervollständigung vorschlägt.
+IntelliSense ist eine intelligente Code-Vervollständigung, die abhängig vom Kontext und installierten Erweiterungen passenden Code zur Vervollständigung vorschlägt.\parencite{vs-code}
 
 \section{Zusammenfassung}
+\todo {Ausformulieren}
 - Beschreibung der verwendeten Technologien  
 - TypeScript als Programmiersprache für das Backend  
 - Vergleich verschiedener Frontend-Technologien hinsichtlich Modularität und Wiederverwendbarkeit  
@@ -376,19 +389,84 @@ IntelliSense ist eine intelligente Code-Vervollständigung, die abhängig vom Ko
 - LaTeX für die Dokumentation der Arbeit  
 - VS Code als zentrale Entwicklungsumgebung  
 
-
-
 %---
 \chapter{Problemanalyse}
 \label{cha:problemanalyse}
 
-Die Analyse des zu lösenden Problems ist Grundlage für jedes ingenieurmäßige Vorgehen. 
+\section{Einleitung}
+Die moderne Webentwicklung setzt vermehrt auf komponentenbasierte Architekturen, wozu eine Großzahl an verschiedenen Frameworks existiert, die diese Architektur auf verschiedene Weisen umsetzen. Frameworks wie React, Next.js und Angular gehören zu den meistgenutzten Frameworks, während nicht-komponentenbasierte Ansätze wie jQuery immer weniger vertreten sind (vgl. \parencite{statista2024}).
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.5\textheight, keepaspectratio]{images/web-frameworks.png}
+    \caption{Meistgenutzte Web-Frameworks weltweit (Quelle: Statista)}
+    \label{fig:frameworks}
+\end{figure}
+
+Bei der Auswahl eines passenden Frameworks fehlt jedoch ein ausgiebiger Vergleich hinsichtlich verschiedener Metriken. Im folgenden Kapitel wird dargestellt, warum ein solcher neuer, umfassender Vergleich notwendig ist.
+
+\section{Aktuelle Situation in der Webentwicklung}
+
+Die Webentwicklung zeigt einen klaren Trend in Richtung komponentenbasierte Ansätze für die Frontend-Entwicklung mithilfe von Frameworks wie Angular, React und Vue (vgl. \parencite[S. 44]{js-framework-comparison}). 
+
+Alle Frameworks legen ihren Fokus auf wiederverwendbare Komponenten, um die Modularität, Wartbarkeit und Skalierbarkeit der Anwendungen zu steigern (vgl. \autocite [S. 7]{spa-frameworks-2024}). 
+
+Alle Frameworks haben ihre Vor vor und Nachteile zeichnen sich aber oft durch einen gewissen Overhead durch die eingebaute Komplexität aus. Angular bietet hierbei eine große Skalierbarkeit während React für komplexe user interface elemente sinnvoll ist und vue.js sich durch durch die einfachheit für kleiner Anwendungen sinnvoll ist (vgl. \parencite[S. 4]{frontend-frameworks-comparison}). 
+
+Der Entwicklungsaufwand sowie die Wartbarkeit von komponentenbasierten Frameworks kann mit steigender Anwendungsgröße immer komplexer werden. Bei nicht ausreichender Architekturplanung kann eine große technische Schuld entstehen, wie durch die die tief verschachtelten Komponentenbäume in React, welche eine Wartbarkeit stark erschweren können (vgl. \parencite[S. 29]{comparison-frameworks-scalable-apps}).
+
+Die Performance der Frameworks variiert hinsichtlich ihres Ansatzes, wodurch React und Vue durch die Nutzung eines Virtual DOMs wesentlich schneller bei der Aktualisierung von Elementen sind als Angular und Svelte (vgl. \parencite[S. 61]{js-framework-comparison}).
+
+Trotz einer verbreiteten Nutzung der Frameworks gibt es keinen umfassenden Vergleich. Diese Defizite werden im folgenden Abschnitt genauer aufgezeigt. 
+
+\section{Forschungsstand und bestehende Vergleiche}
+\subsection{Vorhande Vergleichsstudien}
+Der aktuelle Forschungsstand bringt einzelne Vergleiche welche aber nur auf Teilaspekte eingehen. Hier eine Sammlung der bereits vorhandenen Ergebnisse: 
+\begin{itemize}
+    \item \textbf{Performance-Vergleich}: Frameworks wie React und Vue mit der Virtual DOM zeigen einen Vorteil durch schnellere Updates, haben aber einen erhöhten Speicherverbrauch. Angular nutzt die Incremental DOM welche langsamer ist, aber dadurch strukturierter für große Anwendungen ist. Svelte besitzt keinen Virtual DOM wodurch kompakte und Builds mit weniger Flexibilität erstellt werden können \parencite[S.61]{js-framework-comparison}
+	\item \textbf{Skalierbarkeit und Wartbarkeit}: Angular fördert die Entwicklung wiederverwendbarer, modularer Komponenten, wodurch mithilfe von TypeScript eine zusätzliche Struktur entsteht. Dies ermöglicht es großen Teams, skalierbare Anwendungen mit passenden Interfaces und Services zu erstellen. Mit zunehmender Größe der Anwendung wird die Wartbarkeit jedoch immer schwieriger. In Frameworks wie React besteht schnell die Gefahr, dass der Komponentenbaum zu tief verschachtelt wird, wodurch die Verfolgung der Datenübertragung immer schwerer wird. \parencite[S. 25,28]{comparison-frameworks-scalable-apps}
+    \item \textbf{Modularität und Wiederverwendbarkeit}: Angular fördert die Entwicklung von modularen, wiederverwendbaren Komponenten. Diese sind mithilfe von Typescript klar definiert und erleichern die Strukturierung großer Anwendungen. React bietet ebenfalls eine modulare Struktur, durch welche Komponenten über die ganze Anwendung hinweg wiederverwendbar sind. Durch eine horizontale Skalierung können komplexe React UI in kleine einfache Komponenten aufgeteilt werden. Vue.js Komponenten klein, eigenständig und wiederverwendbar aufgebaut und können dann zum Zusammenbau größerer komplexerer Module aufgebaut werden. \cite[S. 24,26] {comparison-frameworks-scalable-apps}
+    
+\end{itemize}
+
+\section{Notwendigkeit eines neuen Vergleichsansatzes}
+
+Die bestehenden Vergleiche fokussieren sich oft nur auf bestimmte Aspekte wie die Rendering Performance oder Bundle-Größen. Dies sind wichtige Metriken, decken aber nur einen Teilaspekt ab. Hier ist eine ganzheitliche Betrachtung nötig die auch den Entwicklungsaufwand, die Wartbarkeit sowie Skalierbarkeit berücksichtigt. Bisherige Vergleiche nutzen hauptsächlich Benchmarks und vergleichen anhand dieser die Frameworks. Für eine größere Vergleichsabdeckung ist ein Vergleich der Frameworks bei Nutzung in einem echten Nutzerszenario. 
+
+\section{Zusammenfassung der Problemstellung}
+
+Der ansteigende Einsatz von komponentenbasierten Frameworks wie React, Angular, Vue und weiteren bietet viele Vorteile hinsichtlich Wiederverwendbarkeit und Modularisierung. Jedoch entstehen auch Herausforderungen hinsichtlich des Entwicklungsaufwands, der Code-Komplexität und der langfristigen Wartbarkeit.
+
+Das Problem der Arbeit ergibt sich aus einer Lücke, die bei bisherigen Vergleichen von komponentenbasierten Frameworks besteht. Diese konzentrieren sich oft nur auf spezifische Metriken wie Ladezeiten und stellen dadurch keinen umfassenden Vergleich dar.
+
+Diese Arbeit schließt diese Lücke, indem sie auf eine ganzheitliche Analyse eingeht, die neben Performance-Metriken auch Skalierbarkeit, Wartbarkeit und den tatsächlichen Entwicklungsaufwand untersucht. Der Vergleich erfolgt anhand einer realen Anwendung, um die Frameworks nicht nur unter theoretischen Aspekten, sondern auch in einem praxisnahen Nutzerszenario zu bewerten.
 
 %---
 \chapter{Lösungskonzept}
 \label{cha:loesungskonzept}
 
-Auf der Basis der im vorangegangenen Kapitel erstellten Problemanalyse wird ein Lösungskonzept erarbeitet.
+\section{Zielsetzung des Vergleichs}
+Ziel des Vergleichs ist es, verschiedene Frontend-Technologien anhand ihrer Modularität, ihres Entwicklungsaufwands, ihrer Skalierbarkeit, Wartbarkeit und ihres State-Managements zu vergleichen.
+
+Untersucht werden das Framework Angular mit einer klassenbasierten Komponentenarchitektur, React mit einer funktionsbasierten Komponentenarchitektur, Web Components als frameworkfreie Lösung einer Komponentenarchitektur und jQuery als herkömmliche Frontend-Lösung.
+
+Der Vergleich findet anhand einer entwickelten E-Commerce-Plattform statt, da diese eine realistische Umgebung für Business-Logik durch Produktverwaltung, Warenkorb und Checkout bietet. Zudem besteht die Möglichkeit einer modularen Erweiterung durch Filter oder Bewertungen. Ein weiterer wichtiger Vergleichspunkt ist das State-Management, da jede Technologie unterschiedliche Ansätze zur Verwaltung des Anwendungszustands verfolgt.
+
+\section{Methodik}
+\todo{Methodiken anpassen, je nachdem welche relevant sind oder nicht durchgeführt werden}
+Der Vergleich der Arbeit erfolgt an mehreren Metriken. Es wird zum einen die Modularität und Wiederverwendbarkeit untersucht. Hierbei wird untersucht, inwieweit Komponenten sich wiederverwenden lassen und wie sich ein Projekt mithilfe dieser modularisieren lässt. Ebenfalls untersucht wird die Performance. Hierbei werden alle Performance-Daten, die in den Entwicklungstools des Browsers ermittelt werden können, analysiert. Hierzu zählen Ladezeit (Loading Time), Time to First Byte (TTFB), First Contentful Paint (FCP), Largest Contentful Paint (LCP), Time to Interactive (TTI), Cumulative Layout Shift (CLS), Renderzeiten der Komponenten, die Anzahl und Größe der Netzwerk-Requests, die JavaScript-Execution-Time, die Speichernutzung (Memory Usage) sowie die Bildwiederholrate (Frames per Second, FPS). Mithilfe dieser Metriken wird eine umfassende Analyse der Frontend-Frameworks hinsichtlich der Performance ermöglicht. Außerdem wird der Entwicklungsaufwand untersucht. Hierbei wird die Implementationszeit der verschiedenen Features in jedem Framework miteinander verglichen. Ebenfalls wird auf Basis eines gleichen Endprodukts die Code-Komplexität und Lesbarkeit des Codes, der hierfür nötig war, miteinander verglichen. Ebenso untersucht wird die Skalierbarkeit. Hierbei wird ermittelt, wie einfach sich weitere Features wie Bewertungen oder Filter in die Anwendung integrieren lassen. Hierbei wird auch in Betracht gezogen, inwieweit bei großen Datenmengen die Performance bestehen bleibt. Ebenfalls untersucht wird die Wartbarkeit. Hierbei wird ermittelt, ob und wie einfach sich Komponenten ändern bzw. erweitern lassen.  
+
+\section{Implementierungsstrategie und Testumgebung}
+
+Für den Vergleich wird eine E-Commerce-Platform als Testanwendung entwickelt, welche eine realistische Umgebung bietet. Die Anwendung besteht aus den Basisfunktionen Produktliste, Warenkorb, Checkout sowie User-Management. Mögliche Erweiterung sind ein Bewertungssystem der Produkte sowie ein Filter und Suchsystem um dem User zu ermöglichen spezifische Produkte zu finden. 
+Um einen fairen Vergleich zu ermöglichen in dem alle Frameworks unter den gleichen Bedingungen verglichen werden, wird die Analyse auf das Frontend fokussiert. Alle Datenbank abfragen verlaufen zentral über ein Zentrales Backend, welches die API abfragen erledigt. 
+Außerdem wird sichergestellt, dass die UI-Struktur aller Anwendungen gleich ist. 
+Für eine objektive Bewertung der Frameworks wird mithilfe von den Entwicklungstools des Browsers eine Performance Analyse aller entwickelten Lösungen durchgeführt. Hierbei können Messungen wie Ladzeiten und Rendering-Metriken gesammelt und dann verglichen werden. 
+
+\section{Erwartete Ergebnisse und Nutzen der Analyse}
+
+Das erwartete Ergebnis dieser Arbeit ist es, auf Grundlage der gesammelten Metriken eine fundierte Analyse der untersuchten Frameworks durchzuführen und dabei zu erarbeiten, welches Framework die beste Balance zwischen Performance, Modularität und Entwicklungsaufwand bietet.
+Zusätzlich soll untersucht werden, wie sich die Frameworks hinsichtlich Skalierbarkeit und Wartbarkeit unterscheiden und welche hierbei am besten abschneiden.
+Die Ergebnisse sollen eine klare Entscheidungshilfe bieten, die dazu dient, für zukünftige Projekte eine fundierte Wahl des passenden Frameworks zu treffen.
 
 %---
 \chapter{Implementierung}
