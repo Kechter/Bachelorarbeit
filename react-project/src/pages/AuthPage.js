@@ -15,9 +15,9 @@ export default function AuthPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
-    
+
     const data = await response.json();
-    localStorage.setItem("session", JSON.stringify(data));
+    localStorage.setItem("userId", data.user.id);
     navigate("/products");
   };
 
