@@ -1,67 +1,58 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import CartComponent from "./CartComponent";
+import { useEffect, useState } from "react";
 
 export default function Checkout() {
-    const navigate = useNavigate();
-    const [cartItems, setCartItems] = useState([]);
-    const [totalPrice, setTotalPrice] = useState(0);
-    const userId = 'df992ef6-af8d-4d4d-8f50-1214b7520dcf';
+  const navigate = useNavigate();
+  const userId = "df992ef6-af8d-4d4d-8f50-1214b7520dcf";
+  const [totalPrice, setTotalPrice] = useState(0);
 
-    useEffect(() => {
-        fetch(`http://localhost:3001/api/cart?userId=${userId}`)
-        .then((res) => res.json())
-        .then((cartData) => {
-            const productDetailsPromises = cartData.map((item) =>
-                fetch(`http://localhost:3001/api/product/${item.product_id}`)
-                    .then((res) => res.json())
-                    .then((productData) => {
-                        const product = productData[0]; 
-                        item.productName = product.name;
-                        item.price = product.price;
-                        return item;
-                    })
-            );
-
-            Promise.all(productDetailsPromises).then((updatedCartItems) => {
-                console.log('Updated cart items:', updatedCartItems); 
-                setCartItems(updatedCartItems);
-                const total = updatedCartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-                setTotalPrice(total);
-            });
+  useEffect(() => {
+    fetch(`http://localhost:3001/api/cart?userId=${userId}`)
+      .then((res) => res.json())
+      .then(async (cartItems) => {
+        const productPromises = cartItems.map(async (item) => {
+          const res = await fetch(
+            `http://localhost:3001/api/product/${item.product_id}`
+          );
+          const productData = await res.json();
+          return {
+            ...item,
+            productName: productData[0].name,
+            price: productData[0].price,
+          };
         });
-    }, []);
 
-    return (
-        <div>
-            <h2>Checkout</h2>
-            {cartItems.map((item) => (
-                <div key={item.id}>
-                    <h3>{item.productName}</h3>
-                    <p>${item.price}</p>
-                    <p>Quantity: {item.quantity}</p>
-                </div>
-            ))}
-            <h3>Total: ${totalPrice.toFixed(2)}</h3>
-            <button onClick={() => navigate('/products')}>Go to Products</button>
-            <button onClick={() => navigate('/cart')}>Go to Cart</button>
-            <section className="payment-info">
-                <h2>Payment Information</h2>
-                <div>
-                    <label htmlFor="cardNumber">Card Number</label>
-                    <input type="text" id="cardNumber" value="1234 5678 9012 3456" readOnly />
-                </div>
-                <div>
-                    <label htmlFor="expiryDate">Expiry Date</label>
-                    <input type="month" id="expiryDate" value="2025-12" readOnly />
-                </div>
-                <div>
-                    <label htmlFor="cvv">CVV</label>
-                    <input type="text" id="cvv" value="123" readOnly />
-                </div>
-            </section>
-            <div className="checkout-button">
-                <button>Proceed to Payment</button>
-            </div>
-        </div>
-    );
+        const enrichedCart = await Promise.all(productPromises);
+        const total = enrichedCart.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+        setTotalPrice(total);
+      });
+  }, []);
+
+  return (
+    <div>
+      <h2>Checkout</h2>
+      <CartComponent userId={userId} />
+      <h3>Total: ${totalPrice.toFixed(2)}</h3>
+
+      <h3>Payment Information</h3>
+      <form>
+        <label>Card Number</label>
+        <input type="text" placeholder="1234 5678 9012 3456" readOnly />
+        <br />
+        <label>Expiry Date</label>
+        <input type="text" placeholder="MM/YY" readOnly />
+        <br />
+        <label>CVV</label>
+        <input type="text" placeholder="123" readOnly />
+        <br />
+        <button type="submit">Proceed to Payment</button>
+      </form>
+      <button onClick={() => navigate("/cart")}>Go to Cart</button>
+      <button onClick={() => navigate("/products")}>Go to Products</button>
+    </div>
+  );
 }

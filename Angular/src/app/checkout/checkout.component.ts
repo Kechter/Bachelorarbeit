@@ -1,41 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SupabaseService } from '../supabase.service';
 import { CommonModule } from '@angular/common';
+import { CartComponent } from '../cart/cart.component';
 
 @Component({
   selector: 'app-checkout',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, CartComponent],
   templateUrl: './checkout.component.html',
-  styleUrl: './checkout.component.css'
+  styleUrl: './checkout.component.css',
 })
-export class CheckoutComponent {
-cartItems: any[] = [];
-totalAmount: number = 0;
-readonly userId = 'df992ef6-af8d-4d4d-8f50-1214b7520dcf';
-private router: Router;
+export class CheckoutComponent implements OnInit{
+  constructor(private router: Router, private supabaseService: SupabaseService) {}
+  cart: any[] = [];
+  totalPrice: number = 0;
+  userId: string = 'df992ef6-af8d-4d4d-8f50-1214b7520dcf';
 
-  constructor(router: Router, private supabaseService: SupabaseService) {
-    this.router = router;
-  }
-  
   ngOnInit() {
-    this.supabaseService.getCart(this.userId).subscribe((items: any) => {
-      this.cartItems = items;
-      this.cartItems.forEach(item => {
-        this.supabaseService.getProductById(item.product_id).subscribe((product: any) => {
-          item.productName = product[0].name;
-          item.price = product[0].price;
-          this.totalAmount += item.price;
-        });
-      });
+    this.supabaseService.getCart(this.userId).subscribe((cart: any) => {
+      this.cart = cart;
+      this.calculateTotal();
     });
   }
 
-  goToCart() { 
-    this.router.navigate(['/cart']);
+  calculateTotal() {
+    this.totalPrice = this.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
-  goToProducts() { 
+
+  goToCart() {
+    this.router.navigate(['/cart-page']);
+  }
+
+  goToProducts() {
     this.router.navigate(['/products']);
   }
 }

@@ -31,7 +31,7 @@ export class ProductListComponent implements OnInit {
   }
 
   goToCart() {
-    this.router.navigate(['/cart']);
+    this.router.navigate(['/cart-page']);
   }
   goToCheckout() {
     this.router.navigate(['/checkout']);

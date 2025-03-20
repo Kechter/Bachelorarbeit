@@ -33,7 +33,7 @@ class ProductList extends HTMLElement {
           <div>
             <p>${product.name}</p>
             <p>${product.description}</p>
-            <p>${product.price}</p>
+            <p>$${product.price}</p>
             <button>Add to Cart</button>
           </div>
         `;

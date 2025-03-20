@@ -14,7 +14,7 @@ function displayProducts(products) {
           <div>
             <p>${product.name}</p>
             <p>${product.description}</p>
-            <p>${product.price}</p>
+            <p>$${product.price}</p>
             <button onclick="addToCart('${product.id}')">Add to Cart</button>
           </div>
         </li>
