@@ -2,9 +2,16 @@ $(document).ready(function () {
   fetchCartItems();
 });
 
-const userId = "df992ef6-af8d-4d4d-8f50-1214b7520dcf";
+function getUserId() {
+  return localStorage.getItem("userId");
+}
 
 function fetchCartItems() {
+  const userId = getUserId();
+  if (!userId) {
+    return;
+  }
+
   $.ajax({
     url: `http://localhost:3001/api/cart?userId=${userId}`,
     method: "GET",

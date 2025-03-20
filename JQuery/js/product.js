@@ -22,8 +22,36 @@ function displayProducts(products) {
   });
 }
 
+function getUserId() {
+  return localStorage.getItem("userId");
+}
+
 function addToCart(productId) {
-  $.post("http://localhost:3001/api/cart/add", { productId });
+  const userId = getUserId();
+
+  if (!userId) {
+    console.error("❌ Kein User gefunden.");
+    return;
+  }
+
+  const requestData = { userId, productId, quantity: 1 };
+  console.log("📡 Sende AddToCart-Request:", requestData);
+
+  $.ajax({
+    url: "http://localhost:3001/api/cart/add",
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(requestData),
+    success: function (response) {
+      console.log(
+        "✅ Produkt erfolgreich zum Warenkorb hinzugefügt:",
+        response
+      );
+    },
+    error: function (error) {
+      console.error("❌ Fehler beim Hinzufügen zum Warenkorb:", error);
+    },
+  });
 }
 
 function navigateTo(page) {
