@@ -1,29 +1,52 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseService {
   private backendUrl = 'http://localhost:3001/api';
-  readonly userId = 'df992ef6-af8d-4d4d-8f50-1214b7520dcf';
+  private currentUser = new BehaviorSubject<any>(null);
 
-  constructor(private http: HttpClient) {}
-
-  signUp(email: string, password: string) {
-    return this.http.post(`${this.backendUrl}/signup`, { email, password });
+  constructor(private http: HttpClient) {
+    this.getSession();
   }
 
+  signUp(email: string, password: string) {
+    return this.http.post(`${this.backendUrl}/signup`, { email, password }).subscribe((user: any) => {
+      this.currentUser.next(user);
+    });
+  }
+  
+
   login(email: string, password: string) {
-    return this.http.post(`${this.backendUrl}/login`, { email, password });
+    return this.http
+      .post(`${this.backendUrl}/login`, { email, password })
+      .subscribe((user: any) => {
+        this.currentUser.next(user);
+      });
   }
 
   logout() {
+    this.currentUser.next(null);
     return this.http.post(`${this.backendUrl}/logout`, {});
   }
 
   getSession() {
-    return this.http.get(`${this.backendUrl}/session`);
+    return this.http
+      .get(`${this.backendUrl}/session`)
+      .subscribe((user: any) => {
+        this.currentUser.next(user);
+      });
+  }
+
+  getUser() {
+    return this.currentUser.asObservable();
+  }
+
+  getUserSync(): any {
+    return this.currentUser.value;
   }
 
   fetchProducts() {
@@ -31,7 +54,11 @@ export class SupabaseService {
   }
 
   addToCart(userId: string, productId: string, quantity: number) {
-    return this.http.post(`${this.backendUrl}/cart/add`, { userId, productId, quantity });
+    return this.http.post(`${this.backendUrl}/cart/add`, {
+      userId,
+      productId,
+      quantity,
+    });
   }
 
   getCart(userId: string) {
@@ -41,5 +68,4 @@ export class SupabaseService {
   getProductById(productId: string) {
     return this.http.get(`${this.backendUrl}/product/${productId}`);
   }
-  
 }
