@@ -63,8 +63,8 @@ class AuthComponent extends HTMLElement {
         event.preventDefault();
         const email = this.shadowRoot.getElementById("email").value;
         const password = this.shadowRoot.getElementById("password").value;
-          await this.authService.signUp(email, password);
-          this.renderLoginForm();
+        await this.authService.signUp(email, password);
+        this.renderLoginForm();
       });
 
     this.shadowRoot

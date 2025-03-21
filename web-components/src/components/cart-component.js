@@ -1,4 +1,5 @@
 import { CartService } from "../services/cart-service.js";
+import { getUserId } from "../auth-util.js";
 
 class CartComponent extends HTMLElement {
   constructor() {
@@ -8,12 +9,15 @@ class CartComponent extends HTMLElement {
   }
 
   connectedCallback() {
+    this.userId = getUserId();
     this.render();
   }
 
   async render() {
-    const userId = "df992ef6-af8d-4d4d-8f50-1214b7520dcf";
-    const cart = await this.cartService.fetchCart(userId);
+    this.userId = getUserId();
+    if (!this.userId) return;
+
+    const cart = await this.cartService.fetchCart(this.userId);
 
     const enrichedCartItems = await Promise.all(
       cart.map(async (item) => {
@@ -27,12 +31,20 @@ class CartComponent extends HTMLElement {
       })
     );
 
+    const isCheckoutPage = this.getAttribute("data-page") === "checkout";
+
     this.shadowRoot.innerHTML = `
         <div>
             <h2>Cart</h2>
             <div id="cart-items"></div>
+            ${
+              !isCheckoutPage
+                ? `
             <button id="go-to-products">Go to Products</button>
             <button id="go-to-checkout">Go to Checkout</button>
+            `
+                : ""
+            }
         </div>
     `;
 
@@ -47,17 +59,19 @@ class CartComponent extends HTMLElement {
       cartList.appendChild(itemDiv);
     });
 
-    this.shadowRoot
-      .querySelector("#go-to-products")
-      .addEventListener("click", () => {
-        window.navigateTo("/products");
-      });
+    if (!isCheckoutPage) {
+      this.shadowRoot
+        .querySelector("#go-to-products")
+        .addEventListener("click", () => {
+          window.navigateTo("/products");
+        });
 
-    this.shadowRoot
-      .querySelector("#go-to-checkout")
-      .addEventListener("click", () => {
-        window.navigateTo("/checkout");
-      });
+      this.shadowRoot
+        .querySelector("#go-to-checkout")
+        .addEventListener("click", () => {
+          window.navigateTo("/checkout");
+        });
+    }
   }
 
   async fetchProductDetails(productId) {
