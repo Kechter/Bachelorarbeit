@@ -1,3 +1,8 @@
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.add("webcomponents");
+  renderComponent();
+});
+
 import "./components/auth-component.js";
 import "./components/product-list-component.js"
 import "./components/cart-component.js";

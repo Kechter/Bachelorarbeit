@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+body.angular::before {
+  content: "";
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 9999;
+  opacity: 0.8;
+  pointer-events: none;
+  background-image: url("https://angular.io/assets/images/logos/angular/angular.svg");
+}
