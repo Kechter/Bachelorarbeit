@@ -39,7 +39,6 @@ export default function CartComponent({ userId }) {
 
   return (
     <div>
-      <h2>Cart</h2>
       {cartItems.map((item, index) => (
         <div key={index}>
           <h3>{item.productName}</h3>
