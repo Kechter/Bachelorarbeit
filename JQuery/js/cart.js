@@ -8,18 +8,13 @@ function getUserId() {
 
 function fetchCartItems() {
   const userId = getUserId();
-  if (!userId) {
-    return;
-  }
+  if (!userId) return;
 
   $.ajax({
     url: `http://localhost:3001/api/cart?userId=${userId}`,
     method: "GET",
     success: function (cartItems) {
       fetchProductDetails(cartItems);
-    },
-    error: function (error) {
-      console.error("Error fetching cart items:", error);
     },
   });
 }
@@ -32,36 +27,50 @@ function fetchProductDetails(cartItems) {
         method: "GET",
         success: function (productData) {
           const product = productData[0];
-          item.productName = product.name;
-          item.price = product.price;
-          resolve(item);
+          const fullItem = {
+            product_id: item.product_id,
+            name: product.name,
+            price: parseFloat(product.price),
+          };
+          resolve(fullItem);
         },
         error: function (error) {
-          console.error("Error fetching product details:", error);
           reject(error);
         },
       });
     });
   });
 
-  Promise.all(productPromises).then((updatedCartItems) => {
-    displayCartItems(updatedCartItems);
-  });
+  Promise.all(productPromises)
+    .then((fullItems) => {
+      displayCartItems(fullItems);
+    })
+    .catch(() => {});
 }
 
 function displayCartItems(cartItems) {
-  const cartContainer = $("#cart-items");
-  cartContainer.empty();
+  const grouped = {};
 
   cartItems.forEach((item) => {
-    const itemElement = `
-            <div class="cart-item">
-                <h3>${item.productName}</h3>
-                <p>$${item.price}</p>
-                <p>Quantity: ${item.quantity}</p>
-            </div>
-        `;
-    cartContainer.append(itemElement);
+    const id = item.product_id;
+    if (!grouped[id]) {
+      grouped[id] = { ...item, quantity: 1 };
+    } else {
+      grouped[id].quantity += 1;
+    }
+  });
+
+  const $cartList = $("#cart-list").empty();
+
+  Object.values(grouped).forEach((item) => {
+    $cartList.append(`
+      <div>
+        <p><strong>${item.name}</strong></p>
+        <p>$${item.price}</p>
+        <p>Quantity: ${item.quantity}</p>
+      </div>
+      <hr/>
+    `);
   });
 }
 

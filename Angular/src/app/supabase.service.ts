@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +14,12 @@ export class SupabaseService {
   }
 
   signUp(email: string, password: string) {
-    return this.http.post(`${this.backendUrl}/signup`, { email, password }).subscribe((user: any) => {
-      this.currentUser.next(user);
-    });
+    return this.http
+      .post(`${this.backendUrl}/signup`, { email, password })
+      .subscribe((user: any) => {
+        this.currentUser.next(user);
+      });
   }
-  
 
   login(email: string, password: string) {
     return this.http

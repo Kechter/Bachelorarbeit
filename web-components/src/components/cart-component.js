@@ -19,8 +19,17 @@ class CartComponent extends HTMLElement {
 
     const cart = await this.cartService.fetchCart(this.userId);
 
+    const groupedItems = cart.reduce((acc, item) => {
+      if (!acc[item.product_id]) {
+        acc[item.product_id] = { ...item, quantity: 1 };
+      } else {
+        acc[item.product_id].quantity += 1;
+      }
+      return acc;
+    }, {});
+
     const enrichedCartItems = await Promise.all(
-      cart.map(async (item) => {
+      Object.values(groupedItems).map(async (item) => {
         const productDetails = await this.fetchProductDetails(item.product_id);
         return {
           ...item,
@@ -35,7 +44,7 @@ class CartComponent extends HTMLElement {
 
     this.shadowRoot.innerHTML = `
         <div>
-            <h2>Cart</h2>
+            ${!isCheckoutPage ? `<h1>Cart</h1>` : ""}
             <div id="cart-items"></div>
             ${
               !isCheckoutPage
@@ -52,10 +61,11 @@ class CartComponent extends HTMLElement {
     enrichedCartItems.forEach((item) => {
       const itemDiv = document.createElement("div");
       itemDiv.innerHTML = `
-            <h3>${item.productName}</h3>
-            <p>$${item.price}</p>
-            <p>Quantity: ${item.quantity}</p>
-        `;
+        <h3>${item.productName}</h3>
+        <p>$${item.price}</p>
+        <p>Quantity: ${item.quantity}</p>
+        <hr/>
+      `;
       cartList.appendChild(itemDiv);
     });
 

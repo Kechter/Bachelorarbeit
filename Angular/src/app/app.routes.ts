@@ -10,7 +10,7 @@ export const routes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'products', component: ProductListComponent },
   { path: 'cart-page', component: CartPageComponent },
-  { path : 'checkout', component: CheckoutComponent }
+  { path: 'checkout', component: CheckoutComponent },
 ];
 
 export const appRouting = provideRouter(routes);

@@ -8,6 +8,7 @@ export default function Cart() {
 
   return (
     <div>
+      <h2>Cart</h2>
       <CartComponent userId={userId} />
       <button onClick={() => navigate("/products")}>Go to Products</button>
       <button onClick={() => navigate("/checkout")}>Go to Checkout</button>

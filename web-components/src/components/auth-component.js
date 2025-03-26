@@ -8,11 +8,8 @@ class AuthComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    if (localStorage.getItem("isLoggedIn")) {
-      window.navigateTo("/products");
-    } else {
-      this.renderLoginForm();
-    }
+    localStorage.removeItem("isLoggedIn");
+    this.renderLoginForm();
   }
 
   renderLoginForm() {

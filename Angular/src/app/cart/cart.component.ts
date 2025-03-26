@@ -20,7 +20,6 @@ export class CartComponent implements OnInit {
       if (user && user.id) {
         this.userId = user.id;
         this.loadCart();
-      } else {
       }
     });
   }
@@ -35,7 +34,16 @@ export class CartComponent implements OnInit {
         return;
       }
 
-      this.cartItems = items;
+      const groupedItems: { [key: string]: any } = {};
+      items.forEach((item: any) => {
+        if (!groupedItems[item.product_id]) {
+          groupedItems[item.product_id] = { ...item, quantity: 1 };
+        } else {
+          groupedItems[item.product_id].quantity += 1;
+        }
+      });
+
+      this.cartItems = Object.values(groupedItems);
 
       this.cartItems.forEach((item, index) => {
         this.supabaseService
@@ -45,7 +53,6 @@ export class CartComponent implements OnInit {
               const product = products[0];
               this.cartItems[index].productName = product.name;
               this.cartItems[index].price = product.price;
-            } else {
             }
           });
       });
