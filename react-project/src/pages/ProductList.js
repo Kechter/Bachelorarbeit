@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUserId } from "./authUtils";
 
 export default function ProductList() {
   const navigate = useNavigate();
@@ -16,8 +17,8 @@ export default function ProductList() {
   }, []);
 
   const addToCart = (productId) => {
-    const userId = "df992ef6-af8d-4d4d-8f50-1214b7520dcf";
-    const quantity = 1;
+    const userId = getUserId();
+    if (!userId) return;
 
     fetch("http://localhost:3001/api/cart/add", {
       method: "POST",
@@ -27,7 +28,7 @@ export default function ProductList() {
       body: JSON.stringify({
         userId,
         productId,
-        quantity,
+        quantity: 1,
       }),
     });
   };

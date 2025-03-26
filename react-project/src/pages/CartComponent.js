@@ -7,19 +7,32 @@ export default function CartComponent({ userId }) {
     fetch(`http://localhost:3001/api/cart?userId=${userId}`)
       .then((res) => res.json())
       .then((cartData) => {
-        const productDetailsPromises = cartData.map((item) =>
+        const grouped = {};
+        cartData.forEach((item) => {
+          if (!grouped[item.product_id]) {
+            grouped[item.product_id] = { ...item, quantity: 1 };
+          } else {
+            grouped[item.product_id].quantity += 1;
+          }
+        });
+
+        const groupedItems = Object.values(grouped);
+
+        const productDetailsPromises = groupedItems.map((item) =>
           fetch(`http://localhost:3001/api/product/${item.product_id}`)
             .then((res) => res.json())
             .then((productData) => {
               const product = productData[0];
-              item.productName = product.name;
-              item.price = product.price;
-              return item;
+              return {
+                ...item,
+                productName: product.name,
+                price: product.price,
+              };
             })
         );
 
-        Promise.all(productDetailsPromises).then((updatedCartItems) => {
-          setCartItems(updatedCartItems);
+        Promise.all(productDetailsPromises).then((enrichedItems) => {
+          setCartItems(enrichedItems);
         });
       });
   }, [userId]);
@@ -27,11 +40,12 @@ export default function CartComponent({ userId }) {
   return (
     <div>
       <h2>Cart</h2>
-      {cartItems.map((item) => (
-        <div key={item.id}>
+      {cartItems.map((item, index) => (
+        <div key={index}>
           <h3>{item.productName}</h3>
           <p>${item.price}</p>
           <p>Quantity: {item.quantity}</p>
+          <hr />
         </div>
       ))}
     </div>

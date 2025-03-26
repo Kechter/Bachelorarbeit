@@ -11,8 +11,11 @@ import { CartComponent } from '../cart/cart.component';
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',
 })
-export class CheckoutComponent implements OnInit{
-  constructor(private router: Router, private supabaseService: SupabaseService) {}
+export class CheckoutComponent implements OnInit {
+  constructor(
+    private router: Router,
+    private supabaseService: SupabaseService
+  ) {}
   cart: any[] = [];
   totalPrice: number = 0;
   userId: string = 'df992ef6-af8d-4d4d-8f50-1214b7520dcf';
@@ -25,7 +28,36 @@ export class CheckoutComponent implements OnInit{
   }
 
   calculateTotal() {
-    this.totalPrice = this.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const userId = this.supabaseService.getUserSync()?.user?.id;
+    if (!userId) return;
+
+    this.supabaseService.getCart(userId).subscribe({
+      next: (response) => {
+        if (!Array.isArray(response) || response.length === 0) {
+          this.totalPrice = 0;
+          return;
+        }
+
+        let total = 0;
+        let itemsProcessed = 0;
+
+        response.forEach((item) => {
+          this.supabaseService.getProductById(item.product_id).subscribe({
+            next: (products) => {
+              if (Array.isArray(products) && products.length > 0) {
+                total += products[0].price * item.quantity;
+              }
+            },
+            complete: () => {
+              itemsProcessed++;
+              if (itemsProcessed === response.length) {
+                this.totalPrice = parseFloat(total.toFixed(2));
+              }
+            },
+          });
+        });
+      },
+    });
   }
 
   goToCart() {
@@ -36,4 +68,3 @@ export class CheckoutComponent implements OnInit{
     this.router.navigate(['/products']);
   }
 }
-

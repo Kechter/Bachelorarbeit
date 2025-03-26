@@ -22,8 +22,22 @@ function displayProducts(products) {
   });
 }
 
+function getUserId() {
+  return localStorage.getItem("userId");
+}
+
 function addToCart(productId) {
-  $.post("http://localhost:3001/api/cart/add", { productId });
+  const userId = getUserId();
+  if (!userId) return;
+
+  const requestData = { userId, productId, quantity: 1 };
+
+  $.ajax({
+    url: "http://localhost:3001/api/cart/add",
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(requestData),
+  });
 }
 
 function navigateTo(page) {

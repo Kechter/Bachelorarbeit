@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import CartComponent from "./CartComponent";
 import { useEffect, useState } from "react";
+import { getUserId } from "./authUtils";
 
 export default function Checkout() {
   const navigate = useNavigate();
-  const userId = "df992ef6-af8d-4d4d-8f50-1214b7520dcf";
+  const userId = getUserId();
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
+    if (!userId) return;
     fetch(`http://localhost:3001/api/cart?userId=${userId}`)
       .then((res) => res.json())
       .then(async (cartItems) => {
@@ -30,14 +32,13 @@ export default function Checkout() {
         );
         setTotalPrice(total);
       });
-  }, []);
+  }, [userId]);
 
   return (
     <div>
       <h2>Checkout</h2>
       <CartComponent userId={userId} />
       <h3>Total: ${totalPrice.toFixed(2)}</h3>
-
       <h3>Payment Information</h3>
       <form>
         <label>Card Number</label>

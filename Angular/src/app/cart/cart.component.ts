@@ -10,20 +10,50 @@ import { CommonModule } from '@angular/common';
 })
 export class CartComponent implements OnInit {
   cartItems: any[] = [];
-  readonly userId = 'df992ef6-af8d-4d4d-8f50-1214b7520dcf';
+  userId: string | null = null;
 
   constructor(private supabaseService: SupabaseService) {}
 
   ngOnInit() {
+    this.supabaseService.getUser().subscribe((userData: any) => {
+      const user = userData?.user;
+      if (user && user.id) {
+        this.userId = user.id;
+        this.loadCart();
+      }
+    });
+  }
+
+  loadCart() {
+    if (!this.userId) {
+      return;
+    }
+
     this.supabaseService.getCart(this.userId).subscribe((items: any) => {
-      this.cartItems = items;
-      this.cartItems.forEach((item) => {
+      if (!items || items.length === 0) {
+        return;
+      }
+
+      const groupedItems: { [key: string]: any } = {};
+      items.forEach((item: any) => {
+        if (!groupedItems[item.product_id]) {
+          groupedItems[item.product_id] = { ...item, quantity: 1 };
+        } else {
+          groupedItems[item.product_id].quantity += 1;
+        }
+      });
+
+      this.cartItems = Object.values(groupedItems);
+
+      this.cartItems.forEach((item, index) => {
         this.supabaseService
           .getProductById(item.product_id)
           .subscribe((products: any) => {
-            const product = products[0];
-            item.productName = product.name;
-            item.price = product.price;
+            if (products.length > 0) {
+              const product = products[0];
+              this.cartItems[index].productName = product.name;
+              this.cartItems[index].price = product.price;
+            }
           });
       });
     });

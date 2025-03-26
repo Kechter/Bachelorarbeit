@@ -1,5 +1,6 @@
 import { CheckoutService } from "../services/checkout-service.js";
 import "./cart-component.js";
+import { getUserId } from "../auth-util.js";
 
 class CheckoutComponent extends HTMLElement {
   constructor() {
@@ -7,10 +8,11 @@ class CheckoutComponent extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.checkoutService = new CheckoutService();
     this.totalPrice = 0;
-    this.userId = "df992ef6-af8d-4d4d-8f50-1214b7520dcf";
   }
 
   connectedCallback() {
+    this.userId = getUserId();
+    if (!this.userId) return;
     this.fetchCartTotal();
     this.render();
   }
@@ -53,7 +55,7 @@ class CheckoutComponent extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <div>
         <h2>Checkout</h2>
-        <cart-component></cart-component>
+        <cart-component data-page="checkout"></cart-component>
         <h3>Total: <span id="total-price">$0.00</span></h3>
 
         <button id="go-to-products">Go to Products</button>

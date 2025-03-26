@@ -8,11 +8,8 @@ class AuthComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    if (localStorage.getItem("isLoggedIn")) {
-      window.navigateTo("/products");
-    } else {
-      this.renderLoginForm();
-    }
+    localStorage.removeItem("isLoggedIn");
+    this.renderLoginForm();
   }
 
   renderLoginForm() {
@@ -63,8 +60,8 @@ class AuthComponent extends HTMLElement {
         event.preventDefault();
         const email = this.shadowRoot.getElementById("email").value;
         const password = this.shadowRoot.getElementById("password").value;
-          await this.authService.signUp(email, password);
-          this.renderLoginForm();
+        await this.authService.signUp(email, password);
+        this.renderLoginForm();
       });
 
     this.shadowRoot

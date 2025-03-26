@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SupabaseService } from '../supabase.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -23,12 +24,21 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(product: any) {
-    const userId = this.supabase.userId;
-    const productId = product.id;
-    const quantity = 1;
+    const userData = this.supabase.getUserSync();
+    const user = userData?.user;
 
-    this.supabase.addToCart(userId, productId, quantity).subscribe();
+    if (user && user.id) {
+      this.supabase.addToCart(user.id, product.id, 1).subscribe();
+    } else {
+      this.supabase.getUser().pipe(take(1)).subscribe(fetchedUserData => {
+        const fetchedUser = fetchedUserData?.user;
+        if (fetchedUser && fetchedUser.id) {
+          this.supabase.addToCart(fetchedUser.id, product.id, 1).subscribe();
+        }
+      });
+    }
   }
+  
 
   goToCart() {
     this.router.navigate(['/cart-page']);
