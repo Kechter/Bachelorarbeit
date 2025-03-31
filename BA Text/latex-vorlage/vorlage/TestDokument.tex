@@ -453,53 +453,67 @@ Die verschiedenen Frontend-Technologien (\texttt{Angular}, \texttt{React}, \text
 \label{cha:problemanalyse}
 
 \section{Einleitung}
-Die moderne Webentwicklung setzt vermehrt auf komponentenbasierte Architekturen, wozu eine Vielzahl an verschiedenen Frameworks existiert, die diese Architektur auf verschiedene Weisen umsetzen. Frameworks wie React, Next.js und Angular gehören zu den meistgenutzten Frameworks, während nicht-komponentenbasierte Ansätze wie jQuery immer weniger vertreten sind (vgl. \parencite{statista2024}).
-\begin{figure}[h]
+Die moderne Webentwicklung setzt vermehrt auf komponentenbasierte Architekturen, wozu eine Vielzahl an verschiedenen Frameworks und Bibliotheken existiert, die diese Architektur auf verschiedene Weisen umsetzen. Bibliotheken und Frameworks unterscheiden sich in ihrer Herangehensweise jedoch ebenfalls deutlich. Eine Bibliothek wie React stellt gezielt Werkzeuge zur Verfügung, um spezifische Aufgaben zu lösen. Frameworks wie Angular, Next.js oder Vue.js geben dagegen Strukturen und Architekturen vor, in der die Entwickler ihre Anwendung entwickeln müssen. 
+Die große Auswahl an möglichen Frameworks und Bibliotheken erschwert es Webentwicklern eine optimale Wahl für spezifische Projekte zu treffen, da jedes Projekt verschiedene Anforderungen hinsichtlich Performance, Skalierbarkeit, Wartbarkeit und Entwicklungsaufwand hat. Um diese Entscheidung zu treffen, ist es sinnvoll, zunächst einen Überblick über die beliebtesten Lösungen zu erhalten. Eine Darstellung der meistgenutzten Webtechnologien weltweit dargestellt in Abbildung \ref{fig:frameworks}, zeigt, dass komponentenbasierte Frameworks und Bibliotheken wie React, Next.js, Angular und Vue.js zu den meistgenutzten Frontendlösungen gehören, während nicht-komponentenbasierte Ansätze wie jQuery immer weniger vertreten sind (vgl. \parencite{statista2024}).
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.5\textheight, keepaspectratio]{images/web-frameworks.png}
-    \caption{Meistgenutzte Web-Frameworks weltweit (Quelle: Statista)}
+    \includegraphics[width=\textwidth]{images/web-frameworks.png}
+    \caption{Meistgenutzte Web-Frameworks weltweit (Quelle:\parencite{statista2024})}
     \label{fig:frameworks}
 \end{figure}
 
 Bei der Auswahl eines passenden Frameworks fehlt jedoch ein ausgiebiger Vergleich hinsichtlich verschiedener Metriken. Im folgenden Kapitel wird dargestellt, warum ein solcher neuer, umfassender Vergleich notwendig ist.
 
 \section{Aktuelle Situation in der Webentwicklung}
-Die Webentwicklung zeigt einen klaren Trend in Richtung komponentenbasierter Ansätze für die Frontend-Entwicklung mithilfe von Frameworks wie Angular, React und Vue (vgl. \parencite[S. 44]{js-framework-comparison}). 
 
-Alle Frameworks legen ihren Fokus auf wiederverwendbare Komponenten, um die Modularität, Wartbarkeit und Skalierbarkeit der Anwendungen zu steigern (vgl. \autocite [S. 7]{spa-frameworks-2024}). 
+Webanwendungen haben in der heutigen Zeit eine zentrale Rolle im Alltag eingenommen und beeinflussen nahezu jeden Lebensbereich, von Ticket- und Essensbestellungen bis hin zum Online-Shopping (vgl. \autocite[S. 298]{spa-frameworks-2024}). Die Wahl einer passenden Frontendlösung ist hierbei wichtig. 
+Die Webentwicklung zeigt hierbei einen klaren Trend in Richtung komponentenbasierter Ansätze für die Frontend-Entwicklung mithilfe von Frameworks wie Angular, React und Vue(vgl. \parencite[S. 43]{js-framework-comparison}). Laut der "State of JavaScript"-Umfrage von 2024 gehören weiterhin Angular,React und Vue zu den drei meist genutzten Frontendframeworks. React bleibt hierbei die Nummer eins hinsichtlich der Nutzung mit 82 Prozent, es folgen Vue.js mit 51 Prozent und Angular mit 50 Prozent. Ebenfalls zu beobachten ist der konstante Anstieg von Svelte mit mittlerweile 26 Prozent (vgl. \parencite {stateofjs2024}).
 
-Alle Frameworks haben ihre Vor- und Nachteile, zeichnen sich aber oft durch einen gewissen Overhead durch die eingebaute Komplexität aus. Angular bietet hierbei eine große Skalierbarkeit, während React für komplexe User Interface Elemente sinnvoll ist und Vue.js sich durch durch die Einfachheit für kleinere Anwendungen auszeichnet (vgl. \parencite[S. 4]{frontend_frameworks_comparison}). 
+Die genannten Frameworks legen ihren Fokus auf wiederverwendbare Komponenten, um die Modularität, Wartbarkeit und Skalierbarkeit der Anwendungen zu steigern. (vgl. \autocite [S. 302,303]{spa-frameworks-2024}). 
 
-Der Entwicklungsaufwand sowie die Wartbarkeit von komponentenbasierten Frameworks kann mit steigender Anwendungsgröße immer komplexer werden. Bei nicht ausreichender Architekturplanung kann eine große technische Schuld entstehen, wie durch die tief verschachtelten Komponentenbäume in React, welche eine Wartbarkeit stark erschweren können (vgl. \parencite[S. 29]{comparison-frameworks-scalable-apps}).
+Alle Frameworks haben ihre Vor- und Nachteile, zeichnen sich aber oft durch einen gewissen Overhead und die eingebaute Komplexität aus. Angular bietet hierbei eine große Skalierbarkeit, während React für komplexe User Interface Elemente sinnvoll ist und Vue.js sich durch die Einfachheit für kleinere Anwendungen auszeichnet (vgl. \parencite[S. 1070]{frontend_frameworks_comparison}). 
+
+Der Entwicklungsaufwand sowie die Wartbarkeit von komponentenbasierten Frameworks kann mit steigender Anwendungsgröße immer komplexer werden. Bei nicht ausreichender Architekturplanung kann eine große technische Schuld entstehen, wie durch die tief verschachtelten Komponentenbäume in React, welche eine Wartbarkeit stark erschweren können (vgl. \parencite[S. 28,29]{comparison-frameworks-scalable-apps}).
 
 Die Performance der Frameworks variiert hinsichtlich ihres Ansatzes, wodurch React und Vue durch die Nutzung eines Virtual DOMs wesentlich schneller bei der Aktualisierung von Elementen sind als Angular und Svelte (vgl. \parencite[S. 61]{js-framework-comparison}).
 
-Trotz einer verbreiteten Nutzung der Frameworks gibt es keinen umfassenden Vergleich. Diese Defizite werden im folgenden Abschnitt genauer aufgezeigt. 
+Trotz einer verbreiteten Nutzung der Frameworks gibt es keinen umfassenden Vergleich zwischen diesen Frameworks. Diese Defizite werden im folgenden Abschnitt genauer aufgezeigt. 
 
 \section{Forschungsstand und bestehende Vergleiche}
 \subsection{Vorhande Vergleichsstudien}
-Der aktuelle Forschungsstand bringt einzelne Vergleiche, welche aber nur auf Teilaspekte eingehen. Hier eine Sammlung der bereits vorhandenen Ergebnisse: 
+Der aktuelle Forschungsstand bringt einzelne Vergleiche, welche aber nur auf Teilaspekte eingehen. Anbei folgt eine Sammlung der bereits vorhandenen Ergebnisse: 
 \begin{itemize}
-\item \textbf{Performance-Vergleich}: Ein wesentlicher Faktor für die Performance von modernen Webanwendungen ist der Umgang mit dem Document Object Model (DOM), da dieser direkten Einfluss auf die Geschwindigkeit von Benutzerinteraktionen hat. 
-Frameworks wie React und Vue mit dem Virtual DOM zeigen einen Vorteil durch schnellere Updates, haben aber einen erhöhten Speicherverbrauch. Der Abgleich zwischen Virtual DOM und realem DOM wird dabei als \texttt{Reconciliation} bezeichnet. Angular nutzt die Incremental DOM, welche langsamer ist, aber dadurch strukturierter für große Anwendungen ist. Das liegt daran, dass Angular Änderungen direkt am tatsächlichen DOM durchführt und dabei auf eine strukturierte Aktualisierung setzt. Svelte besitzt keinen Virtual DOM, wodurch kompakte Builds mit weniger Flexibilität erstellt werden können\parencite[S.61]{js-framework-comparison}
-Dies erreicht Svelte, indem es DOM-Manipulationen bereits während der Kompilierungszeit durchführt und dadurch der Browser deutlich weniger Rechenleistung benötigt, was wiederum zu kleineren und schnelleren Bundles führt.  \parencite[S.26]{comparison-frameworks-scalable-apps}
+\item \textbf{Performance-Vergleich}: 
+Ein wesentlicher Faktor für die Performance von modernen Webanwendungen ist der Umgang mit dem Document Object Model (DOM), da dieser direkten Einfluss auf die Geschwindigkeit von Benutzerinteraktionen hat. 
+Frameworks wie React und Vue mit dem Virtual DOM zeigen einen Vorteil durch schnellere Updates, haben aber einen erhöhten Speicherverbrauch. Der Abgleich zwischen Virtual DOM und realem DOM wird dabei als \texttt{Reconciliation} bezeichnet. Angular nutzt die Incremental DOM, welche langsamer, aber dadurch strukturierter für große Anwendungen ist. Das liegt daran, dass Angular Änderungen direkt am tatsächlichen DOM durchführt und dabei auf eine strukturierte Aktualisierung setzt. Svelte besitzt keinen Virtual DOM, wodurch kompakte Builds mit weniger Flexibilität erstellt werden können\parencite[S.61]{js-framework-comparison}
+Dies erreicht Svelte, indem es DOM-Manipulationen bereits während der Kompilierungszeit durchführt und dadurch der Browser deutlich weniger Rechenleistung benötigt, was wiederum zu kleineren und schnelleren Bundles führt \parencite[S.26]{comparison-frameworks-scalable-apps}. Durch einen direkten DOM-Zugriff, sind Svelte und Angular schneller als React und Vue.js bei kleineren DOM-Manipulationen. Bei größeren DOM-Operationen sind hingegen React und Vue effizienter. Diese profitieren von ihrem Virtual DOM, da sie viele Operationen bündeln und effizienter abarbeiten können (vgl. \autocite[S.60-62]{js-framework-comparison}). 
+Neben der Laufzeitperformance ist auch die Kompilierungszeit bei der Entwicklung relevant. Hierbei zeigt sich, dass Svelte die kürzeste  Kompilierungszeit mit ca. 1,61 Sekunden aufweist. Vue und React sind ebenfalls recht schnell mit einer Kompilierungszeit von ca. 3,96 und 3,07 Sekunden. Angular folgt ein wenig langsamer mit ca. 8,70 Sekunden Kompilierungszeit (vgl. \autocite[S.65]{js-framework-comparison}).
     
-\item \textbf{Skalierbarkeit und Wartbarkeit}: Angular fördert die Entwicklung wiederverwendbarer, modularer Komponenten, wodurch mithilfe von TypeScript eine zusätzliche Struktur entsteht. Dies ermöglicht es großen Teams, skalierbare Anwendungen mit passenden Interfaces und Services zu erstellen. Mit zunehmender Größe der Anwendung wird die Wartbarkeit jedoch immer schwieriger. In Frameworks wie React besteht schnell die Gefahr, dass der Komponentenbaum zu tief verschachtelt wird, wodurch die Verfolgung der Datenübertragung immer schwerer wird \parencite[S. 25,28]{comparison-frameworks-scalable-apps}.
-    \item \textbf{Modularität und Wiederverwendbarkeit}: Angular fördert die Entwicklung von modularen, wiederverwendbaren Komponenten. Diese sind mithilfe von Typescript klar definiert und erleichtern die Strukturierung großer Anwendungen. React bietet ebenfalls eine modulare Struktur, durch welche Komponenten über die ganze Anwendung hinweg wiederverwendbar sind. Durch eine horizontale Skalierung können komplexe React UI in kleine, einfache Komponenten aufgeteilt werden. Vue.js Komponenten sind klein, eigenständig und wiederverwendbar aufgebaut und können dann zum Zusammenbau größerer komplexerer Module verwendet werden \cite[S. 24,26] {comparison-frameworks-scalable-apps}.
-    
+\item \textbf{Skalierbarkeit und Wartbarkeit}: Angular bietet standmäßig viele eingebaute Lösungen für Routing, Zustandsverwaltung und Dependency Injection. Ebenfalls fördert Angular die Entwicklung wiederverwendbarer, modularer Komponenten, wodurch mithilfe von TypeScript eine zusätzliche Struktur entsteht. Dies ermöglicht es großen Teams, skalierbare Anwendungen mit ausführlichen Interfaces und Services zu erstellen, da die standardisierte Strukturierung in Angular hierfür besonders geeignet ist. Mit zunehmender Größe der Anwendung wird die Wartbarkeit jedoch immer schwieriger und diese Einhaltung der Strukturen kann die Entwicklungsflexibilität einschränken.
+Frameworks wie React bieten eine Modularität welche eine horizontale Skalierung durch die klare Trennung in kleine, unabhängige Komponenten erlaubt und die Wartbarkeit und Erweiterbarkeit begünstigt. Die hohe Flexibilität bedeutet aber gleichzeitig das React auf externe Libraries angewiesen ist wodurch uneinheitlicher Code enstehen kann.
+In Frameworks wie React besteht die Gefahr, dass der Komponentenbaum zu tief verschachtelt wird, wodurch die Verfolgung der Datenübertragung immer schwerer wird. 
+Vue.js bietet eine einfache und flexible Struktur, wodurch ähnlich wie bei React inkonsistenter Code entstehen kann, wenn keine strikten Standards festgelegt werden. Vue.js nimmt dabei eine Mittelstellung zwischen der Flexibilität von React und dem Funktionsumfang von Angular ein und ermöglicht eine einfache inkrementelle Integration von einzelnen Features
+\parencite[S. 25-30]{comparison-frameworks-scalable-apps}.
+
+\item \textbf{Modularität und Wiederverwendbarkeit}: 
+Angular fördert die Entwicklung von modularen, wiederverwendbaren Komponenten. Diese sind mithilfe von Typescript klar definiert und erleichtern die Strukturierung großer Anwendungen. 
+React bietet ebenfalls eine modulare Struktur, durch welche Komponenten über die ganze Anwendung hinweg wiederverwendbar sind. Durch eine horizontale Skalierung können komplexe React UI in kleine, einfache Komponenten aufgeteilt werden. 
+Vue.js Komponenten sind klein, eigenständig und wiederverwendbar aufgebaut und können zum Zusammenbau größerer komplexerer Module verwendet werden. 
+Svelte besitzt reaktive Komponenten, die leicht zu erstellen und wiederzuverwenden sind. Hierbei besteht keine Abhängigkeit zu externen Bibliotheken für State-Management aufgrund der kompakten Architektur \cite[S. 24,26] {comparison-frameworks-scalable-apps}.
 \end{itemize}
 
 \section{Notwendigkeit eines neuen Vergleichsansatzes}
 
-Die bestehenden Vergleiche fokussieren sich oft nur auf bestimmte Aspekte, wie die Rendering Performance oder Bundle-Größen. Dies sind wichtige Metriken, decken aber nur einen Teilaspekt ab. Hier ist eine ganzheitliche Betrachtung nötig, die auch den Entwicklungsaufwand, die Wartbarkeit sowie Skalierbarkeit berücksichtigt. Bisherige Vergleiche nutzen hauptsächlich Benchmarks und vergleichen anhand dieser die Frameworks. Für eine größere Vergleichsabdeckung ist ein Vergleich der Frameworks bei Nutzung in einem echten Nutzerszenario nötig. 
+Die bestehenden Vergleiche fokussieren sich oft nur auf bestimmte Aspekte, wie die Rendering Performance oder Bundle-Größen. Dies sind wichtige Metriken, decken aber nur einen Teilaspekt ab. Hier ist eine ganzheitliche Betrachtung nötig, die auch den Entwicklungsaufwand, die Wartbarkeit sowie Skalierbarkeit berücksichtigt. Bisherige Vergleiche nutzen hauptsächlich Benchmarks und vergleichen anhand dieser die Frameworks. Für eine größere Vergleichsabdeckung ist ein Vergleich der Frameworks bei Nutzung in einem echten Nutzerszenario notwendig. 
 
 \section{Zusammenfassung der Problemstellung}
 \todo{überarbeiten klingt ähnlich wie vorheriges kapitel}
-Der ansteigende Einsatz von komponentenbasierten Frameworks wie React, Angular, Vue und weiteren bietet viele Vorteile hinsichtlich Wiederverwendbarkeit und Modularisierung. Jedoch entstehen auch Herausforderungen hinsichtlich des Entwicklungsaufwands, der Code-Komplexität und der langfristigen Wartbarkeit.
+Der steigende Einsatz von komponentenbasierten Frameworks wie React, Angular, Vue und weiteren bietet viele Vorteile hinsichtlich Wiederverwendbarkeit und Modularisierung. Jedoch entstehen auch Herausforderungen hinsichtlich des Entwicklungsaufwands, der Code-Komplexität und der langfristigen Wartbarkeit.
 
-Das Problem der Arbeit ergibt sich aus einer Lücke, die bei bisherigen Vergleichen von komponentenbasierten Frameworks besteht. Diese konzentrieren sich oft nur auf spezifische Metriken wie Ladezeiten und stellen dadurch keinen umfassenden Vergleich dar.
+Die Problemstellung der vorliegenden Forschungsarbeit ergibt sich aus einer Lücke, die bei bisherigen Vergleichen von komponentenbasierten Frameworks besteht. Diese konzentrieren sich oft nur auf spezifische Metriken wie Ladezeiten und stellen dadurch keinen umfassenden Vergleich dar.
 
-Diese Arbeit schließt diese Lücke, indem sie auf eine ganzheitliche Analyse eingeht, die neben Performance-Metriken auch Skalierbarkeit, Wartbarkeit und den tatsächlichen Entwicklungsaufwand untersucht. Der Vergleich erfolgt anhand einer realen Anwendung, um die Frameworks nicht nur unter theoretischen Aspekten, sondern auch in einem praxisnahen Nutzerszenario zu bewerten.
+Diese Forschungsarbeit schließt die Lücke, indem sie auf eine ganzheitliche Analyse eingeht, die neben Performance-Metriken auch Skalierbarkeit, Wartbarkeit und den tatsächlichen Entwicklungsaufwand untersucht. Der Vergleich erfolgt anhand einer realen Anwendung, um die Frameworks nicht nur unter theoretischen Aspekten, sondern auch in einem praxisnahen Nutzerszenario zu bewerten.
 
 %---
 \chapter{Lösungskonzept}
@@ -533,7 +547,36 @@ Die Ergebnisse sollen eine klare Entscheidungshilfe bieten, die dazu dient, für
 \chapter{Implementierung}
 \label{cha:implementierung}
 
-\section{Überblick über die Implementierung}
+Im folgenden Kapitel wird das Lösungskonzept umgesetzt in den 4 ausgesuchten Frontendlösungen. Zusätzlich wird ein zentrales Backend implementiert welches eine Grundlage für den im darauffolgenden Kapitel Vergleich bieten soll. Zunächst wird dargestellt wie die Architektur der gesamten Lösung aufgebaut ist und wie ein allgemeiner Ablauf in den jeweiligen Lösungen aussehen könnte. 
+
+\section{Überblick über die Architektur}
+\label{sec:architektur}
+
+In diesem Abschnitt wird die allgemeine Architektur der Lösung dargestellt. Die folgenden Diagramme zeigen den Aufbau der gesamten Anwendung sowie die Interaktionen zwischen Frontend und Backend.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/architekturdiagramm}
+    \caption{Architekturdiagramm der gesamten Lösung}
+    \label{fig:architekturdiagramm}
+\end{figure}
+
+Die Architektur besteht aus vier separaten Frontend-Anwendungen (Angular, React, Web Components und jQuery). Diese sind voneinander unabhängig implementiert, kommunizieren aber alle mit dem gleichen zentralen Backend. Das zentrale Backend ist als Node.js Express Server implementiert.
+
+Alle Frontend-Anwendungen greifen hierbei über HTTP-Anfragen auf den Express Server zu. Die Kommunikation erfolgt hierbei über vordefinierte API-Endpunkte, welche in der server.ts definiert sind. Die Anfragen aus dem Server werden in der server.ts empfangen und dann über die passenden Backend-Services weitergeleitet. Die Services lassen sich in die verschiedenen Funktionsbereiche aufteilen: hierbei die Authentifizierung mit dem authService.ts, die Warenkorb-Verwaltung mit dem cartService.ts und die Produktverwaltung mit dem productService.ts. Jeder Service definiert eigene Methoden, welche die vordefinierten Methoden von Supabase nutzen, um auf die Supabase-Datenbank zuzugreifen und mithilfe von CRUD-Operationen Daten zu erstellen, zu lesen, zu aktualisieren oder zu löschen.
+
+\section{Ablaufdiagramm der Anwendungen}
+\label{sec:ablauf}
+
+In diesem Abschnitt wird der allgemeine Ablauf der Anwendungen dargestellt. Das folgende Sequenzdiagramm veranschaulicht, wie die verschiedenen Frontendlösungen mit dem zentralen Backend interagieren und welche Schritte bei der Kommunikation zwischen Client und Server ablaufen.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/sequenzdiagramm}
+    \caption{Überblick über einen beispielhaften Ablauf der Frontendlösungen}
+    \label{fig:applikationsstruktur}
+\end{figure}
 
 \section{Zentrales Backend-Modul (TypeScript mit Supabase)}
 \subsection{Modulstruktur}
@@ -794,6 +837,96 @@ Für jedes Element im Warenkorb werden erneut mit \verb|$.get('/api/products/:id
 Die Zahlungsinformationen sowie der \texttt{"Proceed to Payment"}-Button sind rein symbolisch und führen keine echte Transaktion aus. Zusätzlich befinden sich am unteren Rand der Seite zwei Navigationsbuttons, die zurück zur Produktliste bzw. zum Warenkorb führen.
 
 \section{Zusammenfassung}
+
+\chapter{Inbetriebnahme}
+Dieses Kapitel beschreibt die notwendigen Schritte, um die entwickelte Anwendung lokal zu installieren und auszuführen. Die Inbetriebnahme umfasst sowohl das zentrale Backend als auch die vier verschiedenen Frontend-Anwendungen, die auf Angular, React, Web Components und jQuery basieren.
+
+\section{Voraussetzungen}
+Bevor die Anwendung gestartet werden kann, müssen folgende Software-Komponenten installiert sein:
+\begin{itemize}
+    \item \textbf{Node.js} (mindestens Version 18.x)
+    \item \textbf{npm} (wird mit Node.js installiert)
+    \item \textbf{Git} (zur Versionsverwaltung und zum Klonen des Repositories)
+\end{itemize}
+
+\section{Repository klonen}
+Das Git-Repository der Anwendung muss zunächst lokal geklont werden. Dies geschieht mit folgendem Befehl:
+\begin{verbatim}
+git clone <Repository-URL>
+\end{verbatim}
+
+\section{Installation der Abhängigkeiten}
+Nach dem Klonen des Repositories müssen für jede der Anwendungen die Abhängigkeiten installiert werden. 
+
+\subsection{Angular}
+Navigiere in das Angular-Verzeichnis und installiere die Abhängigkeiten mit:
+\begin{verbatim}
+cd angular-app
+npm install
+\end{verbatim}
+
+\subsection{React}
+Navigiere in das React-Verzeichnis und installiere die Abhängigkeiten mit:
+\begin{verbatim}
+cd react-app
+npm install
+\end{verbatim}
+
+\subsection{Web Components}
+Navigiere in das Web Components-Verzeichnis und installiere die Abhängigkeiten mit:
+\begin{verbatim}
+cd web-components-app
+npm install
+\end{verbatim}
+
+\subsection{jQuery}
+Navigiere in das jQuery-Verzeichnis und installiere die Abhängigkeiten mit:
+\begin{verbatim}
+cd jquery-app
+npm install
+\end{verbatim}
+
+\section{Starten der Anwendungen}
+Die Anwendungen können mit den folgenden Befehlen gestartet werden:
+
+\subsection{Angular}
+\begin{verbatim}
+ng serve
+\end{verbatim}
+Die Anwendung ist dann unter \texttt{http://localhost:4200} erreichbar.
+
+\subsection{React}
+\begin{verbatim}
+npm start
+\end{verbatim}
+Die Anwendung ist dann unter \texttt{http://localhost:3000} erreichbar.
+
+\subsection{Web Components}
+\begin{verbatim}
+npx serve
+\end{verbatim}
+Die Anwendung ist dann unter \texttt{http://localhost:5000} erreichbar.
+
+\subsection{jQuery}
+\begin{verbatim}
+npx serve
+\end{verbatim}
+Die Anwendung ist dann unter \texttt{http://localhost:5000} erreichbar.
+
+\section{Backend kompilieren und starten}
+Das zentrale Backend muss zuerst kompiliert werden, bevor es gestartet werden kann.
+
+\begin{verbatim}
+cd shared-backend
+npm install
+npm run build
+node dist/server.js
+\end{verbatim}
+
+Das Backend ist nun unter \texttt{http://localhost:3001} erreichbar.
+
+\section{Zusammenfassung}
+Nachdem alle Anwendungen und das Backend erfolgreich gestartet wurden, können diese lokal getestet und verwendet werden. Weitere Konfigurationsoptionen werden im Kapitel \textit{Konfiguration} beschrieben.
 
 %---
 \chapter{Evaluierung}

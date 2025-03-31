@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import { signUp, login, logout, getSession } from './authService';
+import { signUp, login, getSession } from './authService';
 import { fetchProductById, fetchProducts } from './productService';
 import { addToCart, getCart } from './cartService';
 import { placeOrder, getOrders } from './orderService';
