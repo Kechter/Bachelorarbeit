@@ -1,8 +1,9 @@
 \documentclass[oneside]{ausarbeitung}
 \addbibresource{latexlit.bib}
 \usepackage{todonotes} 
-
-
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
 % ----------------------------------------------------------------------
 
 \begin{document}
@@ -130,81 +131,78 @@
 % ----------------------------------------------------------------------
 \chapter{Einleitung}
 \label{cha:einleitung}
-\todo {Ausformulieren mit Fragestellung die im folgenden bearbeitet wird}
-Die Einleitung dient dazu, beim Leser Interesse für die Inhalte der Bachelorarbeit zu wecken, die behandelten Probleme aufzuzeigen und die zu ihrer Lösung entwickelten Konzepte zu beschreiben.
 
 \section{Motivation}
 \label{sec:motivation}
 
-\todo {meine motivation für die bachelorarbeit hier}
+Meine Motivation entstand ursprünglich aus meinem über das Studium hinweg angesammelten Interesse für Web-Technologien. In meinem bisherigen Werdegang habe ich hauptsächlich mit Angular gearbeitet und konnte dort Vorteile und Schwächen der Technologie kennenlernen. Bei zeitweise schlechter Performance treten gelegentlich Zweifel über die Wahl des richtigen Frameworks auf und ein Interesse, ob andere Lösungen wie React, Vue oder Web Components in solchen Fällen effizienter wären. Bei ersten Recherchen findet man schnell die positive Perspektive aus Sicht der Autoren. Was häufig fehlt, ist ein umfassender Vergleich aus verschiedensten Perspektiven.
+
+Bei der Nutzung von neuen Web-Technologien bestand eine gewisse Hürde, diese für neue Projekte ohne Vorkenntnisse zu nutzen, da ein Verständnis über die Vor- und Nachteile der verschiedenen Lösungen fehlte. Mithilfe einer praxisnahen Erfahrung, in der das im Studium erlangte Wissen verwendet werden kann, soll ein umfassender Vergleich anderer Frontendlösungen ermöglicht werden. Durch diese praxisnahe Auseinandersetzung können theoretische und praktische Erfahrungen gesammelt werden, die in zukünftigen Projekten für die Wahl der optimalen Frontendlösung hilfreich sein könnten.
 
 \section{Ursprünge}
 \label{sec:ursprünge}
-\todo {Quellen}
 
-Die Ursprünge der Webentwicklung gehen zurück auf Tim Berners-Lee, welcher 1991 HTML, HTTP und den ersten Webbrowser entwickelte.
-Recht schnell wurde klar, dass statische HTML-Seiten nicht ausreichend waren, es musste mehr Interaktivität möglich sein. Daraus entwickelte sich JavaScript, welches erstmals ermöglichte, Websites interaktiv zu machen.
-Zur Trennung von Inhalt und Darstellung entstand CSS, um die visuelle Gestaltung von HTML-Seiten zu ermöglichen.
-AJAX (Asynchronous JavaScript und XML) ermöglichte es erstmals, HTTP-Anfragen durchzuführen, während eine HTML-Seite dargestellt wurde, sodass die Seite aktualisiert werden konnte, ohne sie neu zu laden.
-Ebenfalls wurde erstmals jQuery populär, durch die vereinfachte DOM-Manipulation und das Event-Handling.
-Im Jahr 2010 folgte dann AngularJS, ein Framework, das eine MVC-ähnliche Architektur für dynamische Single-Page-Anwendungen bietet und die Entwicklung durch Two-Way Data Binding sowie modulare Komponenten erleichtert.
-Im Jahr 2013 konnte React mithilfe des Virtual DOM die Performance von UI-Updates nochmal revolutionieren.
-Vue.js folgte als leichtgewichtige Alternative, die einen kombinierten Ansatz aus AngularJS und React verfolgte. Es setzte auf eine einfache API, deklarative Syntax und eine reaktive Datenbindung, um eine flexible und effiziente Entwicklung zu ermöglichen.
-Angular Version 2 ging auf alte Probleme ein und entwickelte ein neues, komponentenbasiertes Architekturmodell, welches sich in Komponenten, Services und Dependency Injection aufteilte. 
-Im Jahr 2018 wurden Web Components als offizielle, standardisierte, frameworkunabhängige Lösung für wiederverwendbare Komponenten eingeführt.
-Daraufhin stellte Svelte im darauffolgenden Jahr mit seinem neuen Konzept eines kompilierten Codes anstelle des virtuellen DOMs einen neuen Ansatz vor.
+Die Ursprünge der Webentwicklung gehen auf Tim Berners-Lee zurück, der 1991 HTML, HTTP und den ersten Webbrowser entwickelte \parencite{cern-www}. Damit entstand das Web 1.0, das rein statisch war.
+Schon bald wurde deutlich, dass rein statische HTML-Seiten nicht ausreichten, um interaktive Inhalte bereitzustellen. So entstand das Web 2.0, das sich durch Interaktivität, Dynamik und nutzergenerierte Inhalte auszeichnete. In diesem Kontext entwickelte sich JavaScript zu einer der zentralen Technologien. JavaScript ermöglichte erstmals, Webseiten interaktiv zu gestalten, etwa durch DOM-Manipulation, Ereignisverarbeitung oder Formularvalidierungen \parencite{js-history}.
+Parallel dazu wurde mit CSS eine Sprache eingeführt, die das Ziel hatte, den Inhalt und dessen Darstellung voneinander zu trennen. Durch die Verwendung von CSS konnten erstmals Layouts, Farben und Typografie unabhängig vom eigentlichen HTML-Code gestaltet werden, was ein wichtiger Schritt hin zu wartbaren und visuell ansprechenden Webanwendungen war \parencite{w3c_css_history}. Trotz der Verwendung von JavaScript für die Webentwicklung blieben viele Webpages eine lange Zeit seitenbasiert, wodurch jede Aktion, die mit einer HTTP-Anfrage verbunden war, einen Reload der Seite erforderte. Dies führte zu ineffizienten Ladezeiten und einer unterbrochenen Benutzererfahrung. Um solche Probleme zu lösen, wurden neue Techniken entwickelt, die eine effizientere Datenübertragung ermöglichten. 
+
+AJAX (Asynchronous JavaScript and XML) ermöglichte es erstmals, HTTP-Anfragen durchzuführen, während eine HTML-Seite dargestellt wurde, sodass die Seite aktualisiert werden konnte, ohne sie neu zu laden \parencite{ajax-msdn}. Ein frühes Beispiel für die erfolgreiche Nutzung von AJAX ist die Beta-Version von Google Maps. Hierbei wurden Kartenausschnitte beim Ziehen der Maus nahtlos nachgeladen wurden, ohne dass die Seite neu geladen werden musste, was zu einer erhöhten Performance führte. Auch Gmail setzte auf diese Technik, um eine flüssige Benutzererfahrung mit sofortiger Reaktion auf Eingaben zu ermöglichen \parencite{paulson2005ajax}.
+
+Ein weiteres Tool, das an Popularität gewann, war jQuery. jQuery ermöglicht die Erstellung einer vereinfachten und browserübergreifenden einheitlichen Schnittstelle zur DOM-Manipulation und zum Event-Handling \parencite{taft2006jquery}. jQuery stellt zudem Funktionen bereit, die viele Zeilen JavaScript auf eine einzelne Methode kürzte und somit an Komplexität einsparte. Dadurch wurde es eine beliebte Lösung um komplexe Aufgaben aus JavaScript wie AJAX Calls oder DOM Manipulationen zu handhaben. \parencite{w3schoolsJquery}.
+
+Mit der zunehmenden Komplexität moderner Webanwendungen entstanden ab den 2010er Jahren zahlreiche JavaScript-Frameworks, die den Entwicklungsprozess vereinheitlichen und vereinfachen sollten. 
+Eines dieser war AngularJS, ein Framework, das eine MVC-ähnliche Architektur für dynamische Single-Page-Anwendungen bot. Im Gegensatz zu einer Bibliothek welche nur Werkzeuge zur  bietet war Angular das erste Framework, welches auch eine Struktur speziell für Single Page Applications vorgibt. Angular übernimmt Aufgaben wie DOM- und AJAX-Verwaltung automatisch und bietet eine strukturierte Trennung durch das MVC-ähnliche Konzept, das Präsentationslogik (View) und Datenlogik (Model) voneinander trennt. Dies führt zu einer besseren Wartbarkeit, Wiederverwendbarkeit und Testbarkeit von Code \parencite{what-is-angularjs}. Angularjs unterstüzt beispielsweise das Two-Way Data Binding, das Datenfluss zwischen den Model und View automatischt synchronisiert. Außerdem können Formulare mit Validierung in die Applikation eingebunden werden, aber auch Routing, Dependency Injection sowie modulare, wiederverwendbare Komponenten können von Angular gehandhabt werden \parencite{angular-history}. 
+
+
+Ein weiteres Framework, das in der Web-Entwicklung zum Einsatz kommt, ist React. Im Jahr 2013 von Facebook eingeführt, sollte React das Problem ineffizienter UI-Updates lösen. Durch die Einführung eines virtuellen DOMs und der sogenannten Reconciliation konnte React die Performance bei Änderungen an der Benutzeroberfläche deutlich verbessern \parencite{hunt2013react}.
+
+Heutzutage gehört React neben Angular und Vue.js zuden drei meist verbeiteten Frontend-Frameworks. Vue.js wurde 2015 als leichtgewichtige Alternative zu AngularJS und React entwickelt und verfolgte einen kombinierten Ansatz. 
+Es setzte auf eine einfache API, deklarative Syntax und eine reaktive Datenbindung, um eine flexible und effiziente Entwicklung zu ermöglichen \parencite{vue-intro}. 
+
+Angular Version 2 ging auf alte Probleme ein und entwickelte ein neues, komponentenbasiertes Architekturmodell, welches sich in Komponenten, Services und Dependency Injection aufteilte \parencite{angular-docs}. 
+
+Im Jahr 2018 wurden Web Components als offizielle, standardisierte, frameworkunabhängige Lösung für wiederverwendbare Komponenten eingeführt \parencite{mdn-webcomponents}. 
+Zudem stellte Svelte im darauffolgenden Jahr mit seinem neuen Konzept eines kompilierten Codes anstelle des virtuellen DOMs einen neuen Ansatz vor \parencite{svelte-intro}.
+
 
 \section{Problemstellung}
 \label{sec:problemstellung}
 
-In der modernen Webentwicklung gibt es zahlreiche Frameworks und Bibliotheken, die Entwickler bei der Erstellung von Webanwendung unterstützen. Komponenten basierte Frameworks wie Angular, React und Vue.js heben sich durch ihre Modularität und Wiederverwendbarkeit von Komponenten hervor. Gleichzeitig bringen sie aber auch einige Herausforderungen mit sich. Hierzu zählt beispielsweise ein erhöhter Overhead, komplexere Buildprozesse und größere Bundle-Größen, die sich auf die Performance und Entwicklungsdauer auswirken können.
-Gleichzeitig gibt es auch nicht komponentenorientierte Lösungen wie z.B. jQuery, welche durch ihre Einfachheit einen kleinere Entwicklungsprozess benötigen, dadurch aber weniger skalierbar und modular sind. 
-Eine richtige technologische Entscheidung abhängig von den eigenen Bedürfnissen, bzw. denen gewünschten Projekts zu treffen, ist nicht einfach, da ein grundlegender Vergleich zwischen komponentenbasierten Ansätzen und den herkömmlichen Ansätzen fehlt. Diese Vergleiche sind oft nicht aus genügend Blickwinkeln durchgeführt worden, sondern beschränken sich auf Teilaspekte, wie die Performance, welche für eine Entscheidung nicht als einzige Metrik dienen sollte. 
+In der modernen Webentwicklung gibt es zahlreiche Tools, Frameworks und Bibliotheken, die Entwickler bei der Erstellung von Webanwendung unterstützen. Komponentenbasierte Frameworks wie Angular, React und Vue.js heben sich durch ihre Modularität und Wiederverwendbarkeit von Komponenten hervor. Gleichzeitig bringen sie aber auch einige Herausforderungen mit sich. Hierzu zählt beispielsweise ein erhöhter Overhead, komplexere Buildprozesse und größere Bundle-Größen, die sich auf die Performance und Entwicklungsdauer auswirken können.
+Gleichzeitig gibt es auch nicht komponentenorientierte Lösungen wie z.B. jQuery, welche durch ihre Einfachheit einen geringeren Entwicklungsaufwand benötigen, dadurch aber weniger skalierbar und modular sind. 
+Eine richtige technologische Entscheidung, abhängig von den eigenen Bedürfnissen, bzw. denen des gewünschten Projekts, zu treffen, ist nicht einfach, da ein grundlegender Vergleich zwischen komponentenbasierten Ansätzen und den herkömmlichen Ansätzen fehlt. Vorhandene Vergleiche sind oft aus ungenügend Blickwinkeln durchgeführt worden, sondern beschränkten sich auf Teilaspekte, wie die Performance, Wartbarkeit oder Skalierbarkeit, welche für eine Entscheidung der Frontendtechnologie nicht als einzige Metrik dienen sollte. 
 
 \section{Abgrenzung}
-
-Die Arbeit fokussiert sich hierbei auf die Frontendtechnologien und wird anhand eines bestimmten Implementierungsbeispiels verglichen. Hierbei wird mit folgenden Metriken gearbeitet: 
+Um die eben beschriebenen Einschränkungen abwägen zu können, sollen in der vorliegenden Forschungsarbeit die Vor- und Nachteile von modernen komponentenbasierten Frameworks gegenüber von klassischen Ansätzen vergleichen zu können, fokussiert sich diese Arbeit auf die Analyse von Frontendtechnologien. 
+Die Arbeit wird anhand eines festgelegten Implementierungsbeispiels durch die Verwendung bestimmter Metriken verglichen, was dem Zweck einer einheitlichen Grundlagen dienen soll. Hierbei wird mit folgenden Metriken gearbeitet: 
 \begin{itemize}
     \item \textbf{Modularität und Wiederverwendbarkeit}:  
-          Wie gut lassen sich Komponenten erstellen?
+Wie gut lassen sich einzelne Komponenten entwerfen, strukturieren und in unterschiedlichen Projekten wiederverwenden? Dabei wird zudem untersucht, wie effektiv sich User Interfaces von Webseiten unter Verwendung der komponentenbasierten Softwareentwicklung im Hinblick auf Modularität und Wiederverwendbarkeit umsetzen lassen.
     \item \textbf{Performance und Effizienz}:  
-          Wie wirken sich Frameworks auf Ladezeiten, Bundle-Größen und Rendering-Geschwindigkeit aus?
+          Wie wirken sich Frameworks auf Ladezeiten, Bundle-Größen und Rendering- Geschwindigkeiten aus?
+          Welche Mechanismen zur Optimierung (z.\,B. Lazy Loading, Virtual DOM, Compiler) kommen zum Einsatz?
     \item \textbf{Entwicklungsaufwand und Wartbarkeit}:  
           Welche Frameworks ermöglichen eine effiziente und nachhaltige Entwicklung?
+                    Wie einfach und intuitiv lassen sich mit dem Framework funktionale Webanwendungen erstellen?
+          Wird eine saubere Architektur unterstützt (z.\,B. durch klare Projektstruktur, Type Safety und Tooling)?
 \end{itemize}
 
 Nicht Bestandteil dieser Arbeit sind folgende Aspekte: 
 \begin{itemize}
-    \item \textbf{Backend-Technologien oder serverseitige Frameworks}:  
+    \item \textbf{Backend-Technologien und serverseitige Frameworks}:  
           Technologien wie Next.js, Nuxt.js oder Server-Side Rendering ermöglichen die serverseitige Verarbeitung und Darstellung von Webseiten.  
-          Da der Fokus dieser Arbeit auf Frontend-Technologien liegt, werden serverseitige Lösungen nicht betrachtet.
-    \item \textbf{State-Management-Lösungen innerhalb der Frameworks}:  
-          Externe State-Management-Bibliotheken wie Redux, NgRx oder Vuex werden nicht untersucht, da 		der Schwerpunkt auf den Kernfunktionen der Frameworks liegt.
+          Der Fokus dieser Arbeit liegt auf Frontend-Technologien. Serverseitige Lösungen werden nicht betrachtet.
+    \item \textbf{State-Management-Lösungen innerhalb der Frameworks}:            Externe State-Management-Bibliotheken wie Redux, NgRx oder Vuex werden nicht 			          untersucht, da der Schwerpunkt auf den komponentenbasieren Entwicklungsaspekt der jeweiligen Frameworks liegt.
     \item \textbf{Full-Stack-Architekturen}:  
-          Der Einfluss einer Full-Stack-Architektur auf die Wahl des Frontend-Frameworks wird nicht analysiert. Die betrachteten Frontend-Technologien werden dabei isoliert betrachtet.
+          Der Einfluss einer Full-Stack-Architektur auf die Wahl des Frontend-Frameworks wird ebenso nicht analysiert. Die betrachteten Frontend-Technologien werden isoliert betrachtet.
     \item \textbf{Skalierung auf Großprojekte}:  
-          Die Anwendbarkeit der Technologien auf groß angelegte Projekte wird nicht untersucht.  
-          Eine Performance-Analyse für eine große Anzahl an Nutzern erfolgt nicht.
+          Die Anwendbarkeit der Technologien auf groß angelegte Projekte wird nicht untersucht. Eine Performance-Analyse für eine große Anzahl an Nutzern erfolgt nicht.
 \end{itemize}
-
-
 
 \section{Ziel der Arbeit}
 \label{sec:ziel}
 
-Das Ziel dieser Arbeit ist es, einen grundlegenden Vergleich zwischen verschiedenen Ansätzen in der Webentwicklung zu erstellen, den Webentwickler nutzen können, um eine fundierte Entscheidung hinsichtlich ihrer Frontendtechnologiewahl zu treffen. Der Vergleich findet zum einen grundlegend zwischen einem komponentenbasierten Ansatz sowie einem herkömmlichen Ansatz statt. Außerdem wird im Detail untersucht, inwieweit welche komponentenbasierten Frameworks Vor- und Nachteile gegenüber den anderen Lösungen haben. Der Vergleich wird anhand folgender Metriken erstellt:  
-
-\begin{itemize}
-    \item \textbf{Modularität und Wiederverwendbarkeit}:  
-          Wie gut lassen sich Komponenten im Framework erstellen, und wie lassen sie sich innerhalb der Anwendung wiederverwenden, um eine modulare Architektur zu fördern und gleichzeitig Code-Dopplungen zu vermeiden?  
-    \item \textbf{Performance und Effizienz}:  
-          Wie wirken sich Frameworks auf Ladezeiten, Bundle-Größen und Rendering-Geschwindigkeit aus?  
-          Zusätzlich wird untersucht, ob der Overhead des jeweiligen Frameworks die Performance signifikant beeinträchtigt.  
-    \item \textbf{Entwicklungsaufwand, Wartbarkeit und Erweiterbarkeit}:  
-          Welche Frameworks ermöglichen eine effiziente und nachhaltige Entwicklung?  
-          Zusätzlich wird untersucht, ob die Anwendung leicht erweitert werden kann, indem neue Funktionen hinzugefügt oder bestehende Module angepasst werden.  
-          Außerdem wird untersucht, ob die Architektur des Frameworks für größere Nutzerzahlen skalierbar wäre bzw. komplexere Anwendungen unterstützt.  
-\end{itemize}
+Der Vergleich wird anhand verschiedener Metriken erstellt, die unterschiedliche Aspekte der Frameworks beleuchten. Dabei wird zunächst untersucht, wie gut sich Komponenten im jeweiligen Framework erstellen lassen und inwiefern sie innerhalb der Anwendung wiederverwendet werden können, um eine modulare Architektur zu fördern und gleichzeitig Code-Dopplungen zu vermeiden. Darüber hinaus spielt die Performance eine zentrale Rolle, insbesondere hinsichtlich der Ladezeiten, Bundle-Größen und Rendering-Geschwindigkeit. Zusätzlich wird geprüft, ob der Overhead des jeweiligen Frameworks die Performance signifikant beeinträchtigt. Ein weiterer wichtiger Aspekt ist der Entwicklungsaufwand, sowie die Wartbarkeit und Erweiterbarkeit der Frameworks. Es wird analysiert, welche Frameworks eine effiziente und nachhaltige Entwicklung ermöglichen und ob Anwendungen leicht erweitert werden können, indem neue Funktionen hinzugefügt oder bestehende Module angepasst werden. Abschließend wird untersucht, ob die Architektur der Frameworks für größere Nutzerzahlen skalierbar ist und komplexere Anwendungen unterstützt.
 
 \section{Vorgehen}
 \label{sec:vorgehen}
@@ -214,7 +212,7 @@ Das komplette Vorgehen lässt sich in folgende Kapitel aufteilen:
 
 \todo {Ausformulieren sobald alle Kapitel stehen}
 \begin{enumerate}  
-	\item \textbf{Grundlagen Kapitel 2}: Hier wird auf alle relevanten technischen und theoretischen Konzepte der Arbeit eingegangen um ein gleichen Wissensstand zu garantieren. Das Kapitel befasst sich mit allen Frontendtechnologien sowie mit der Komponentenbasierten Architektur um ein grundlegendes Verständnis für das folgende Kapitel zu schaffen. 
+	\item \textbf{Grundlagen Kapitel 2}: Hier wird auf alle relevanten technischen und theoretischen Konzepte der Arbeit eingegangen um einen gleichen Wissensstand zu garantieren. Das Kapitel befasst sich mit den für die Forschungsarbeit wichtigen Frontendtechnologien, sowie mit der komponentenbasierten Architektur und dient dazu, ein grundlegendes Verständnis für die folgenden Kapitel zu schaffen. 
     \item \textbf{Problemanalyse (Kapitel 3)}: 
     \item \textbf{Lösungskonzept (Kapitel 4)}: 
     \item \textbf{Implementierung (Kapitel 5)}: 
@@ -227,57 +225,96 @@ Das komplette Vorgehen lässt sich in folgende Kapitel aufteilen:
 
 % Einführung in das Kapitel
 Im folgenden Kapitel werden alle technologischen Grundlagen der Arbeit dargestellt.
- 
-\section{TypeScript}
-Typescript ist eine von Microsoft entwickelte Programmiersprache, welche auf JavaScript basiert. Sie erweitert JavaScript um eine statische Typisierung, wodurch Fehler schon während der Entwicklung erkannt werden können und verringert dadurch die Anzahl an Laufzeitfehlern. Typescript Code wird in normales JavaScript konvertiert und kann dadurch in allen JavaScript Umgebungen verwendet werden, wie z.B. Browsern, Node.js\footnote{https://nodejs.org/en} und Deno\footnote{https://docs.deno.com/runtime/} (vgl. \parencite{typescript}). 
 
-\section{Supabase}
-\subsection{Allgemeines}
-Supabase ist eine Open-Source-Alternative zu Firebase. Es handelt sich um eine PostgreSQL-Datenbanklösung, die Datenbank, Authentifizierung, Storage und Serverless Functions auf einer zentralen Plattform vereint. Jede Supabase-Instanz basiert auf einer vollwertigen PostgreSQL-Datenbank, die mithilfe von Row Level Security (RLS) eine sichere Datenverwaltung garantiert (vgl. \parencite{supabase}).
+\section{Allgemeine Werkzeuge und Grundlagen}
+\subsection{Node.js}
+\subsubsection{Allgemeines}
+Node.js ist eine kostenlose, Open-Source, cross-platform JavaScript-Laufzeitumgebung, die es einem ermöglicht, Server, Web-Apps, Kommandozeilen-Tools oder Scripts zu erstellen. Node.js basiert auf der V8-Engine, einer von Google entwickelten Open-Source-JavaScript-Engine, die JavaScript in Maschinencode kompiliert. Durch diese direkte Kompilierung in Maschinencode sowie das nicht-blockierende, ereignisgesteuerte Modell von Node.js wird eine besonders hohe Effizienz erreicht, was Node.js zu einer geeigneten Wahl für datenintensive Anwendungen und Echtzeit-Kommunikation macht (vgl. \parencite{nodejs}).
 
-\subsection{Authentifizierung}
-Die Authentifizierung von Supabase unterstützt E-Mail/Passwort, OAuth, Magic Links sowie eine große Auswahl an Social Logins. Mithilfe von WebSockets ermöglicht Supabase die Umsetzung von Echtzeit-Funktionalitäten (vgl. \parencite{supabase}).
+\subsubsection{Architektur}
+Node.js-Apps laufen in einem einzelnen Prozess, ohne für weitere Anfragen neue Threads zu erstellen. Ein Thread ist eine Ausführungseinheit innerhalb eines Prozesses. In klassischen Serverarchitekturen wird für jede eingehende Anfrage ein eigener Thread erzeugt, um parallele Verarbeitung zu ermöglichen. Bei hoher Last kann dies jedoch zu einem großen Ressourcenverbrauch führen. 
+Node.js nutzt ein asynchrones, ereignisgesteuertes Modell, das effiziente Verarbeitung ohne explizite Thread-Verwaltung ermöglicht. Bei I/O-Operationen blockiert Node.js keine Threads, sondern lässt diese weiterlaufen, sobald eine Antwort zurückkommt. Dadurch kann Node.js tausende von nebenläufigen Verbindungen auf einem einzelnen Server aufrechterhalten, ohne sich um das Verwalten von Threads zu kümmern (vgl. \parencite{nodejs}).
 
-\subsection{Storage und REST-API}
-Zudem bietet die Plattform einen integrierten Storage, der das Speichern und Verwalten großer Dateien wie Videos und Bilder erleichtert. Durch fertige RESTful APIs können Entwickler direkt auf die Datenbank zugreifen und CRUD-Operationen (Create, Read, Update, Delete) durchführen, ohne zusätzlichen Backend-Code schreiben zu müssen (vgl. \parencite{supabase}). 
+\subsubsection{Vorteile für Entwickler}
+Ein großer Vorteil von Node.js besteht außerdem für Frontend-Entwickler, die bereits im Frontend mit JavaScript arbeiten, da diese ihre Kenntnisse im Backend anwenden können, ohne eine neue Sprache lernen zu müssen. Dadurch wird ein schnellerer Einstieg in den Entwicklungsprozess ermöglicht (vgl. \parencite{nodejs}). 
+Node.js bietet darüber hinaus eine hohe Geschwindigkeit und Effizienz durch die Nutzung der V8-JavaScript-Engine, was besonders für datenintensive Echtzeit-Anwendungen von Vorteil ist (vgl. \parencite{nodejs-v8}).  
+Durch das nicht-blockierende I/O-Modell lassen sich Node.js-Anwendungen zudem leicht skalieren (vgl. \parencite{nodejs-nonblocking}). Auch gibt Node.js keine festen Regeln oder Richtlinien für Projektstruktur oder Architektur vor, wodurch eine flexible Entwicklung und individuelle Gestaltung von Anwendungen möglich ist.
 
-\section{Node.js}
-\subsection{Allgemeines}
-Node.js ist eine kostenlose, Open-Source, cross-platform JavaScript-Laufzeitumgebung, die es einem ermöglicht, Server, Web-Apps, Kommandozeilen-Tools oder Scripts zu erstellen. Node.js basiert auf der V8-Engine von Google Chrome, welche JavaScript in Maschinencode kompiliert, wodurch es eine sehr effiziente Lösung ist (vgl. \parencite{nodejs}).
 
-\subsection{Architektur}
-Node.js-Apps laufen in einem einzelnen Prozess, ohne für weitere Anfragen neue Threads zu erstellen. Bei I/O-Operationen blockiert Node.js keine Threads, sondern lässt diese weiterlaufen, sobald eine Antwort zurückkommt. Dadurch kann Node.js tausende von nebenläufigen Verbindungen auf einem einzelnen Server aufrechterhalten, ohne sich um das Verwalten von Threads zu kümmern (vgl. \parencite{nodejs}).
+\subsection{npm (Node Package Manager)}
+\subsubsection{Allgemeines}
+Bei der Entwicklung moderner Webanwendungen wird häufig auf externe Bibliotheken zurückgegriffen. Diese werden in Form von JavaScript-Paketen bereitgestellt und erleichtern die Anwendung wiederkehrender Funktionalitäten. 
+\texttt{npm} ist die weltweit größte Software-Registry für Open-Source-Entwicklung. Mit \texttt{npm} lassen sich JavaScript-Pakete installieren, aktualisieren, entfernen und teilen, wodurch sie weltweit von Entwicklern genutzt werden können. Die Verwaltung der Abhängigkeiten erfolgt über die Datei \texttt{package.json}, in der alle Pakete des Projekts strukturiert aufgelistet und für die automatische Installation bereitgestellt werden (vgl. \parencite{npm}).
 
-\subsection{Vorteile für Entwickler}
-Ein großer Vorteil besteht außerdem für Frontend-Entwickler, welche im Frontend bereits JavaScript nutzen und ihre Kenntnisse auch im Backend anwenden können, ohne eine neue Sprache lernen zu müssen. Dadurch wird ein schnellerer Einstieg ermöglicht (vgl. \parencite{nodejs}).
-
-\section{npm (Node Package Manager)}
-\subsection{Allgemeines}
-npm ist die weltweit größte Software-Registry für Open-Source-Entwicklung. Mit npm kann man JavaScript-Pakete verwalten und teilen wodurch sie weltweit von Entwicklern genutzt werden können (vgl. \parencite{npm}). 
-
-\subsection{Hauptkomponenten}
+\subsubsection{Hauptkomponenten}
 npm besteht aus den drei Hauptkomponenten: Website, CLI und Registry. Die Website ermöglicht die Verwaltung und Entdeckung von Paketen. Das CLI ermöglicht die Nutzung über das Terminal, und die Registry stellt eine zentrale Datenbank für alle Pakete dar (vgl. \parencite{npm}).
 
-\subsection{Versionierung und Organisation}
-Mit npm lassen sich Versionen und Abhängigkeiten verwalten sowie automatische Updates einstellen. Für Entwickler besteht die Möglichkeit, eine npm-Organisation zu erstellen, die es ermöglicht, Pakete gemeinsam zu verwalten und dabei Code-Restriktionen durch Berechtigungen in Teams zu erstellen (vgl. \parencite{npm}).
+\subsubsection{Versionierung und Organisation}
+Mit npm lassen sich Versionen und Abhängigkeiten verwalten sowie automatische Updates einstellen. Für Entwickler besteht die Möglichkeit, eine npm-Organisation zu erstellen, die es ermöglicht, Pakete m Rahmen einer geschlossenen Organisation zu verwalten und dabei Code-Restriktionen durch Berechtigungen in Teams zu erstellen (vgl. \parencite{npm}).
 
-\section{npx (Node Package Execute)}
-\section{npx (Express)}
-\section{npx (Corse)}
+\subsection{npx (Node Package Execute)}
+
+\texttt{npx} ist ein Kommandozeilenwerkzeug, das gemeinsam mit \texttt{npm} installiert wird. Mit \texttt{npx} ist es möglich, npm-Pakete auszuführen, ohne dass diese lokal installiert sein müssen. Dadurch können Systeme sauber gehalten werden, da Tools bei Bedarf nur temporär heruntergeladen werden.  
+
+Ein Beispiel ist \texttt{npx serve} – ein Paket, das einen lokalen Webserver für ein Verzeichnis startet. Dadurch können Frontend-Anwendungen in der Entwicklung einfach und ohne zusätzliche Konfiguration aufgesetzt und getestet werden \parencite{npx-docs}.  
+
+\subsection{Git}
+
+Git ist ein verteiltes Versionsverwaltungssystem, welches die gemeinsame Verwaltung von Quellcode über mehrere Nutzer und Geräte ermöglicht. Im Vergleich zu anderen Versionierungssystemen arbeitet Git mit Snapshots anstatt mit Dateiunterschieden. Hierbei wird eine vollständige Abbildung des gesamten Projekts erstellt und als Referenz gespeichert. Dateien, die keine Änderungen enthalten, werden nicht dupliziert, sondern es wird auf die ältere Version verwiesen \parencite{git_intro}.
+
+Git kann größtenteils offline genutzt werden, wodurch Dateien auch ohne bestehende Internetverbindung \texttt{committed} und später auf einen Server \texttt{gepusht} werden können \parencite{git_intro}.
+
+Sobald eine Änderung \texttt{committed} wurde, ist es schwierig, diese Änderung zu verlieren, da Git bei fast allen Operationen nur Daten zur Git-Datenbank hinzufügt. Jeder Zustand während der Entwicklung kann rückblickend verfolgt und wiederhergestellt werden, was das Experimentieren erleichtert \parencite{git_intro}.
+
+Bei der Arbeit mit Git können sich Dateien in drei verschiedenen Zuständen befinden: \texttt{modified} (geändert, aber noch nicht \texttt{committed}), \texttt{staged} (geändert und für den nächsten \texttt{Commit} markiert) und \texttt{committed} (auf die lokale Datenbank übertragen) \parencite{git_intro}.
+
+Git ermöglicht mithilfe von Branches, parallel an unterschiedlichen Funktionalitäten zu arbeiten. Branches können genutzt werden, um Änderungen zu testen und problemlos wieder zum ursprünglichen Branch zurückzukehren oder die gewünschten Änderungen in den aktuellen Branch zu mergen \parencite{git-branching-merging}.
+
+Branching-Strategien erlauben es, die Entwicklung einer Anwendung in verschiedene Bereiche zu unterteilen. So kann ein Branch den produktiven Stand darstellen, während ein anderer den neuesten Entwicklungsstand enthält. Zur Entwicklung neuer Funktionen können Branches speziell für die Implementierung einzelner Features erstellt und später zusammengeführt werden \parencite{git-branching-merging}.
+
+\subsection{Sourcetree}
+Sourcetree ist eine grafische Benutzeroberfläche für \texttt{Git}, in der alle \texttt{Git}-Kommandos einfach ausgeführt werden können. \texttt{Sourcetree} unterstützt den Nutzer bei allen relevanten \texttt{Git}-Aktionen wie \texttt{commits}, \texttt{pulls}, \texttt{pushes} usw., ohne dass die entsprechenden Befehle erlernt werden müssen. Auch komplexe git-Aktionen wie \texttt{changesets}, \texttt{stash} und \texttt{cherry-pick} können bequem über die Anwendung ausgeführt werden.
+Alle Änderungen, die an Dateien vorgenommen wurden, werden visuell eindeutig und farblich hervorgehoben dargestellt. Dadurch lassen sich vor einem \texttt{commit} alle Änderungen nochmals überprüfen.
+Alle \texttt{commits} mit den zugehörigen \texttt{branches} werden grafisch in Form einer \texttt{Commit}-Historie dargestellt, sodass alle Code-Änderungen auf einen Blick ersichtlich sind.
+Bei der Nutzung im Team bietet \texttt{Sourcetree} \texttt{branching}-Diagramme, die den Entwicklungsprozess des Teams veranschaulichen, um eine bessere Übersicht über die aktuelle Entwicklung zu ermöglichen \parencite{sourcetree}. 
+
+\subsection{VS Code}
+Visual Studio Code ist ein kostenloser, plattformübergreifender Code-Editor, der zahlreiche Programmiersprachen und Erweiterungen unterstützt. Diese helfen dem Nutzer bei der Entwicklung durch Funktionen wie \texttt{Syntax-Highlighting}, \texttt{Auto-Completion} und \texttt{Linting}.
+Es bietet außerdem eine integrierte Unterstützung für die Versionsverwaltung mit Git. Womit Repositorys und Branches erstellt sowie Commits, Pushes usw. durchgeführt werden können.
+Visual Studio Code verfügt außerdem über ein integriertes Debugging-Tool, mit dem Breakpoints gesetzt, Variablen inspiziert und Debugging durchgeführt werden kann.
+IntelliSense ist eine intelligente Code-Vervollständigung, die abhängig vom Kontext und installierten Erweiterungen passenden Code zur Code-Vervollständigung vorschlagen und dadurch zu einem effizienten Entwicklungsprozess beitragen kann \parencite{vs-code}.
 
 \section{Frontend-Technologien}
+
+\subsection{JavaScript}
+
+JavaScript wurde 1995 von \textbf{Brendan Eich} bei \textbf{Netscape} entwickelt, ursprünglich unter dem Namen \textbf{Mocha}, später \textbf{LiveScript} genannt, bevor es schließlich als \textbf{JavaScript} veröffentlicht wurde. Um eine einheitliche Basis zu schaffen und Fragmentierung zu verhindern, wurde JavaScript 1997 als \textbf{ECMAScript} standardisiert. Diese Standardisierung bildet bis heute die Grundlage für die Weiterentwicklung der Sprache \parencite{w3schoolsJS}.  
+
+JavaScript ist eine leichtgewichtige, interpretierte oder "just-in-time" kompilierte Programmiersprache. Sie ist weit verbreitet als Skriptsprache für Webseiten, aber auch in browserunabhängigen Umgebungen wie \textbf{Node.js}, \textbf{Apache CouchDB} und \textbf{Adobe Acrobat} einsetzbar. Sie unterstützt hierbei \textbf{objektorientierte}, \textbf{imperative} und \textbf{deklarative Stile}.  
+
+Mithilfe von JavaScript lassen sich Objekte zur Laufzeit erstellen, Funktionen mit einer beliebigen Zahl an Argumenten aufrufen und dynamische Skripte mithilfe von \texttt{eval()} erzeugen und ausführen. JavaScript basiert dabei auf der \textbf{ECMAScript Language Specification}, die regelmäßig weiterentwickelt wird \parencite{mdn-JS}.  
+
+
+\subsection{TypeScript}
+Typescript ist eine von Microsoft entwickelte Programmiersprache, welche auf JavaScript basiert. Sie erweitert JavaScript um eine statische Typisierung, wodurch Fehler schon während der Entwicklung erkannt werden können und verringert dadurch die Anzahl an Laufzeitfehlern. Typescript Code wird in regulären JavaScript Code konvertiert und kann dadurch in allen JavaScript Umgebungen, wie z.B. Browsern, Node.js\footnote{https://nodejs.org/en} und Deno\footnote{https://docs.deno.com/runtime/} verwendet werden (vgl. \parencite{typescript}). 
 
 \subsection{Angular}
 Angular ist ein auf TypeScript basierendes Web-Framework, das von Google entwickelt wurde. 
 
 \subsubsection{Struktur und Komponenten}
-Angular bietet ein breites Angebot an Werkzeugen, APIs und Bibliotheken, durch die der Entwicklungsprozess vereinfacht werden soll. Durch Hilfe von Angular Komponenten kann der Code während der Entwicklung in verkapselte Module unterteilt werden (vgl. \parencite{angular}).
+Angular bietet ein breites Angebot an Werkzeugen, APIs und Bibliotheken, durch die der Entwicklungsprozess vereinfacht werden soll. Mit Hilfe von Angular Komponenten kann Code während der Entwicklung in verkapselte Module unterteilt werden, was zu einer besseren Strukturierung, Wiederverwendbarkeit und Wartbarkeit führt (vgl. \parencite{angular}).
 
-\subsubsection{State Management und Routing}
-Mit Signals lassen sich State-Updates einfach in die Anwendung einbinden, wodurch eine schnelle Aktualisierung bei Änderungen ermöglicht wird. Mithilfe der Angular-Routing-Struktur lassen sich Navigationen mit Route Guards, Data Resolutions und Lazy Loading einfach umsetzen (vgl. \parencite{angular}).
+\subsubsection{State Management}
+Ein State stellt den aktuellen Zustand einer Anwendung oder Komponente dar. Hierbei handelt es sich um Daten, die die Darstellung und das Verhalten einer Anwendung oder Komponente beeinflussen. Hierzu gehören Benutzerinformationen, Formulareingaben und Ergebnisdaten von API-Anfragen. 
+In Angular lässt sich mithilfe von Signals ein solches State-Management umsetzen. Zustände können effizient gespeichert, beobachtet und bei Änderungen automatisch die Anpassungen in der Benutzeroberfläche darstellt werden. 
+\subsubsection{Routing}
+Routing wird in Single Page Anwendungen verwendet, um zwischen verschiedenen Seiten oder Ansichten zu navigieren, ohne die Seite neu laden zu müssen. Angular bietet ein vollständig integriertes Routing-Modul, mit welchem Komponenten zugewiesen und die Navigation auf diese Komponenten gesteuert werden kann. Routing bietet hierbei spezielle Funktionen wie Route Guards, welche das Navigieren zu bestimmten Seiten verhindert, solange nicht bestimmte Bedingungen erfüllt sind. Sogenannte "Resolver" laden notwendige Daten vor dem Aufruf der Komponente vor wodurch diese schneller verfügbar sind. Lazy Loading lässt Module erst laden, wenn sie tatsächlich gebraucht werden, wodurch die initiale Ladezeit verbessert werden kann (vgl. \parencite{angular}).
 
 \subsubsection{Entwicklungstools}
-Mit der Angular CLI lassen sich Projekte innerhalb einer Minute aufsetzen und Komponenten, Services etc. direkt im Terminal generieren. Die Angular DevTools können als Erweiterung der im Browser bereits vorhandenen Entwickler-Tools genutzt werden und helfen dabei, die App zu analysieren – mithilfe von Komponentenbaum-Inspektoren, Dependency Injection Trees und angepassten Performance-Diagrammen (vgl. \parencite{angular}).
+Mit der Angular CLI lassen sich Projekte innerhalb kürzester Zeit aufsetzen und Komponenten, Services etc. direkt im Terminal generieren. Hierfür kann mit \texttt{ng new} ein Projekt erstellt werden, welches alle benötigten Dateien und Konfigurationen automatisch erzeugt. Mit \texttt{ng generate component/service/pipes name} können Komponenten, Services oder Pipes automatisiert generiert werden und beinhalten direkt die passende, benötigte Struktur. Dies sorgt für konsistenten Code und spart Zeit bei der Projektstrukturierung. Mithilfe von \texttt{ng test} oder \texttt{ng e2e} lassen sich automatisierte Tests durchführen. \texttt{ng serve} ermöglicht es, die Anwendung auf einem lokalen Server zu starten und hilft beim Entwickeln der App durch eine Echtzeit-Aktualisierung der Anwendung. 
+
+Die Angular DevTools können als Erweiterung der im Browser bereits vorhandenen Entwickler-Tools genutzt werden und helfen dabei, die App im Entwicklungsprozess  zu analysieren. Dies kann mithilfe von Komponentenbaum-Inspektoren, Dependency Injection Trees und angepassten Performance-Diagrammen geschehen. Die Visualisierung hilft dabei, Abhängigkeiten besser zu verstehen und Performance-Probleme frühzeitig zu erkennen(vgl. \parencite{angular}).
+
 
 \subsection{React}
 React ist eine von Meta entwickelte JavaScript-Bibliothek, die zur Erstellung von Benutzeroberflächen für Web- und native Anwendungen genutzt werden kann.
@@ -286,19 +323,22 @@ React ist eine von Meta entwickelte JavaScript-Bibliothek, die zur Erstellung vo
 Mithilfe einer komponentenorientierten Architektur ist es möglich, mit React das User Interface aus wiederverwendbaren Komponenten aufzubauen. Eine React-Komponente ist eine eigenständige JavaScript-Funktion, die UI-Elemente zurückgibt (vgl. \parencite{react}).
 
 \subsubsection{JSX und Event Handling}
-Hierbei wird JSX (JavaScript XML) genutzt, welches es erleichtert, durch eine Mischung aus HTML und JavaScript React-Komponenten zu erstellen, aufrechtzuerhalten und zu löschen. Die Interaktion des Users mit Komponenten wird über Event Handling ermöglicht, wobei onClick und onChange häufig genutzte Ereignisse sind (vgl. \parencite{react}).
+Für die Entwicklung einer Komponente nutzt React die sogenannte “JavaScript Syntax Extension” (JSX). Bei JSX handelt es sich um eine Syntaxerweiterung für JavaScript, mit der HTML-ähnlicher Code innerhalb von JavaScript geschrieben werden kann. Damit kann also die UI-Struktur direkt im JavaScript-Code beschrieben werden, indem man Logik (JavaScript) und Darstellung (HTML) in einer Datei kombiniert. 
+
+Vorteile hiervon sind die einfache Lesbarkeit und die klare Strukturierung von Komponenten.  
+Die Interaktion des Users mit Komponenten wird über Event Handling ermöglicht, wobei \texttt{onClick} und \texttt{onChange} häufig genutzte Ereignisse sind (vgl. \parencite{react}).
 
 \subsubsection{State Management}
-Daten lassen sich zwischen Komponenten über Props übergeben, wodurch übergeordnete Komponenten Informationen an untergeordnete Komponenten weitergeben können. Mithilfe von useState lassen sich lokale Zustände innerhalb einer Komponente verwalten, während useEffect verwendet wird, um Seiteneffekte innerhalb einer Komponente auszuführen (vgl. \parencite{react}).
+Daten lassen sich zwischen Komponenten über Props übergeben, wodurch übergeordnete Komponenten Informationen an untergeordnete Komponenten weitergeben können. In komplexeren Anwendungen, in denen mehrere Komponenten auf dieselben Daten zugreifen müssen, kann React Context genutzt werden, um einen globalen Zustand bereitzustellen. Dadurch wird vermieden, dass Daten über viele Ebenen per Props weitergereicht werden müssen. Mithilfe von useState lassen sich lokale Zustände innerhalb einer Komponente verwalten, während useEffect verwendet wird, um Seiteneffekte innerhalb einer Komponente auszuführen (vgl. \parencite{react}).
 
 \subsection{Web Components}
-Web Components sind eine Sammlung von Technologien, die zur Erstellung wiederverwendbarer UI-Komponenten genutzt werden können (vgl. \parencite{webcomponents}). 
+Web Components sind eine Sammlung von Technologien, die zur Erstellung wiederverwendbarer UI-Komponenten genutzt werden können. Web Components funktionieren frameworkunabhängig und laufen direkt im Browser und basieren auf den Webstandards. Mit Hilfe von Web Components können also strukturierte, gekapselte UI-Bausteine erstellt werden, welche wie normale HTML-Tags verwendet werden können. (vgl. \parencite{webcomponents}). 
 
 \subsubsection{Erstellung und API}
-Mithilfe von JavaScript-APIs ist es möglich, eigene benutzerdefinierte Elemente zu erstellen. Die Definition einer Komponente mit einem eigenen HTML-Tag erfolgt mit CustomElementRegistry.define(). Eine Komponente durchläuft einen Lebenszyklus, beginnend mit connectedCallback(), welches aufgerufen wird, wenn das Element ins DOM eingefügt wird. Bei Änderungen an Attributen erfolgt attributeChangedCallback(), während disconnectedCallback() ausgeführt wird, wenn das Element aus dem DOM entfernt wird (vgl. \parencite{webcomponents}).
+Mithilfe der JavaScript-API für Custom Elements ist es möglich, eigene benutzerdefinierte Elemente zu erstellen. Die Definition einer Komponente mit einem eigenen HTML-Tag erfolgt mit \texttt{CustomElementRegistry.define()}. Eine Komponente durchläuft einen Lebenszyklus, beginnend mit \texttt{connectedCallback()}, welches aufgerufen wird, wenn das Element ins DOM eingefügt wird. Bei Änderungen an Attributen erfolgt \texttt{attributeChangedCallback()}, während \texttt{disconnectedCallback()} ausgeführt wird, wenn das Element aus dem DOM entfernt wird (vgl. \parencite{webcomponents}).
 
 \subsubsection{Shadow DOM}
-Durch den per JavaScript-API bereitgestellten Shadow DOM ist es möglich, eine gekapselte DOM-Struktur innerhalb einer Web-Komponente zu erstellen. Dadurch wird verhindert, dass Stil- und Skript-Konflikte zwischen den Komponenten und der Hauptseite entstehen (vgl. \parencite{webcomponents}).
+Der Shadow DOM ist Teil der Web Components Spezifikation. Er wird durch die JavaScript-API bereitgestellt. Mit ihm ist es möglich, eine gekapselte DOM-Struktur innerhalb einer Web-Komponente zu erstellen. Dadurch wird verhindert, dass Stil- und Skript-Konflikte zwischen den Komponenten und der Hauptseite entstehen. Diese Verkapselung macht Web Components sehr robust und wiederverwendbar in Anwendungen(vgl. \parencite{webcomponents}).
 
 \subsubsection{Styling}
 Mithilfe von \texttt{<template>} und \texttt{<slot>} besteht die Möglichkeit, wiederverwendbare HTML-Templates zu erstellen, die dynamisch eingefügt werden können. Für das passende CSS-Styling der erstellten Komponenten besteht die Möglichkeit, mit \texttt{:host} Stile direkt auf benutzerdefinierte Elemente anzuwenden. Ebenfalls kann per \texttt{:host-context()} CSS-Regeln an den Kontext des Elements angepasst und mit \texttt{::slotted()} das Styling von Inhalten aus Slots beeinflusst werden (vgl. \parencite{webcomponents}).
@@ -306,27 +346,31 @@ Mithilfe von \texttt{<template>} und \texttt{<slot>} besteht die Möglichkeit, w
 
 \subsection{jQuery}
 jQuery ist eine leichtgewichtige JavaScript-Bibliothek, die zur DOM-Manipulation, Event-Steuerung und Animationen verwendet werden kann (vgl. \parencite{jquery_api}).  
-Mithilfe von jQuery können einfachere und kürzere JavaScript-Befehle im Vergleich zu Vanilla JavaScript verwendet werden (vgl. \parencite{jquery-api}).  
+Durch die Verwendung von jQuery können einfachere und kürzere JavaScript-Befehle im Vergleich zu Vanilla JavaScript verwendet werden (vgl. \parencite{jquery_api}).  
 
 \subsubsection{Einbindung von jQuery}
+
 jQuery kann lokal über das \texttt{\textless script\textgreater}-Tag eingebunden werden und muss dabei auf eine Kopie von jQuery oder eine Version mit Versionsnummer verweisen (vgl. \parencite{jquery_api}).  
+Alternativ kann jQuery auch über den Node Package Manager (npm) installiert werden, mit dem Befehl \texttt{npm install jquery}. Dies ist hilfreich, um jQuery als Abhängigkeit im Projekt zu verwalten. 
 
 \subsubsection{DOM-Manipulation mit jQuery}
-jQuery ermittelt mithilfe von \texttt{\$(document).ready()}, dass der Code erst nach vollständigem Laden des DOMs ausgeführt wird. Die Funktion \texttt{ready} signalisiert hierbei, dass das Dokument bereit ist, um mithilfe des DOMs manipuliert zu werden (vgl. \parencite{jquery_api}).  
+jQuery ermittelt mit Hilfe von \texttt{\$(document).ready()}, dass der Code erst nach vollständigem Laden des DOMs ausgeführt wird. Die Funktion \texttt{ready} signalisiert hierbei, dass das Dokument bereit ist, um mithilfe des DOMs manipuliert zu werden (vgl. \parencite{jquery_api}).  
+Weitere Funktionen zur DOM-Manipulation sind beispielsweise \texttt{\$(selector).append()}, \texttt{.html()} oder \texttt{.val()}, mit denen sich Inhalte hinzufügen, HTML-Strukturen verändern oder Eingabewerte auslesen lassen.
 
 \subsubsection{Event Handling in jQuery}
-Events wie Klicks auf Buttons oder Links können direkt an Elemente angebunden werden. Ihr Verhalten kann hierbei entsprechend angepasst werden. Mithilfe von  
-\texttt{event.preventDefault()} lässt sich das Standardverhalten eines Links oder Buttons verhindern (vgl. \parencite{jquery_api}).  
+Events wie Klicks auf Buttons oder Links können direkt an Elemente angebunden werden. Ihr Verhalten kann hierbei entsprechend angepasst werden. Mithilfe von \texttt{event.preventDefault()} lässt sich das Standardverhalten eines Links oder Buttons verhindern, zum Beispiel um stattdessen eigene JavaScript-Funktionen, wie eine Formularvalidierung, bevor das Formular abgeschickt wird, auszuführen. (vgl. \parencite{jquery_api}).
 
 \subsubsection{Dynamisches CSS mit jQuery}
-jQuery bietet auch die Möglichkeit, CSS-Klassen dynamisch zu verwalten.  
-CSS-Klassen können mithilfe von \texttt{.addClass("class-name")} hinzugefügt bzw. mit \texttt{.removeClass("class-name")} entfernt werden (vgl. \parencite{jquery_api}).  
+
+Neben regulärem CSS-Styling bietet jQuery auch die Möglichkeit, CSS-Klassen dynamisch zu verwalten.  
+CSS-Klassen können mithilfe von \texttt{.addClass("class-name")} hinzugefügt bzw. mit \texttt{.removeClass("class-name")} entfernt werden (vgl. \parencite{jquery_api}).
+
 
 \subsubsection{Effekte und Animationen}
-Für Verfeinerungen lassen sich mit jQuery auch Effekte und Animationen in die Anwendung hinzufügen. Hierbei lässt sich z. B. mit \texttt{.hide()} oder \texttt{.show()} etwas ausblenden bzw. einblenden (vgl. \parencite{jquery_api}).  
+Für Verfeinerungen lassen sich mit jQuery auch Effekte und Animationen in die Anwendung hinzufügen. Hierbei lässt sich z. B. mit \texttt{.hide()} oder \texttt{.show()} etwas aus- bzw. einblenden (vgl. \parencite{jquery_api}).  
 
 \subsubsection{Callbacks und asynchrone Verarbeitung}
-Mithilfe von Callbacks lassen sich Funktionen als Argumente an eine andere Funktion übergeben. Sie werden erst dann ausgeführt, wenn die übergeordnete Elternfunktion vollständig verarbeitet wurde. Dadurch lassen sich asynchrone Operationen steuern, wie beispielsweise das Laden einer HTML-Datei mithilfe von \texttt{\$.get()}. Erst nach Abschluss des Ladevorgangs wird die Callback-Funktion aufgerufen.  
+Mithilfe von Callbacks lassen sich Funktionen als Argumente an eine andere Funktion übergeben. Sie werden erst dann ausgeführt, wenn die übergeordnete Funktion vollständig verarbeitet wurde. Dadurch lassen sich asynchrone Operationen, wie beispielsweise das Laden einer HTML-Datei mithilfe von \texttt{\$.get()}, steuern. Erst nach Abschluss des Ladevorgangs wird die Callback-Funktion aufgerufen. So kann verhindert werden, dass die Benutzeroberfläche während des Ladevorgangs einfriert. Callbacks sind besonders wichtig beim Laden externer Dateien, bei API-Aufrufen sowie bei Benutzerinteraktionen wie \texttt{onClick} oder \texttt{onSubmit}.
 
 \begin{lstlisting}[language=Java, caption={Verwendung eines Callbacks in jQuery}]
 $.get("myhtmlpage.html", function() { 
@@ -334,65 +378,75 @@ $.get("myhtmlpage.html", function() {
 });
 \end{lstlisting}
 
-In diesem Beispiel wird die Funktion \texttt{myCallBack(param1, param2)} erst dann ausgeführt, wenn der Inhalt der Datei \texttt{myhtmlpage.html} erfolgreich geladen wurde. Dadurch wird sichergestellt, dass die abhängige Verarbeitung erst nach Abschluss des Ladevorgangs beginnt (vgl. \parencite{jquery_api}).  
+In diesem Beispiel wird die Funktion \texttt{myCallBack(param1, param2)} erst ausgeführt, wenn der Inhalt der Datei \texttt{myhtmlpage.html} erfolgreich geladen wurde. Dadurch wird sichergestellt, dass die abhängige Verarbeitung erst nach Abschluss des Ladevorgangs beginnt (vgl. \parencite{jquery_api}).  
+
+\section{Backend-Technologien}
+\subsection{Supabase}
+\subsubsection{Allgemeines}
+Supabase ist eine Open-Source-Plattform, die Backend-as-a-Service Funktionalitäten anbietet. Es handelt sich um eine PostgreSQL-Datenbanklösung, die Datenbank, Authentifizierung, Storage und Serverless Functions auf einer zentralen Plattform vereint. Jede Supabase-Instanz basiert auf einer vollwertigen PostgreSQL-Datenbank, die mithilfe von Row Level Security (RLS) eine sichere Datenverwaltung garantiert (vgl. \parencite{supabase}).
+
+\subsubsection{Authentifizierung}
+Eine Authentifizierung ist wichtig, um sicherzustellen, wer Zugriff auf eine Anwendung oder bestimmte Funktionen hat. In einer Webanwendung wird sie genutzt, um Benutzer zu identifizieren. Dadurch können geschützte Bereiche wie Nutzerkonten, Warenkörbe oder Bestellungen sicher dargestellt werden. Mithilfe einer solchen Authentifizierung können Login und Registrierung ermöglicht werden, wodurch persönliche Bereiche und eine sichere Datennutzung möglich sind.
+Die Authentifizierung von Supabase unterstützt E-Mail/Passwort, OAuth, Magic Links sowie eine große Auswahl an Social Logins. Mithilfe von WebSockets ermöglicht Supabase die Umsetzung von Echtzeit-Funktionalitäten (vgl. \parencite{supabase}).
 
 
-\section{Zusätzliche Werkzeuge}
+\subsubsection{Storage}
+Mithilfe eines Storage können vom Nutzer hochgeladene Inhalte wie Produkt- oder, Profilbilder, Videos und PDFs dauerhaft gespeichert werden. Dadurch können große Dateien effizient und sicher verwaltet werden. 
+Supabase bietet einen integrierten Storage an, der das Speichern und Verwalten großer Dateien wie Videos und Bilder erleichtert. 
+\subsubsection{REST-API}
+Mithilfe von REST-APIs lassen sich standardisierte Schnittstellen zur Datenbank nutzen. Dadurch wird einer Frontend-App der Zugriff auf Daten, ohne einen direkten Datenbankzugriff, ermöglicht. 
+Durch fertige RESTful APIs von Supabase können Entwickler direkt auf die Datenbank zugreifen und CRUD-Operationen (Create, Read, Update, Delete) durchführen, ohne zusätzlichen Backend-Code schreiben zu müssen (vgl. \parencite{supabase}). 
+\subsection{Express}
+
+Express ist ein minimalistisches und flexibles Webanwendungs-Framework für \texttt{Node.js}, das eine robuste Ausstattung an Funktionen für Web- und Mobilanwendungen bietet. Mit einer Vielzahl an HTTP-Dienstprogrammen und Middleware ist es einfach, leistungsfähige APIs zu erstellen. Express bietet eine hohe Leistung durch eine dünne Schicht grundlegender Webanwendungsfunktionen, ohne die nativen \texttt{Node.js}-Funktionen zu verdecken \parencite{express-official}.  
+
+Ein einfaches Beispiel zur Definition einer Route mit Express:  
+
+\begin{verbatim}
+const express = require('express')
+const app = express()
+const port = 3000
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+\end{verbatim}
+
+In diesem Beispiel wird mit \texttt{app.get()} eine Route erstellt, die auf HTTP GET-Anfragen an \texttt{/} reagiert und eine einfache Nachricht zurücksendet. Der Server wird anschließend auf Port 3000 gestartet.  
+
+\subsection{CORS}
+
+CORS (Cross-Origin Resource Sharing) ist ein Sicherheitsmechanismus, der es ermöglicht, Ressourcen von einer anderen Domain anzufordern. Grundsätzlich wird bei Webanwendungen verhindert, dass unerlaubt Daten von einer anderen Domain abgerufen werden, wenn dies nicht explizit erlaubt ist. CORS kann in Projekte einfach per \texttt{npm install cors} installiert werden und dann mithilfe von \texttt{app.use(cors());} global aktiviert werden. Alternativ kann CORS auch nur für spezifische Routen konfiguriert werden, z.\,B.\ mit \texttt{app.use('/api', cors(), apiRouter);} \parencite{cors-npm}.
+
+\section{Weitere Werkzeuge}
 
 \subsection{LaTeX}
-\todo {Ausformulieren}
-- Dokumentenerstellungssystem für wissenschaftliche Arbeiten  
-- Ermöglicht strukturierte und professionelle Formatierung  
-- Nutzung für die Erstellung der Bachelorarbeit  
 
-\subsection{Git}
-\todo {Git kürzen!}
+\LaTeX{} ist ein Dokumentenerstellungssystem, das auf \TeX{} von \textbf{Donald E. Knuth} basiert. Es wird hauptsächlich zur Erstellung von wissenschaftlichen Arbeiten und technischen Dokumentationen genutzt. \LaTeX{} ist kostenlos, plattformunabhängig und wird unter der \textbf{LaTeX Project Public License (LPPL)} veröffentlicht \parencite{latex-project}.  
 
-Git ist ein verteiltes Versionsverwaltungssystem, welches die gemeinsame Verwaltung von Quellcode über mehrere Nutzer und Geräte möglich macht.  
-
-\subsubsection{Snapshots statt Dateiunterschiede}
-Im Vergleich zu anderen Versionierungssystemen arbeitet Git mit \texttt{Snapshots} anstatt mit Dateiunterschieden. Hierbei wird eine vollständige Abbildung des ganzen Projekts erstellt und eine entsprechende Referenz gespeichert. Dabei werden Dateien, die keine Änderungen enthalten, nicht dupliziert, sondern es wird auf die ältere Version verwiesen (vgl. \parencite{git_intro}).  
-
-\subsubsection{Arbeiten ohne Internetverbindung}
-Nutzer müssen sich keine Gedanken über eine bestehende Internetverbindung machen, da Git größtenteils offline genutzt werden kann. Dateien können somit schon früher \texttt{committed} werden und anschließend später, bei wieder bestehender Internetverbindung, \texttt{gepusht} werden (vgl. \parencite{git_intro}).  
-
-\subsubsection{Datensicherheit und Wiederherstellung}
-Sobald eine Änderung an einer Datei \texttt{committed} wurde, ist es ziemlich schwer, diese Änderung anschließend mit Git wieder zu verlieren, da Git zum Großteil bei allen Operationen nur Daten zur Git-Datenbank hinzufügt. Jeder Zustand während der Entwicklung kann somit rückblickend verfolgt und wiederhergestellt werden, wodurch man sich keine Gedanken machen muss, neue Dinge auszuprobieren – selbst wenn diese fehlschlagen, da man jederzeit den alten Stand wiederherstellen kann (vgl. \parencite{git_intro}).  
-
-\subsubsection{Die drei Zustände einer Datei}
-Bei der Arbeit mit Git können sich Dateien in drei verschiedenen Zuständen befinden: \texttt{modified}, \texttt{staged} und \texttt{committed}.  
-\texttt{Modified} bedeutet, dass die Datei geändert wurde, aber noch nicht auf die Datenbank \texttt{committed} wurde.  
-\texttt{Staged} bedeutet, dass die Datei geändert wurde und für den nächsten \texttt{Commit} markiert wurde.  
-\texttt{Committed} bedeutet, dass die Datei auf die lokale Datenbank \texttt{committed} wurde. (vgl. \parencite{git_intro})
-
-\subsubsection{Branches in Git}
-Git ermöglicht mithilfe von Branches, parallel an verschiedenen Dingen zu arbeiten. Branches können genutzt werden, um Änderungen zu testen und anschließend problemlos wieder zum ursprünglichen Branch zu wechseln, um dort weiterzuarbeiten oder die gewünschten Änderungen in den aktuellen Branch zu mergen (vgl. \parencite{git-branching-merging}).  
-
-\subsubsection{Branching-Strategien}
-Es können außerdem Strukturen entworfen werden, die die Entwicklung einer Anwendung in verschiedene Bereiche unterteilen. So kann ein Branch den aktuellen produktiven Stand darstellen, während ein anderer den neuesten Entwicklungsstand enthält. Zur Entwicklung neuer Funktionen können Branches speziell für die Implementierung einzelner Features erstellt werden (vgl. \parencite{git-branching-merging}).
-
-
-\subsection{Sourcetree}
-Sourcetree ist eine grafische Benutzeroberfläche für \texttt{Git}, in der alle \texttt{Git}-Kommandos einfach ausgeführt werden können. \texttt{Sourcetree} unterstützt den Nutzer bei allen relevanten \texttt{Git}-Aktionen wie \texttt{commits}, \texttt{pulls}, \texttt{pushes} usw., ohne dass die entsprechenden Befehle erlernt werden müssen. Auch komplexere Aktionen wie \texttt{changesets}, \texttt{stash} und \texttt{cherry-pick} können bequem über die Anwendung ausgeführt werden.
-Alle Änderungen, die an Dateien vorgenommen wurden, werden visuell eindeutig und farblich hervorgehoben dargestellt. Dadurch lassen sich vor einem \texttt{commit} alle Änderungen nochmals überprüfen.
-Alle \texttt{commits} mit den zugehörigen \texttt{branches} werden grafisch in Form einer \texttt{Commit}-Historie dargestellt, sodass alle Code-Änderungen auf einen Blick ersichtlich sind.
-Bei der Nutzung im Team bietet \texttt{Sourcetree} \texttt{branching}-Diagramme, die den Entwicklungsprozess des Teams veranschaulichen, um eine bessere Übersicht über die aktuelle Entwicklung zu ermöglichen \parencite{sourcetree}. 
-
-\subsection{VS Code}
-Visual Studio Code ist ein kostenloser, plattformübergreifender Code-Editor, der zahlreiche Programmiersprachen und Erweiterungen unterstützt. Diese helfen dem Nutzer bei der Entwicklung durch Funktionen wie \texttt{Syntax-Highlighting}, \texttt{Auto-Completion} und \texttt{Linting}.
-Es bietet außerdem eine integrierte Unterstützung für die Versionsverwaltung mit Git. Damit können Repositorys und Branches erstellt sowie Commits, Pushes usw. durchgeführt werden.
-Visual Studio Code verfügt über ein integriertes Debugging-Tool, mit dem Breakpoints gesetzt, Variablen inspiziert und Schrittweises Debugging durchgeführt werden kann.
-IntelliSense ist eine intelligente Code-Vervollständigung, die abhängig vom Kontext und installierten Erweiterungen passenden Code zur Vervollständigung vorschlägt \parencite{vs-code}.
+Zur Nutzung von \LaTeX{} muss ein vollständiges \TeX-System installiert werden, wie z.\,B. \texttt{TeX Live}, \texttt{MiKTeX} oder \texttt{MacTeX}. Diese Distributionen enthalten alle notwendigen Pakete und Werkzeuge sowie einen automatischen Update-Mechanismus für aktuelle \LaTeX-Versionen.  
 
 \section{Zusammenfassung}
-\todo {Ausformulieren}
-- Beschreibung der verwendeten Technologien  
-- TypeScript als Programmiersprache für das Backend  
-- Vergleich verschiedener Frontend-Technologien hinsichtlich Modularität und Wiederverwendbarkeit  
-- Supabase als zentrale Lösung für Datenbank und Authentifizierung  
-- Nutzung von Git und Sourcetree für Versionskontrolle  
-- LaTeX für die Dokumentation der Arbeit  
-- VS Code als zentrale Entwicklungsumgebung  
+
+Für die folgende Forschungsarbeit sind diese Grundlagen relevant, um die Thematik vollständig zu verstehen. Genutzt werden Werkzeuge wie \texttt{Node.js} und \texttt{Express}, die als Laufzeitumgebung für die serverseitige Implementierung der Anwendung dienen. Mit \texttt{Express} werden HTTP-Routen definiert und API-Endpunkte erstellt, die für den Zugriff auf die Backend-Funktionalitäten genutzt werden.  
+
+\texttt{npm} sowie \texttt{npx} werden zur Verwaltung von Paketen und Bibliotheken genutzt, die für die verschiedenen Projekte nötig sind.  
+
+\texttt{Git} und \texttt{Sourcetree} werden zusammen für die Versionsverwaltung des Projekts genutzt, um Codeänderungen nachvollziehbar zu machen und sicher zu speichern. Mithilfe von \texttt{Sourcetree} besteht eine übersichtliche visuelle Oberfläche, um Branches, Commits und Merges effizient umzusetzen.  
+
+\texttt{Visual Studio Code (VS Code)} wird als zentrale Entwicklungsumgebung für das Projekt genutzt. Durch hilfreiche Integration von Erweiterungen kann für \texttt{TypeScript}, \texttt{Angular}, \texttt{React} und \texttt{Supabase} leicht entwickelt werden, durch \texttt{Syntax-Highlighting}, \texttt{Linting} und \texttt{Debugging}.  
+
+Die verschiedenen Frontend-Technologien (\texttt{Angular}, \texttt{React}, \texttt{Web Components} und \texttt{jQuery}) werden genutzt, um die zu entwickelnde Anwendung in mehreren Varianten zu implementieren und Unterschiede hinsichtlich Struktur, Performance und Benutzerfreundlichkeit zu analysieren.  
+
+\texttt{Supabase} wird als Datenbanklösung für das Projekt verwendet und bietet wichtige Funktionen wie Authentifizierung, Datenbankzugriffe, Storage und \texttt{REST-APIs}, die mithilfe von \texttt{Express} an die verschiedenen Anwendungen angebunden werden können.  
+
+\texttt{CORS} wird genutzt, um sicherzustellen, dass die API-Anfragen von den verschiedenen Frontend-Technologien auf das zentrale Backend zugreifen können, ohne Sicherheitsprobleme im Browser zu verursachen.  
+
+\LaTeX{} wird zur Erstellung der schriftlichen Dokumentation der Arbeit verwendet und bietet eine professionelle wissenschaftliche Formatierung durch konsistente Strukturierung.  
 
 %---
 \chapter{Problemanalyse}
@@ -410,15 +464,14 @@ Die moderne Webentwicklung setzt vermehrt auf komponentenbasierte Architekturen,
 Bei der Auswahl eines passenden Frameworks fehlt jedoch ein ausgiebiger Vergleich hinsichtlich verschiedener Metriken. Im folgenden Kapitel wird dargestellt, warum ein solcher neuer, umfassender Vergleich notwendig ist.
 
 \section{Aktuelle Situation in der Webentwicklung}
-\todo {Überarbeiten größere Blöcke und Zitate zsm fassen}
 Die Webentwicklung zeigt einen klaren Trend in Richtung komponentenbasierter Ansätze für die Frontend-Entwicklung mithilfe von Frameworks wie Angular, React und Vue (vgl. \parencite[S. 44]{js-framework-comparison}). 
 
 Alle Frameworks legen ihren Fokus auf wiederverwendbare Komponenten, um die Modularität, Wartbarkeit und Skalierbarkeit der Anwendungen zu steigern (vgl. \autocite [S. 7]{spa-frameworks-2024}). 
 
-Alle Frameworks haben ihre Vor- und Nachteile, zeichnen sich aber oft durch einen gewissen Overhead durch die eingebaute Komplexität aus. Angular bietet hierbei eine große Skalierbarkeit, während React für komplexe User Interface Elemente sinnvoll ist und Vue.js sich durch durch die Einfachheit für kleinere Anwendungen auszeichnet (vgl. \parencite[S. 4]{frontend-frameworks-comparison}). 
+Alle Frameworks haben ihre Vor- und Nachteile, zeichnen sich aber oft durch einen gewissen Overhead durch die eingebaute Komplexität aus. Angular bietet hierbei eine große Skalierbarkeit, während React für komplexe User Interface Elemente sinnvoll ist und Vue.js sich durch durch die Einfachheit für kleinere Anwendungen auszeichnet (vgl. \parencite[S. 4]{frontend_frameworks_comparison}). 
 
 Der Entwicklungsaufwand sowie die Wartbarkeit von komponentenbasierten Frameworks kann mit steigender Anwendungsgröße immer komplexer werden. Bei nicht ausreichender Architekturplanung kann eine große technische Schuld entstehen, wie durch die tief verschachtelten Komponentenbäume in React, welche eine Wartbarkeit stark erschweren können (vgl. \parencite[S. 29]{comparison-frameworks-scalable-apps}).
-\todo{quelle finden!}
+
 Die Performance der Frameworks variiert hinsichtlich ihres Ansatzes, wodurch React und Vue durch die Nutzung eines Virtual DOMs wesentlich schneller bei der Aktualisierung von Elementen sind als Angular und Svelte (vgl. \parencite[S. 61]{js-framework-comparison}).
 
 Trotz einer verbreiteten Nutzung der Frameworks gibt es keinen umfassenden Vergleich. Diese Defizite werden im folgenden Abschnitt genauer aufgezeigt. 
@@ -427,8 +480,11 @@ Trotz einer verbreiteten Nutzung der Frameworks gibt es keinen umfassenden Vergl
 \subsection{Vorhande Vergleichsstudien}
 Der aktuelle Forschungsstand bringt einzelne Vergleiche, welche aber nur auf Teilaspekte eingehen. Hier eine Sammlung der bereits vorhandenen Ergebnisse: 
 \begin{itemize}
-    \item \textbf{Performance-Vergleich}: Frameworks wie React und Vue mit der Virtual DOM zeigen einen Vorteil durch schnellere Updates, haben aber einen erhöhten Speicherverbrauch. Angular nutzt die Incremental DOM, welche langsamer ist, aber dadurch strukturierter für große Anwendungen ist. Svelte besitzt keinen Virtual DOM, wodurch kompakte Builds mit weniger Flexibilität erstellt werden können \parencite[S.61]{js-framework-comparison}
-	\item \textbf{Skalierbarkeit und Wartbarkeit}: Angular fördert die Entwicklung wiederverwendbarer, modularer Komponenten, wodurch mithilfe von TypeScript eine zusätzliche Struktur entsteht. Dies ermöglicht es großen Teams, skalierbare Anwendungen mit passenden Interfaces und Services zu erstellen. Mit zunehmender Größe der Anwendung wird die Wartbarkeit jedoch immer schwieriger. In Frameworks wie React besteht schnell die Gefahr, dass der Komponentenbaum zu tief verschachtelt wird, wodurch die Verfolgung der Datenübertragung immer schwerer wird \parencite[S. 25,28]{comparison-frameworks-scalable-apps}.
+\item \textbf{Performance-Vergleich}: Ein wesentlicher Faktor für die Performance von modernen Webanwendungen ist der Umgang mit dem Document Object Model (DOM), da dieser direkten Einfluss auf die Geschwindigkeit von Benutzerinteraktionen hat. 
+Frameworks wie React und Vue mit dem Virtual DOM zeigen einen Vorteil durch schnellere Updates, haben aber einen erhöhten Speicherverbrauch. Der Abgleich zwischen Virtual DOM und realem DOM wird dabei als \texttt{Reconciliation} bezeichnet. Angular nutzt die Incremental DOM, welche langsamer ist, aber dadurch strukturierter für große Anwendungen ist. Das liegt daran, dass Angular Änderungen direkt am tatsächlichen DOM durchführt und dabei auf eine strukturierte Aktualisierung setzt. Svelte besitzt keinen Virtual DOM, wodurch kompakte Builds mit weniger Flexibilität erstellt werden können\parencite[S.61]{js-framework-comparison}
+Dies erreicht Svelte, indem es DOM-Manipulationen bereits während der Kompilierungszeit durchführt und dadurch der Browser deutlich weniger Rechenleistung benötigt, was wiederum zu kleineren und schnelleren Bundles führt.  \parencite[S.26]{comparison-frameworks-scalable-apps}
+    
+\item \textbf{Skalierbarkeit und Wartbarkeit}: Angular fördert die Entwicklung wiederverwendbarer, modularer Komponenten, wodurch mithilfe von TypeScript eine zusätzliche Struktur entsteht. Dies ermöglicht es großen Teams, skalierbare Anwendungen mit passenden Interfaces und Services zu erstellen. Mit zunehmender Größe der Anwendung wird die Wartbarkeit jedoch immer schwieriger. In Frameworks wie React besteht schnell die Gefahr, dass der Komponentenbaum zu tief verschachtelt wird, wodurch die Verfolgung der Datenübertragung immer schwerer wird \parencite[S. 25,28]{comparison-frameworks-scalable-apps}.
     \item \textbf{Modularität und Wiederverwendbarkeit}: Angular fördert die Entwicklung von modularen, wiederverwendbaren Komponenten. Diese sind mithilfe von Typescript klar definiert und erleichtern die Strukturierung großer Anwendungen. React bietet ebenfalls eine modulare Struktur, durch welche Komponenten über die ganze Anwendung hinweg wiederverwendbar sind. Durch eine horizontale Skalierung können komplexe React UI in kleine, einfache Komponenten aufgeteilt werden. Vue.js Komponenten sind klein, eigenständig und wiederverwendbar aufgebaut und können dann zum Zusammenbau größerer komplexerer Module verwendet werden \cite[S. 24,26] {comparison-frameworks-scalable-apps}.
     
 \end{itemize}
@@ -498,7 +554,9 @@ Die \texttt{supabase.ts} ist die zentrale Schnittstelle zur Supabase-Datenbank. 
 
 Die Datei \texttt{server.ts} dient als Verbindung zwischen dem zentralen Backend mit den jeweiligen Services und den Frontend. In ihr wird ein Express.js-Server definiert, welche HTTP-Endpunkte für die Services wie Authentifizierung, Produkte und Warenkorb definiert.
 
-Mithilfe von \texttt{cors()} werden Cross-Origin-Anfragen ermöglicht, welche von einer anderen Domain stammen als der Server. Durch \texttt{express.json()} könenn eingehende JSON-Daten im Request-Body verarbeitet werden. 
+Webbrowser blockieren standardmäßig Anfragen an einen Server, wenn dieser von einer anderen Domain stammt als die eigene. Wenn das Frontend lokal unter \texttt{localhost:4200} entwickelt wird, das Backend jedoch unter \texttt{localhost:3000} läuft, spricht man von sogenannten Cross-Origin-Anfragen.
+Mithilfe von \texttt{cors()} werden Cross-Origin-Anfragen ermöglicht, welche von einer anderen Domain stammen als der Server. Dadurch wird die Kommunikation zwischen Frontend und Backend trotz unterschiedlicher Ursprünge ermöglicht.
+Durch \texttt{express.json()} können eingehende JSON-Daten im Request-Body verarbeitet werden.
 
 Ein Beispiel für den Ablauf dieser API-Anfragen ist der \texttt{POST}–Endpoint \texttt{/api/login}, der Benutzer-Login-Anfragen entgegennimmt. Dieser verarbeitet die Login Anfrage mithilfe der Login Funktion aus dem \texttt{authService} und gibt dieses Ergebnis als JSON zurück. 
 
@@ -528,9 +586,19 @@ Alle Funktionen werden mithilfe des im \texttt{supabase.ts} definierten Clients 
 
 Ein Beispiel für eine Anfrage an Supabase ist die folgende Login-Funktion aus der \texttt{authService.ts}:
 
-\begin{lstlisting}[language=Java, caption={Login-Funktion im \texttt{authService.ts}}] import { supabase } from './supabase';
+\begin{lstlisting}[language=Java, caption={Login-Funktion im \texttt{authService.ts}}]
+import { supabase } from './supabase';
 
-export async function login(email, password) { const { data, error } = await supabase.auth.signInWithPassword({ email, password, }); if (error) throw error; return data; } \end{lstlisting}
+export async function login(email, password) {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) throw error;
+  return data;
+}
+\end{lstlisting}
 
 Diese Struktur ermöglicht eine einfache Erweiterung der in Supabase bestehenden Login-Möglichkeiten, wie z.\,B.\ die Integration von OAuth-Anbietern (z.\,B.\ Google oder GitHub) oder die Implementierung von Passwort-Zurücksetzen-Funktionen.
 
@@ -567,29 +635,8 @@ Der Warenkorb stellt die vom User hinzugefügten Produkte dar. Beim Aufruf der W
 
 Die Warenkorb-Seite verwendet die \texttt{cart.component} als Komponente vollständig wieder und bindet diese neben der passenden Navigation zu den anderen Seiten ein. Wie in allen anderen Komponenten kann mit Hilfe von Angular-Routern durch zwei Buttons eine Navigation auf die anderen Seiten durchgeführt werden.
 
-\begin{lstlisting}[language=Java, caption={Auszug aus der \texttt{CartPageComponent}}, label={lst:cart-page-component}]
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { CartComponent } from '../cart/cart.component';
+%\lstinputlisting {code/AuthPage.js}
 
-@Component({
-  selector: 'app-cart-page',
-  standalone: true,
-  imports: [CartComponent],
-  templateUrl: './cart-page.component.html',
-})
-export class CartPageComponent {
-  constructor(private router: Router) {}
-
-  goToCheckout() {
-    this.router.navigate(['/checkout']);
-  }
-
-  goToProducts() {
-    this.router.navigate(['/products']);
-  }
-}
-\end{lstlisting}
 
 Hier ist zu sehen, wie eine einfache Navigation zu beliebigen Angular-Komponenten umsetzbar ist. Die Einbindung einer Komponente erfolgt über den zugehörigen Selector, wie beispielsweise \texttt{<app-cart>}, und ermöglicht dadurch deren Wiederverwendung im Template.
 
@@ -658,56 +705,9 @@ Die Kommunikation mit dem zentralen Backend erfolgt über Service Dateien wie au
 Alle Services handhaben die HTTP-Anfragen an das zentrale Backend. Die Kommunikation erfolgt hierbei über fetch() im JSON-Format. 
 Bei der Authentifizierung erfolgt die Kommunikation wie folgt: 
 \todo{Code Fixen}
-\begin{lstlisting}[caption={Login-Komponente zur Anmeldung}, label={lst:auth-component}]
-import { AuthService } from "../services/auth-service.js";
 
-class AuthComponent extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this.authService = new AuthService();
-  }
+%\lstinputlisting {code/cart-page.component.ts}
 
-  connectedCallback() {
-    if (localStorage.getItem("isLoggedIn")) {
-      window.navigateTo("/products");
-    } else {
-      this.renderLoginForm();
-    }
-  }
-
-  renderLoginForm() {
-    this.shadowRoot.innerHTML =
-      "<div>" +
-      "<h1>Login</h1>" +
-      "<form id='login-form'>" +
-      "<input type='email' id='email' placeholder='Email' />" +
-      "<input type='password' id='password' placeholder='Password' />" +
-      "<button type='submit'>Login</button>" +
-      "</form>" +
-      "<p>Don't have an account? <a id='switch-to-register' href='#'>Register</a></p>" +
-      "</div>";
-
-    this.shadowRoot
-      .getElementById("login-form")
-      .addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const email = this.shadowRoot.getElementById("email").value;
-        const password = this.shadowRoot.getElementById("password").value;
-        await this.authService.login(email, password);
-        localStorage.setItem("isLoggedIn", true);
-        window.navigateTo("/products");
-      });
-
-    this.shadowRoot
-      .getElementById("switch-to-register")
-      .addEventListener("click", (event) => {
-        event.preventDefault();
-        this.renderRegisterForm();
-      });
-  }
-}
-\end{lstlisting}
 
 \subsection{Authentifizierung (\texttt{auth-component.js})}
 
@@ -798,7 +798,259 @@ Die Zahlungsinformationen sowie der \texttt{"Proceed to Payment"}-Button sind re
 %---
 \chapter{Evaluierung}
 
-Aufgabe des Kapitels Evaluierung ist es, in wie weit die Ziele der Arbeit erreicht wurden.
+Die zuvor gezeigten Implementierungslösungen gilt es nun anhand passender Metriken zu evaluieren. Dabei wurde eine bestimmte Auswahl an Kriterien festgelegt, welche passende relevante Aspekte von modernen Webanwendungen umfasst um dadurch eine ganzheitliche Bewertung zu ermöglichen. Das Ziel ist es die entwickelten Frontendvarianten, Angular, React, Web Components und jQuery systematisch miteinander zu vergleichen. Das zentrale Backend dient als Grundlage für alle Lösungen und kann dadurch bei dem Vergleich nicht beachtet werden. 
+
+Die Evaluierung erfolgt anhand verschiedener Qualitätsmerkmale einer Webanwendung, darunter die Performance, Wartbarkeit, Erweiterbarkeit, Skalierbarkeit, Entwicklungsaufwand, Modularität und Code-Komplexität. Damit lassen sich neben technischen Unterschieden auch praxisorientierte Rückschlüsse für die Technologiewahl ziehen. 
+
+\section{Performance}
+Ziel der Performance Analyse ist es die Ladezeit und andere Werte zu ermitteln und mithilfe dieser zu ermitteln, wie sich die verschiedenen Implementierungen hinsichtlich ihrer Performance unterscheiden.
+Die Messungen wurden mit den \texttt{Edge Dev Tools} durchgeführt, welche sowohl einen \texttt{Performance}- als auch einen \texttt{Netzwerk}-Tab bereitstellen. Dort lassen sich sämtliche relevanten Metriken auslesen. Im Rahmen der Analyse wurden insbesondere folgende Werte betrachtet:
+\begin{itemize}
+  \item \texttt{Loading Time}
+  \item \texttt{DOMContentLoaded}
+  \item \texttt{TTFB} (Time to First Byte)
+  \item \texttt{FCP} (First Contentful Paint)
+  \item \texttt{LCP} (Largest Contentful Paint)
+  \item \texttt{TTI} (Time to Interactive)
+  \item Renderzeiten einzelner Komponenten
+  \item Anzahl der \texttt{Netzwerk-Requests}
+  \item Größe der geladenen Ressourcen
+  \item \texttt{JavaScript}-Ausführungszeit
+\end{itemize}
+
+Für eine möglichst realistische und vergleichbare Ergebnisse wird bei der Messung ohne künstliche Netzwerkdrosselung durchgeführt. Für einen aussagekräftige Messung wurde der Cache deaktiviert, wodurch bei jedem Neuladen der Seite (via \texttt{F5}) sämtliche Ressourcen neu vom lokalen Webserver geladen werden. 
+Alle Seiten werden mit den gleichen Datenbank Daten befüllt, wodurch ein fairer Vergleich der Lösungen ermöglicht wird. 
+Verglichen werden alle relevanten Seiten der Anwendungen, beginnend mit dem Login, Produktliste, Warenkorb und Checkout.
+Beim Laden der Seite werden mehrere Refreshes durchgeführt und dann ein Wert genommen welcher den Durchschnittlichen Ladegeschwidigkeiten entspricht.
+
+\section{Vergleich der Messergebnisse}
+\subsection{Vergleich der Login-Seite}
+
+\begin{table}[H]
+\centering
+\caption{Performance-Messung - Login Page}
+\begin{tabular}{|p{3.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+\hline
+\textbf{Metrik}                  & \textbf{React} & \textbf{Angular} & \textbf{Web Components} & \textbf{jQuery} \\ \hline
+Loading Time                     & 231 ms        & 278 ms           & 257 ms                 & 135 ms          \\ \hline
+DOMContentLoaded                 & 118 ms        & 227 ms           & 91 ms                  & 85 ms           \\ \hline
+TTFB                             & 49 ms        & 31 ms            & 4 ms                   & 6 ms            \\ \hline
+FCP                              & $\approx$0.489 s & $\approx$0.09 s & $\approx$0.06 s        & $\approx$0.072 s \\ \hline
+LCP                              & $\approx$0.489 s & $\approx$0.09 s & $\approx$0.06 s        & $\approx$0.072 s \\ \hline
+TTI                              & $\approx$0.515 s & $\approx$0.3 s & $\approx$0.1 s         & $\approx$0.072 s \\ \hline
+Renderzeiten der Komponenten     & $\approx$62 ms & $\approx$12 ms   & $\approx$12 ms         & - \\ \hline
+Netzwerk-Requests (Anzahl)       & 7              & 24               & 13                    & 6               \\ \hline
+Größe der geladenen Dateien      & 340 KB / 1.7 MB & 2.5 MB          & 12.3 KB / 15.8 KB     & 43.6 KB / 118 KB \\ \hline
+JS-Execution-Time                & $\approx$61 ms       & $\approx$120 ms          & $\approx$19 ms                 & $\approx$29 ms         \\ \hline
+\end{tabular}
+\end{table}
+
+Die Messwerte bei der Loginseite sind relativ ähnlich, da keine große Komponente bzw. Seite erstellt wurde. Trotzdem lassen sich schon hier deutliche Unterschiede erkennen.
+
+jQuery schneidet hierbei insgesamt am besten ab. Die schnellste Ladezeit von 135 ms, die schnellste TTI von 0,072 Sekunden und eine solide JavaScript Execution Time von 29 ms zeigen, dass jQuery bei kleineren Seiten sehr effizient ist.
+
+Web Components schneiden ähnlich gut ab, allerdings mit einer leicht erhöhten Ladezeit von 257 ms. Dafür ist die TTI mit 0,1 Sekunden deutlich besser als bei React und Angular. Auch die JavaScript Execution Time von 19 ms ist hervorragend und besser als alle anderen Ansätze.
+
+React und Angular erreichen bei der Loginseite insgesamt schlechtere Werte. Die TTI von React (0,515 Sekunden) ist die langsamste, gefolgt von Angular (0,3 Sekunden). Besonders Angular leidet unter einer hohen JavaScript Execution Time von 120 ms und einer großen Dateigröße von 2,5 MB.
+
+Ein Blick auf FCP und LCP zeigt, dass jQuery und Web Components besonders schnell rendern, während React und Angular langsamer sind. React hat hier mit 0,489 Sekunden die schlechtesten Werte, während Angular mit 0,09 Sekunden solide, aber nicht optimal ist.
+\subsection{Vergleich der Produkt-Seite}
+
+\begin{table}[H]
+\centering
+\caption{Performance-Messung - Produkt Page}
+\begin{tabular}{|p{3.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+\hline
+\textbf{Metrik}                  & \textbf{React} & \textbf{Angular} & \textbf{Web Components} & \textbf{jQuery} \\ \hline
+Loading Time                     & 223 ms        & 522 ms           & 295 ms                 & 405 ms          \\ \hline
+DOMContentLoaded                 & 115 ms        & 402 ms           & 114 ms                 & 131 ms          \\ \hline
+TTFB                             & 45 ms        & 198 ms           & 63 ms                  & 265 ms          \\ \hline
+FCP                              & $\approx$0.29 s  & $\approx$0.29 s  & $\approx$0.2 s        & $\approx$0.068 s  \\ \hline
+LCP                              & $\approx$0.43 s  & $\approx$0.29 s  & $\approx$0.26 s       & $\approx$0.25 s \\ \hline
+TTI                              & $\approx$0.43 s  & $\approx$0.49 s  & $\approx$0.26 s       & $\approx$0.25 s \\ \hline
+Renderzeiten der Komponenten     & $\approx$58 ms & $\approx$17 ms   & $\approx$27.8 ms          & -  \\ \hline
+Netzwerk-Requests (Anzahl)       & 9              & 25               & 15                    & 5               \\ \hline
+Größe der geladenen Dateien      & 343 KB / 1.7 MB & 2.5 MB          & 13.7 KB / 17.4 KB     & 44.7 KB / 118 KB \\ \hline
+JS-Execution-Time                & $\approx$58 ms       & $\approx$129 ms          & $\approx$27 ms                & $\approx$29 ms         \\ \hline
+\end{tabular}
+\end{table}
+
+Beim Laden der Produktliste zeichnen sich ebenfalls Unterschiede zwischen den Technologien ab. jQuery und Web Components schneiden hierbei am besten ab. Die TTI ist mit 0,25 Sekunden (jQuery) und 0,26 Sekunden (Web Components) am schnellsten. jQuery zeigt zudem eine sehr schnelle FCP von 0,068 Sekunden und eine solide JavaScript Execution Time von 29 ms. Schwächen von jQuery sind hingegen die lange Ladezeit von 405 ms und der hohe TTFB von 265 ms.
+
+Web Components zeigen ebenfalls gute Werte mit einer TTI von 0,26 Sekunden und einer schnellen JavaScript Execution Time von 27 ms. Die Dateigröße von 13,7 KB / 17,4 KB ist die kleinste im Vergleich, was sich positiv auf die Performance auswirkt. Schwächen sind ein TTFB von 63 ms sowie eine leicht erhöhte LCP von 0,26 Sekunden.
+
+React hat mit 223 ms die schnellste Ladezeit, jedoch sind die TTI von 0,43 Sekunden, die FCP von 0,29 Sekunden und die LCP von 0,43 Sekunden im Vergleich höher. Die JavaScript Execution Time von 58 ms ist ebenfalls schlechter als bei Web Components und jQuery. Auch die Dateigröße von 343 KB / 1,7 MB fällt hier eher negativ auf.
+
+Angular erzielt insgesamt die schwächsten Ergebnisse. Die Ladezeit beträgt 522 ms und die TTI ist mit 0,49 Sekunden die langsamste. Auch die JavaScript Execution Time von 129 ms ist mit Abstand am höchsten. Zudem verursacht Angular mit 25 Netzwerk-Requests die meisten Aufrufe und hat mit 2,5 MB die größte Dateigröße.
+
+\subsection{Vergleich der Warenkorb-Seite}
+
+\begin{table}[H]
+\centering
+\caption{Performance-Messung - Warenkorb Page}
+\begin{tabular}{|p{3.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+\hline
+\textbf{Metrik}                  & \textbf{React} & \textbf{Angular} & \textbf{Web Components} & \textbf{jQuery} \\ \hline
+Loading Time                     & 358 ms        & 482 ms           & 431 ms                 & 715 ms          \\ \hline
+DOMContentLoaded                 & 115 ms        & 258 ms           & 118 ms                 & 95 ms           \\ \hline
+TTFB                             & 50 ms         & 13 ms            & 122 ms                 & 90 ms           \\ \hline
+FCP                              & $\approx$0.125 s & $\approx$0.19 s & $\approx$0.263 ms      & $\approx$0.09 s \\ \hline
+LCP                              & $\approx$0.45 s & $\approx$0.19 s & $\approx$0.45 s      & $\approx$0.77 s \\ \hline
+TTI                              & $\approx$0.48 s & $\approx$0.35 s & $\approx$0,45 s        & $\approx$0.8 s \\ \hline
+Renderzeiten der Komponenten     & $\approx$15 ms      & $\approx$11 ms            & $\approx$20 ms      & -           \\ \hline
+Netzwerk-Requests (Anzahl)       & 19            & 35               & 19                     & 18              \\ \hline
+Größe der geladenen Dateien      & 347 KB / 1.7 MB & 2.5 MB         & 15.9 KB / 18.4 KB      & 50.7 KB / 122 KB \\ \hline
+JS-Execution-Time                & $\approx$71 ms & $\approx$72 ms          & $\approx$20 ms                 & $\approx$33 ms          \\ \hline
+\end{tabular}
+\end{table}
+
+Beim Laden des Warenkorbs zeichnen sich erste Veränderungen ab. Angular schneidet mit guten Werten ab. Die TTI ist mit 0,35 Sekunden die schnellste. Auch die FCP, LCP und JavaScript Execution Time sind bei Angular am geringsten. Schwächen von Angular sind die größte Dateigröße von 2,5 MB und die vielen Netzwerk-Anfragen.
+
+Web Components zeigt ebenfalls gute Werte mit einer TTI von 0,45 Sekunden sowie einer schnellen JavaScript Execution Time von 20 ms. Web Components hat eine kleine Dateigröße sowie relativ wenige Requests. Hohe Werte hat Web Components jedoch bei der TTFB von 122 ms sowie einer erhöhten LCP.
+
+Direkt darauf folgt React mit der gleichen TTI von 0,48 Sekunden, aber einer langsameren JavaScript Execution Time. React besitzt eine niedrige FCP, dafür aber eine erhöhte LCP. Die Dateigröße ist ähnlich wie bei Angular ziemlich hoch, ebenso wie die JavaScript Execution Time, die vergleichsweise lang ist.
+
+jQuery hat diesmal die schlechtesten Werte mit einer langen TTI von 0,8 Sekunden sowie einer hohen LCP. Die FCP hingegen ist die geringste mit 0,09 Sekunden, ebenso wie die Anzahl der Netzwerk-Requests und die JavaScript Execution Time von 33 ms.
+
+\subsection{Vergleich der Checkout-Seite}
+
+\begin{table}[H]
+\centering
+\caption{Performance-Messung - Checkout Page}
+\begin{tabular}{|p{3.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+\hline
+\textbf{Metrik}                  & \textbf{React} & \textbf{Angular} & \textbf{Web Components} & \textbf{jQuery} \\ \hline
+Loading Time                     & 1.070 ms      & 450 ms           & 376 ms                 & 850 ms          \\ \hline
+DOMContentLoaded                 & 130 ms        & 324 ms           & 121 ms                 & 150 ms          \\ \hline
+TTFB                             & 56 ms        & 57 ms            & 60 ms                  & 80 ms            \\ \hline
+FCP                              & $\approx$0.2 s & $\approx$0.11 s & $\approx$0.2 s        & $\approx$0.12 s \\ \hline
+LCP                              & $\approx$0.2 s & $\approx$0.34 s & $\approx$0.26 s       & $\approx$0.8 s \\ \hline
+TTI                              & $\approx$0.45 s & $\approx$0.45 s & $\approx$0.26 s       & $\approx$0.85 s \\ \hline
+Renderzeiten der Komponenten     & $\approx$83 ms         & $\approx$18 ms            & $\approx$223 ms                  & - ms           \\ \hline
+Netzwerk-Requests (Anzahl)       & 41            & 83               & 31                    & 31              \\ \hline
+Größe der geladenen Dateien      & 359 KB / 1.7 MB & 2.5 MB         & 21.8 KB               & 57.4 KB         \\ \hline
+JS-Execution-Time                & $\approx$84 ms       & $\approx$53 ms          & $\approx$30 ms               & $\approx$52 ms         \\ \hline
+\end{tabular}
+\end{table}
+
+Beim Laden der Checkout-Seite zeigen sich erneut deutliche Unterschiede zwischen den Frameworks. Web Components schneiden hier am besten ab. Die TTI ist mit 0,26 Sekunden die niedrigste im Vergleich, ebenso die JavaScript Execution Time mit 30 ms. Auch die Dateigröße von nur 21,8 KB und die moderate Anzahl von 31 Netzwerk-Requests tragen zur guten Gesamtleistung bei. Schwächen finden sich jedoch bei der Renderzeit der Komponenten (223 ms) sowie beim TTFB von 60 ms.
+
+Angular zeigt solide Werte mit einer TTI von 0,45 Sekunden, die im Vergleich mit React identisch ist. Besonders positiv fällt die FCP von 0,11 Sekunden auf. Auch die JavaScript Execution Time von 53 ms ist akzeptabel. Negativ wirkt sich erneut die hohe Dateigröße von 2,5 MB und die sehr hohe Anzahl an Netzwerk-Requests (83) aus.
+
+React hat mit 1.070 ms die längste Ladezeit. Die TTI liegt ebenfalls bei 0,45 Sekunden, jedoch mit der höchsten JavaScript Execution Time (84 ms). Auch die Renderzeit der Komponenten (83 ms) ist deutlich höher als bei Angular. Die Dateigröße von 359 KB / 1,7 MB ist vergleichsweise groß.
+
+jQuery zeigt bei dieser Seite die schwächsten Ergebnisse. Mit einer TTI von 0,85 Sekunden und einer LCP von 0,8 Sekunden ist die Seite deutlich später interaktiv als bei allen anderen Frameworks. Die FCP von 0,12 Sekunden ist zwar solide, jedoch ist auch die Ladezeit mit 850 ms recht hoch. Positiv hervorzuheben sind die vergleichsweise geringe Dateigröße (57,4 KB) und die JavaScript Execution Time von 52 ms.
+
+\subsection{Fazit der Performance-Messungen}
+
+Insgesamt lässt sich beobachten, dass Web Components und jQuery auf den einfacheren Seiten (Login, Produktseite) die besten Ergebnisse erzielen. Je komplexer die Seiten werden (Warenkorb, Checkout), verbessert sich die Performance von Angular deutlich, während jQuery zunehmend an Effizienz verliert. Web Components bleibt über alle Seiten hinweg eine konstant gute Lösung und erreicht meist Platz 2 in den Performance-Messungen. React bewegt sich durchgehend im Mittelfeld und landet in den meisten Fällen auf dem dritten Platz.
+
+\section{Wartbarkeit}
+Die Wartbarkeit eines Systems lässt bestimmen Anhand wie einfach folgende Dinge getan werden können: 
+\begin{itemize}
+    \item \textbf{Fehlerbehebung:} Wie leicht können Bugs identifiziert und behoben werden?
+    \item \textbf{Anpassungen:} Wie schnell lassen sich bestehende Komponenten ändern, um neue Anforderungen zu erfüllen?
+    \item \textbf{Refactoring:} Wie einfach kann der Code umstrukturiert werden, um die Qualität zu verbessern, ohne die Funktionalität zu verändern?
+\end{itemize}
+
+\subsection{Fehlerbehebung}
+
+Angular biete durch die Nutzung von Typescript grundlegend eine Typensicherung schon zur Compile-Zeit. Dadurch können z.b. falsche Typen und fehlende Imports frühzeitig erkannt werden. Mithilfe der Angular CLI werden viele Fehler in der Konsole dargestellt. 
+
+React kann mithilfe der Developer Tools auf Fehler analyisiert werden. Hierbei können mithilfe eines Browser Plugins die Komponenten und Datenflüsse detailliert dargestellt werden. In React können ErrorBoundarys implementiert werden, welche bei einem Fehler die Anwendung isoliert darstellen und den Fehler übermitteln. Ebenfalls bietet React eine Typescript unterstützung wodurch wie bei Angular falsche Typen zur Compilezeit erkannt werden können. 
+
+Web Components bietet keine Framework-Unterstüzung für die Fehlerbehebung. Mit Web Compmonents muss die Fehlerbehandlung manuell implementiert werden. 
+
+jQuery bietet ebenfalls keine umfangreiche Fehlerbehebungsunterstützung, ermöglicht jedoch zumindest mit AJAX-Methoden wie .ajax(), .get(), oder .post() ein standardisiertes Error Handling für Serveranfragen.
+
+\subsection{Anpassungen}
+
+\subsection{Refactoring}
+
+\section{Erweiterbarkeit}
+
+Die mögliche Erweiterbarkeit der Frontendlösungen wird anhand eines Produktfilters skiziert und hierbei wird analysiert wie einfach eine Solche Erweiterung in den jeweiligen Lösungen möglich wäre. 
+
+\subsection{Angular}
+
+In Angular müsste für die Logik des Filters ein zentraler Filterservice implementiert werden. Dieser Service (\texttt{filterService.ts}) wird in der \texttt{ProductListComponent.ts} importiert und angewendet. Im HTML der Produktliste wird mithilfe eines Filterformulars auf den Service zugegriffen, um die gefilterten Produkte anzuzeigen.
+
+\subsection{React}
+
+In React müsste die Logik des Filters in einer zentralen useFilter.js implemtiert werden. Diese kann dann in der ProductListComponent importiert und mithilfe von Hooks angewendet werden. Zusätzlich muss die render Logik passend angepasst werden. 
+
+\subsection{Web Components}
+
+In Web Components müsste die Logik des Filters in einer eigenen produkt-filter.js implementiert werden. Das Custom Element muss dann muss dann in der Produktliste eingefügt werden. 
+
+\subsection{jQuery}
+
+In jQuery könnte die Logik des Filters in einer filterService.js implementiert werden. 
+Dieser Service wird in der product.js eingefügt um die Logik zu nutzen und in der products.html das Filterformular hinzufügen. 
+
+\section{Skalierbarkeit}
+
+Skalierbarkeit beschreibt die Fähigkeit eines Systems, bei wachsendem Umfang weiterhin effizient zu funktionieren. Die untersuchten Frameworks unterscheiden sich hier vor allem in der Art und Weise, wie sie Modularisierung, Datenmanagement und Komponentenstruktur unterstützen.
+
+\subsection{Angular}
+\todo{neu formulieren}
+
+Angular bietet durch seine modulare Architektur eine gute Skalierbarkeit. Die Verwendung von Modulen (\texttt{app.routes.ts}, \texttt{app.config.ts}) ermöglicht eine klare Trennung der Anwendung in einzelne Teile, was Wartung und Erweiterung vereinfacht. Durch Dependency Injection lassen sich Services effizient managen und wiederverwenden. Angular unterstützt Lazy Loading, bei dem Module nur bei Bedarf geladen werden, was besonders bei großen Anwendungen die Performance verbessert. Allerdings kann die Change Detection bei sehr komplexen Projekten zu Performance-Problemen führen, wenn nicht mit der \texttt{OnPush}-Strategie gearbeitet wird.
+
+\subsection{React}
+
+React ist aufgrund seiner komponentenbasierten Struktur ebenfalls gut skalierbar. Komponenten sind wiederverwendbar und lassen sich einfach aufteilen. Durch Werkzeuge wie Redux oder Context API kann das State Management effizient umgesetzt werden. Auch Server-Side Rendering (SSR) bietet Möglichkeiten zur Performance-Optimierung bei größeren Anwendungen. Die Verwendung von Hooks erleichtert das Erstellen wiederverwendbarer Logiken. Dennoch kann es bei großen Projekten zu Performance-Problemen kommen, wenn das State Management nicht sauber implementiert wird.
+
+\subsection{Web Components}
+
+Web Components bieten eine gute Skalierbarkeit, wenn es darum geht, isolierte Komponenten zu erstellen. Jedes Custom Element ist unabhängig und beeinflusst andere Komponenten nicht, was den Einsatz in großen Anwendungen erleichtert. Da keine zentrale Architektur vorgegeben ist, kann es jedoch problematisch werden, wenn viele Komponenten miteinander interagieren müssen. Trotz des Fehlens eines Framework-Overheads sind Web Components für große Projekte mit komplexen Datenflüssen eher ungeeignet.
+
+\subsection{jQuery}
+
+jQuery bietet keine vorgegebene Struktur, was die Skalierbarkeit stark beeinträchtigt. Da die direkte DOM-Manipulation bei großen Anwendungen schnell unübersichtlich wird, sind manuelle Ansätze zur Modularisierung notwendig. Zudem kann der globale Namespace bei vielen verschiedenen Komponenten zu Konflikten führen. Aufgrund dieser Faktoren ist jQuery schlecht skalierbar und wird bei großen Projekten unübersichtlich und ineffizient.
+
+\section{Entwicklungsaufwand}
+
+Der Gesamtaufwand für das Frontend, in welchem vier Frameworks und das zentrale Backend implementiert wurden, beträgt ca. einen Monat. Die Schätzungen basieren auf einer Sammlung aus Tracking-Tools sowie Git-Commits und werden auf Tage geschätzt.
+
+Vor der eigentlichen Implementierung habe ich mich mit den verwendeten Frameworks grundlegend befasst um erste Erfahrungen zu sammeln und ein Basisverständnis zu erlangen. Hierdurch sollte die Ungleichheit des Vorwissens mit Angular angepasst werden.
+
+Der Aufwand je Frontend-Framework unterschied sich hierbei wie folgt: Angular war mit ca. 6-7 Tage die am schnellsten implementierte Lösung. Durch die vorgegebene Struktur durch Komponenten konnte die Anwendung schnell umgesetzt werden. Bei kleineren Problemen konnte mit der ausführlichen Dokumentation und Tutorials schnell eine Lösung gefunden werden.
+
+Der Aufwand in React betrug ca. 8-9 Tage. Zunächst musste erarbeitet werden, wie sich Angular-Lösungen von React-Lösungen unterscheiden. Hierbei musste gelernt werden, wie man Templates in React rendert und wie der Umgang mit useState zu handhaben ist. Aspekte wie das Routing ließen sich hingegen leicht umsetzen und erleichterten die Implementierung. Bei kleineren Problemen konnte mit der ausführlichen Dokumentation und Tutorials schnell eine Lösung gefunden werden.
+
+Der Aufwand in jQuery betrug ca. 10-11 Tage. Der Umgang mit der DOM-Manipulation war zunächst ungewohnt, und die Verwaltung von Zuständen und Daten wurde recht schnell komplex. Durch die fehlende Erfahrung war ein erhöhter Debugging-Aufwand erforderlich, um ein Verständnis für die entstandenen Probleme zu erlangen. Bei einfachen Problemen konnte die Dokumentation schnell helfen. Je komplexerer die Probleme desto eher musste auf andere Ressourcen wie StackOverflow oder Blogs ausgewichen werden welche großteils veraltet waren.  
+
+Der Aufwand in Web Components betrug ca. 12-13 Tage. Da Web Components mit Ausnahme der Lösung für das Erstellen von eigenen HTML-Tags in Form von Komponenten keine Unterstützung für komplexere Aufgaben bieten, entstand hier der größte Zeitaufwand. Bei Problemen war die Dokumentation oft nicht ausreichend da nur grundlegende Dinge erklärt werden. Das Finden von Lösungen für spezifische Probleme erfolgt dadurch oft viel Recherche.
+
+Die grundlegende Navigation zwischen Seiten stellte sich als schwierig dar, da Web Components keine native Routing-Lösung besitzen. Die dynamische Erweiterung der Seiten beim Laden von neuen Dateien war ebenfalls aufwendig. Hierbei entstand ein erhöhter Debugging-Aufwand, um ein Verständnis für die entstandenen Probleme zu erlangen.
+
+\section{Modularität und Wiederverwendbarkeit}
+
+Die Modularität einer Anwendung bezieht sich auf die Möglichkeit, die Anwendung in kleiner unabhängige Teile zu zerlegen. Diese Module sollten eigene abgegrenzte Funktionen haben und dabei möglichst unabhängig getestet und entwickelt werden können. 
+Die Wiederverwendbarkeit bezieht sich auf die Möglichkeit, Module oder Komponenten in verschiedenen Kontexten oder Projekte wiederzuverwenden. 
+
+In Angular wurde die Anwendung in mehrere Komponenten unterteilt, wodurch die Funktionalitäten und Darstellung klar getrennt wurden. Komponenten sind ohne große Konfiguration wiederverwendbar in anderen Teilen der Anwendung.  
+
+In React wurde die Anwendung ebenfalls in mehrere Komponenten aufgeteilt. Mithilfe von \texttt{Props} für nutzerspezifische Komponenten und Funktionen sowie Hooks wie \texttt{useState} und \texttt{useEffect} für den Zustand und die Datenabfrage jeder Komponente wird eine klare Strukturierung erreicht. Das State-Management kann mithilfe von \texttt{useState} gut umgesetzt werden. Alle Komponenten sind unabhängig voneinander erstellt und tragen zur Modularität bei.  
+
+jQuery bietet keine native Unterstützung für Modularisierung. Die Seiten können durch das Aufteilen der Logik in separate Dateien wie \texttt{cart.js}, \texttt{checkout.js} oder \texttt{product.js} modular strukturiert werden. Eine Wiederverwendbarkeit ist grundsätzlich möglich, aber sie wird durch den starken Einsatz von ID-Selektoren (\texttt{\$("\#id")}) erschwert. Funktionen müssen manuell geschrieben und global verfügbar gemacht werden, um sie auf mehreren Seiten nutzen zu können. Diese Struktur ist zwar funktional, aber komplexer und weniger flexibel als moderne Framework-Ansätze.
+
+In Web Components wird die Nutzung von Custom Elements zur Erstellung einzelner Komponenten eingesetzt, was zur Modularität beiträgt. Die erstellten Komponenten lassen sich einfach in Templates einbinden und bei Bedarf wiederverwenden. Mithilfe des \texttt{Shadow DOM} wird eine isolierte Umgebung geschaffen, in der Stil und Logik getrennt von der Hauptseite gehalten werden können. Dadurch werden Modularität und Wiederverwendbarkeit gefördert, da die Komponenten unabhängig voneinander funktionieren.
+
+\section{Komplexität und Code-Vergleich}
+
+Um die Komplexität der Lösungen zu vergleichen wird zunächst auf die Anzahl der Lines of Code eingegangen. Diese wurden getrennt erfasst an allen relevanten JavaScript, TypeScript, HTML oder CSS Dateien. Durch die Nutzung eines Autoformatters wurden die Dateien hinsichtlich der optimalen Codeformatierung angepasst. 
+
+React besitzt mit 298 LoC am wenigsten. Das Framework bietet eine effiziente Strukturierung der Komponenten und Hooks. Mithilfe von JSX wird es ermöglicht Logik und Darstellung einer Komponente in einer Datei zu kombinieren wodurch zusätzlicher Code vermieden werden kann. 
+
+Als nächstes folgt Angular mit 469 LoC. Ein starker Anstieg ist zu erkennen, der durch die Verwendung von dem automatisch generierten Projekt sowie Komponenten und den dadurch automatisch entstandenen Boilerplate Code entsteht. 
+
+jQuery folgt direkt mit 480 LoC. Durch das fehlende Framework zur Strukturierung wird nur einfacher Code ohne Boilerplate erstellt. Die fehlenden Komponenten führen zu einer schwerer überschaubaren Codebasis. Die Logik ist über mehrere Dateien verteilt und basiert auf ID-Selektoren was die Komplexität stark erhöht. 
+
+Zuletzt kommt Web Components mit 522 LoC und hat damit den höchsten Codeumfang. Dieser ist entstanden durch das manuelle Implementieren von Komponenten ohne die Unterstützung eines Frameworks. Das implementieren des Shadow DOMs und von Custom Elements für die Wiederverwendbarkeit von Komponenten sorgen für einen größeren Codeanteil. 
+
+\section{Zusammenfassung der Evaluierung}
 
 %---
 \chapter{Zusammenfassung und Ausblick}

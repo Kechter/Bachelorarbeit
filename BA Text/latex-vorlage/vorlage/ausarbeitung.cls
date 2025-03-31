@@ -211,6 +211,10 @@
 		{ü}{{\"u}}1 
 		{ä}{{\"a}}1 
 		{ö}{{\"o}}1
+		{<}{{\textless}}1
+        {>}{{\textgreater}}1
+        {'}{{\textquotesingle}}1
+        {"}{{\textquotedbl}}1
 		}
 }
 
