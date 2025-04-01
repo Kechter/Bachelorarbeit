@@ -1259,6 +1259,7 @@ Erweiterbarkeit             & Hoch                     & Hoch                   
 Die Tabelle zeigt, wie die verschiedenen Frameworks parallel betrachtet am Beispiel der Checkout-Komponente abschneiden. Angular und React schneiden beide sehr gut ab durch ihre klare Strukturierung, hohe Modularität und Wiederverwendbarkeit. Angular bietet eine starke Typensicherung und Bindings, welche die Implementierung vereinfachen. React zeigt eine hohe Flexibilität und einfache State-Verwaltung, wodurch die Entwicklung effizient gestaltet wird. Web Components bietet mit dem Shadow DOM eine gute Isolation von Komponenten, ist jedoch aufwändiger zu implementieren durch größere Komplexität und eine weniger klare Strukturierung. jQuery ist im Vergleich veraltet und bietet keine guten Möglichkeiten für Modularisierung und Erweiterbarkeit.
 
 \section{Zusammenfassung der Evaluierung}
+\label{sec:Zusammenfassung_der_Evaluierung}
 
 Ziel der Evaluierung war es, einen systematischen Vergleich der Frameworks anhand bestimmter Metriken durchzuführen. 
 
@@ -1283,18 +1284,46 @@ Zusammenfassend lässt sich sagen, dass Web Components eine konstant gute Perfor
 %---
 \chapter{Zusammenfassung und Ausblick}
 \label{cha:zusammenfassung}
-
 \section{Erreichte Ergebnisse}
 \label{sec:ergebnisse}
+
+Die Evaluierung hat gezeigt, dass die unterschiedlichen Frameworks ihre Stärken und Schwächen in verschiedenen Bereichen aufweisen. Die detaillierte Analyse ist in Kapitel \ref{sec:Zusammenfassung_der_Evaluierung} zusammengefasst. 
+
+Basierend auf den Ergebnissen lassen sich folgende allgemeine Aussagen treffen:
+
+\begin{itemize}
+    \item \textbf{Angular} bietet durch seine klare Strukturierung, Module und effektives State Management die beste Skalierbarkeit, ist jedoch aufgrund des Framework-Overheads für kleinere Projekte weniger geeignet.
+    \item \textbf{React} zeigt durch seine moderne Architektur mit Virtual DOM und flexiblen Komponenten eine konstante Performance und eignet sich sowohl für kleine als auch große Anwendungen.
+    \item \textbf{Web Components} liefern eine solide Performance, zeigen jedoch Schwächen bei komplexeren Anwendungen durch fehlende Framework-Unterstützung. Dies erschwert vor allem Wartbarkeit und Skalierbarkeit.
+    \item \textbf{jQuery} ist aufgrund fehlender moderner Konzepte wie Komponentenstruktur oder State Management hauptsächlich für sehr kleine Projekte geeignet und skaliert schlecht.
+\end{itemize}
+
+Diese Erkenntnisse zeigen, dass Angular besonders für große, strukturierte Anwendungen geeignet ist, während React durch seine Flexibilität und gute Auswahl an State-Management sowie Routing Lösungen glänzt. Web Components bieten Potenzial, sind jedoch ohne Framework-Unterstützung eingeschränkt. jQuery ist aufgrund veralteter Konzepte und mangelnder Skalierbarkeit nur noch bedingt sinnvoll. Diese Erkenntnisse bilden die Grundlage für den folgenden Ausblick, der mögliche Weiterentwicklungen und Übertragungen der gewonnenen Ergebnisse aufzeigt.
 
 \section{Ausblick}
 \label{sec:ausblick}
 
+Der folgende Ausblick zeigt mögliche Weiterentwicklungen die auf den entstandenen Ergebnissen aufbauen und diese erweitern könnten.
+
 \subsection{Erweiterbarkeit der Ergebnisse}
 \label{sub:erweiterbarkeit}
 
+Für eine Erweiterbarkeit der Ergebnisse könnte zukünftlich die Einbindung weiterer relevanter Frameworks eingegangen werden. Hierzu gehören weitere Frameworks wie Vue.js, Svelte, Next.js sowie Qwik, SolidJS oder Stencil als moderne Alternativen. Möglich wäre ebenfalls hybride Ansätze zu untersuchen durch Kombination mehrerer Frameworks und hierbei die Ergebnisse zu vergleichen. Für eine genauere Betrachtung der Performance könnte mit umfangreicheren Tools gearbeitet werden und bei der Messung ein größerer Testblock durchgeführt werden um die Genauigkeit der Daten zu garantieren. 
+
+Durch die Erweiterung der Anwendung um zusätzliche Funktionen wie ein Filtersystem oder eine Bewertungsfunktion könnten detailliertere und realistischere Ergebnisse erzielt werden. Ein Filtersystem ermöglicht es, die Performance aus einem anderen Blickwinkel zu betrachten, da hier ein höherer Aufwand in Bezug auf State Management, Datenhandling und Rendering der Produkt- oder Warenkorbliste entsteht.
+
+Die Filterung könnte klassisch über eine Produktsuche erfolgen oder mithilfe von erweiterten Filtern wie Kategorien, Preisbereichen oder Bewertungen. Solche komplexeren Operationen würden noch klarer zeigen, wie Frameworks mit guter Unterstützung für State Management und Datenverarbeitung abschneiden, während frameworkfreie Lösungen wie Web Components oder jQuery auf manuelle Implementierungen angewiesen wären.
+
+Eine Bewertungsfunktion könnte die Interaktivität mit den einzelnen Produkten deutlich erhöhen. Gleichzeitig würde sie neue Herausforderungen hinsichtlich der Datenverwaltung und Speicherung aufwerfen, insbesondere bei der effizienten Verwaltung großer Datenmengen. Dies würde eine realistischere Bewertung der Skalierbarkeit und Performance der Frameworks ermöglichen.
+
+
+
 \subsection{Übertragbarkeit der Ergebnisse}
 \label{sub:uebertragbarkeit}
+
+Eine Übertragbarkeit der Ergebnisse lässt begrenzt umsetzen. Die Ergebnisse beziehen sich auf einen extrem einfachen E-Commerce Shop, welcher nur geringe Datenmengen und eine kleine Anzahl an Nutzern unterstützt. Eine Skalierbarkeit wurde nur aus den bestehenden Strukturen und wie einfach diese Skalierbarkeit zulassen geschlossen aber nicht ausführlich getestet. 
+Angular und React zeigten hierbei eine bessere Skalierbarkeit durch die Architektur, State-Management und Tooling. Web Components und jQuery fehlte diese Skalierbarkeit durch die fehlende Unterstützung dieser Konzepte. Hinsichtlich der Performance ist eine Übertragbarkeit nur teilweise gegeben. Bei komplexeren Anwendungen zeigte Angular eine bessere Leistung als die anderen Lösungen, was auf seine Architektur mit Optimierungen wie Ahead-of-Time Compilation und effiziente Change Detection zurückzuführen ist. Web Components und jQuery sind hingegen bei steigender Komplexität weniger leistungsfähig. 
+Auch hinsichtlich der Komplexität gibt es Unterschiede. Während Angular und React bei kleineren Projekten aufgrund ihres initialen Overheads komplexer wirken, gleicht sich dieser Nachteil bei größeren Anwendungen aus. Insbesondere Angular profitiert hierbei von seiner strikten Struktur und dem umfassenden Tooling, wodurch der anfängliche Overhead langfristig weniger ins Gewicht fällt.
 
 %-----------------------------------------------------------------------
 \appendix
