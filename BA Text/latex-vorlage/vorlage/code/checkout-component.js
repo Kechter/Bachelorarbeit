@@ -15,7 +15,7 @@ this.shadowRoot.innerHTML = `
   <div>Total Price: $${this.totalPrice}</div>
   <button id="go-to-products">Go to Products</button>
   <button id="go-to-cart">Go to Cart</button>
-`;
+`; 
 
 this.shadowRoot.querySelector("#go-to-products").addEventListener("click", () => {
     window.navigateTo("/products");

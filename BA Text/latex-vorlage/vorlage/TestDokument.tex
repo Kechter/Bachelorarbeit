@@ -4,6 +4,8 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{float}
+\hypersetup{draft}
+
 % ----------------------------------------------------------------------
 
 \begin{document}
@@ -1213,27 +1215,70 @@ Zuletzt kommt Web Components mit 522 LoC und hat damit den höchsten Codeumfang.
 
 \section{Code Vergleich}
 
-\lstinputlisting {code/checkout.component.ts}
+\lstinputlisting[caption={Angular Component}] {code/checkout.component.ts}
 
-In Angular wird der Checkout-Prozess mithilfe des Observable-Pattern \texttt{.subscribe()} umgesetzt, um Daten asynchron abzurufen. Die Navigation erfolgt über den Angular Router per \texttt{this.router.navigate}
+In Angular wird der Checkout-Prozess mithilfe des Observable-Pattern \texttt{.subscribe()} umgesetzt, um Daten asynchron abzurufen. Die Navigation erfolgt über den Angular Router per \texttt{this.router.navigate}.
 
-\lstinputlisting {code/checkout.component.html}
+\lstinputlisting[caption={Angular Template}] {code/checkout.component.html}
 
-Die Komponente Cart wird mit dem Tag \texttt{<app-cart>} eingebunden und wiederverwendet. Der Gesamtpreis wird dynamisch an das Template gebunden und automatisch aktualisiert wenn sich der Wert der Komponente ändert.
+Die Komponente Cart wird mit dem Tag \texttt{<app-cart>} eingebunden und wiederverwendet. Der Gesamtpreis wird dynamisch an das Template gebunden und automatisch aktualisiert, wenn sich der Wert der Komponente ändert.
 
-\lstinputlisting {code/checkout.js}
+\lstinputlisting[caption={React Component}] {code/checkout.js}
 
-In React wird fetch() in Kombination mit useEffect() und Promiese.all für eine parallele Datenverarbeitung genutzt. Die Anzeige von Komponente erfolgt über den Tag \texttt{<CartComponent/>}. Für das State Management wird useState() verwendet.
-Die Navigation wird über den React Router mit \texttt{useNavigate()} gesteuert. 
+In React wird \texttt{fetch()} in Kombination mit \texttt{useEffect()} und \texttt{Promise.all()} für eine parallele Datenverarbeitung genutzt. Die Anzeige von Komponente erfolgt über den Tag \texttt{<CartComponent/>}. Für das State Management wird \texttt{useState()} verwendet. Die Navigation wird über den React Router mit \texttt{useNavigate()} gesteuert.
 
-\lstinputlisting {code/jqcheckout.js}
+\lstinputlisting[caption={Web Components}] {code/checkout-component.js}
 
-Der Checkout-Prozess
+Der Checkout-Prozess in Web Components erfolgt über \texttt{fetch()}-Requests und \texttt{Promise.all()}. Die Darstellung erfolgt mithilfe des \texttt{Shadow DOM}. Die Navigation wird manuell gesteuert mit \texttt{window.navigateTo() welches eine Navigation mit \texttt{window.location.href} durchführt}.
 
-\lstinputlisting {code/checkout-component.js}
+\lstinputlisting[caption={jQuery Component}] {code/jqcheckout.js}
 
+jQuery verwendet \texttt{\$.ajax()} für Datenabrufe und \texttt{Promise.all()} zur Parallelisierung. Die Datenanzeige erfolgt mithilfe des DOM, welcher mit \texttt{.append()} die Darstellung hinzufügt. Die Navigation erfolgt mithilfe von \texttt{window.location.href}.
+
+\begin{table}[H]
+\centering
+\caption{Vergleich der Checkout-Komponenten}
+\scalebox{0.73}{%
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Kriterium}          & \textbf{Angular}          & \textbf{React}           & \textbf{Web Components}    & \textbf{jQuery}          \\ \hline
+Fetching                    & Observable Pattern       & fetch() + useEffect()    & fetch() + Promise.all()    & \$.ajax() + Promise.all() \\ \hline
+Berechnung                  & Observable Verarbeitung  & Promise.all()            & Promise.all()              & Promise.all()            \\ \hline
+Rendering                   & Angular Template Binding & JSX mit Components       & Shadow DOM Rendering       & Direkte DOM Manipulation \\ \hline
+Navigation                  & Angular Router           & React Router             & window.location.href         & window.location.href     \\ \hline
+Formular-Handling           & Angular Bindings         & JSX Components           & Shadow DOM                 & HTML Input               \\ \hline
+Modularität                 & Sehr hoch                & Hoch                     & Mittel                     & Niedrig                  \\ \hline
+Wiederverwendbarkeit        & Hoch                     & Hoch                     & Mittel                     & Niedrig                  \\ \hline
+Komplexität                 & Mittel                   & Mittel                   & Hoch                      & Niedrig                  \\ \hline
+Lesbarkeit                  & Hoch                     & Hoch                     & Mittel                     & Niedrig                  \\ \hline
+Erweiterbarkeit             & Hoch                     & Hoch                     & Mittel                     & Niedrig                  \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+Die Tabelle zeigt, wie die verschiedenen Frameworks parallel betrachtet am Beispiel der Checkout-Komponente abschneiden. Angular und React schneiden beide sehr gut ab durch ihre klare Strukturierung, hohe Modularität und Wiederverwendbarkeit. Angular bietet eine starke Typensicherung und Bindings, welche die Implementierung vereinfachen. React zeigt eine hohe Flexibilität und einfache State-Verwaltung, wodurch die Entwicklung effizient gestaltet wird. Web Components bietet mit dem Shadow DOM eine gute Isolation von Komponenten, ist jedoch aufwändiger zu implementieren durch größere Komplexität und eine weniger klare Strukturierung. jQuery ist im Vergleich veraltet und bietet keine guten Möglichkeiten für Modularisierung und Erweiterbarkeit.
 
 \section{Zusammenfassung der Evaluierung}
+
+Ziel der Evaluierung war es, einen systematischen Vergleich der Frameworks anhand bestimmter Metriken durchzuführen. 
+
+Im Bereich der Performance wurde klar, das Web Components konstant gute Ergebnisse lieferte. jQuery war bei einfachen Seiten zwar sehr performant lieferte aber bei komplexeren Situationen weniger Leistung. Angular war genau umgedreht gut bei komplexeren Seiten, im Vergleich aber sehr langsam bei einfachen Seiten. React zeigte sich mit einer durchschnittlichen Performance in allen Szenarien.
+
+Die Wartbarkeit der Frameworks war bei Angular und React durch eine klare Strukturierung und TypeScript-Unterstützung gut. Web Components folgt dahinter, durch eine fehlende Unterstützung von Frameworks wodurch die  Wartbarkeit erschwert wird. jQuery bietet eine schlechte Wartbarkeit durch die unstrukturierte DOM-Manipulation und der komplizierten Fehlerbehebung. 
+
+Die Erweiterbarkeit war bei den Angular und React sehr einfach. Web Components und jQuery bieten Möglichkeiten zur Erweiterung welche jedoch aufwändiger sind.
+
+Die Skalierbarkeit in Angular und React stellte sich durch die Verwendung von Modulen und effektivem State Management als einfach und flexibel dar. Web Components bieten eine gute Isolation aber Probleme bei komplexen Datenflüssen. jQuery wird bei Skalierung schnell und unübersichtlich.
+
+Der Entwicklungsaufwand der Anwendungen war in Angular am geringsten, was jedoch durch die vorhandene Vorerfahrung beeinflusst sein könnte. React folgt knapp danach, da der Einstieg durch die Ähnlichkeit zu Angular erleichtert wurde. Die State-Management-Lösungen und die komponentenbasierte Struktur waren schnell zu erlernen und effizient umzusetzen. Der Entwicklungsaufwand in jQuery war höher, da die Unterstützung durch moderne Konzepte, wie sie in React vorhanden sind, fehlte. Web Components boten keine Unterstützung durch ein Framework oder eine Library, wodurch vieles manuell implementiert werden musste, was den Aufwand zusätzlich erhöhte.
+
+Die Modularität war in Angular, React und Web Components gut durch die einfache Wiederverwendbarkeit von Komponenten. Web Components fällt leicht hinterher, aufgrund des erhöhten Aufwands durch manuelles State-Management und Routing. jQuery bietet eine schlechte Modularisierung durch die fehlende Komponenten Struktur.
+
+Die Komplexität hinsichtlich des Codeumfangs war bei React mit 298 LoC am niedrigsten. Angular folgte mit 469 LoC und jQuery mit 480 LoC. Web Components hatte die höchste Anzahl mit 522 LoC durch die erhöhte manuelle Implementierung. 
+
+Der direkte Codevergleich an der Checkout Komponente zeigte, dass Angular und React hier am besten abschnitten mit ihrer strukturierten Lösungen im Fetching, Rendering und Navigation. Web Components folgt mit der Möglichkeit von eigenen Componenten, jedoch fehlt die Unterstützung eines Frameworks hinsichtlich State-Mangements und Navigation. jQuery erwies sich als der schlechteste Ansatz aufgrund fehlender Unterstützung für moderne Entwicklungskonzepte und der erschwerten Umsetzung strukturierter Implementierungslösungen.
+
+Zusammenfassend lässt sich sagen, dass Web Components eine konstant gute Performance bieten, aber abgesehen vom Komponentenansatz durch fehlende Framework-Unterstützung und eingeschränkte Lösungsansätze nicht überzeugen. jQuery ist funktional, aber veraltet, bietet nur bei sehr kleinen Projekten akzeptable Performance und fällt ansonsten deutlich ab. React zeigt eine konstante, solide Performance mit modernen Lösungen und guter Unterstützung für aktuelle Konzepte. Angular überzeugt besonders bei größeren Anwendungen durch seine klare Strukturierung und bietet bei Skalierungen eine gute Performance, leidet jedoch unter dem Framework-Overhead.
 
 %---
 \chapter{Zusammenfassung und Ausblick}
