@@ -210,14 +210,20 @@ Der Vergleich wird anhand verschiedener Metriken erstellt, die unterschiedliche 
 Das Vorgehen der Arbeit ist in mehrere strukturierte Abschnitte unterteilt, die in den folgenden Kapiteln behandelt werden. Hierbei wird auf Basis der Grundlagen und der vorgestellten Problemstellung gezielt auf die Lösung hingearbeitet. 
 Das komplette Vorgehen lässt sich in folgende Kapitel aufteilen: 
 
-\todo {Ausformulieren sobald alle Kapitel stehen}
 \begin{enumerate}  
-	\item \textbf{Grundlagen Kapitel 2}: Hier wird auf alle relevanten technischen und theoretischen Konzepte der Arbeit eingegangen um einen gleichen Wissensstand zu garantieren. Das Kapitel befasst sich mit den für die Forschungsarbeit wichtigen Frontendtechnologien, sowie mit der komponentenbasierten Architektur und dient dazu, ein grundlegendes Verständnis für die folgenden Kapitel zu schaffen. 
-    \item \textbf{Problemanalyse (Kapitel 3)}: 
-    \item \textbf{Lösungskonzept (Kapitel 4)}: 
-    \item \textbf{Implementierung (Kapitel 5)}: 
-    \item \textbf{Evaluierung (Kapitel 6)}:   
-    \item \textbf{Zusammenfassung und Ausblick (Kapitel 7)}:	
+\item \textbf{Grundlagen Kapitel 2}: Hier wird auf alle relevanten technischen und theoretischen Konzepte der Arbeit eingegangen um einen gleichen Wissensstand zu garantieren. Das Kapitel befasst sich mit den für die Forschungsarbeit wichtigen Werkzeugen, Grundlagen, Frontendtechnologien sowie mit den Backendtechnologien und dient dazu, ein grundlegendes Verständnis für die folgenden Kapitel zu schaffen. 
+    
+\item \textbf{Problemanalyse (Kapitel 3)}: In diesem Kapitel wird die aktuelle Situation der Webentwicklung detailliert beschrieben und bestehende Herausforderungen sowie Einschränkungen analysiert. Besonders detailliert wird hierbei betrachtet, wie die unterschiedlichen Ansätzen der Frameworks hinsichtlich Skalierbarkeit, Performance, Modularität, Wiederverwendbarkeit und Wartbarkeit sind. Die identifizierten Probleme dienen als Ausgangspunkt für die Entwicklung des Lösungskonzept sowie die Identifizierung der in der Evaluierung betrachteten Metriken.
+
+\item \textbf{Lösungskonzept (Kapitel 4)}: Auf Basis der zuvor identifizierten Probleme wird ein Lösungskonzept entwickelt, das einen strukturierten Vergleich der Frameworks ermöglicht. Hierbei werden relevante Kriterien wie Modularität, Performance, Entwicklungsaufwand, Skalierbarkeit, Wartbarkeit und State-Management definiert. Zudem wird beschrieben, wie diese Metriken im Rahmen der Implementierung untersucht, gemessen und ausgewertet werden sollen.
+
+\item \textbf{Implementierung (Kapitel 5)}: Dieses Kapitel beschreibt die praktische Umsetzung des Vergleichsansatzes. Dazu wird ein zentralisiertes Backend mit Supabase aufgebaut, welches von mehreren Frontend-Anwendungen (Angular, React, Vue.js, Svelte und jQuery) genutzt wird. Die Implementierung umfasst dabei die Entwicklung von Authentifizierungsmethoden, Produktdarstellungen, Warenkorbfunktionen sowie einen Checkout-Prozess. Jede Frontend-Variante wird separat implementiert und im Anschluss hinsichtlich der definierten Kriterien evaluiert.
+
+\item \textbf{Inbetriebnahme (Kapitel 6)}: In diesem Kapitel wird beschrieben, wie die entwickelte Anwendung lokal installiert und ausgeführt werden kann. Dabei werden sowohl die Installation und Konfiguration des zentralen Backends als auch der vier Frontend-Anwendungen (Angular, React, Web Components, jQuery) erläutert. Ziel ist es, einen reibungslosen Start der Anwendungen zu gewährleisten, um diese anschließend evaluieren zu können.
+
+\item \textbf{Evaluierung (Kapitel 7)}: In diesem Kapitel wird die Performanz der implementierten Frameworks in verschiedenen Szenarien verglichen. Die Evaluierung umfasst Messungen hinsichtlich Ladezeiten, Reaktionsgeschwindigkeit, Speicherverbrauch sowie Skalierbarkeit. Zusätzlich werden Architekturmerkmale wie Wartbarkeit, Modularität und Wiederverwendbarkeit analysiert. Die Ergebnisse werden systematisch gegenübergestellt, um Stärken und Schwächen der einzelnen Frameworks herauszuarbeiten.
+
+\item \textbf{Zusammenfassung und Ausblick (Kapitel 8)}: Abschließend wird ein Fazit gezogen, das die wesentlichen Erkenntnisse der Arbeit zusammenfasst. Zudem wird ein Ausblick auf mögliche Weiterentwicklungen gegeben, die auf Basis der gewonnenen Erkenntnisse sinnvoll erscheinen. Hierzu gehören sowohl Verbesserungen am Vergleichsansatz als auch mögliche Erweiterungen hinsichtlich neuer Frameworks oder weiterer Architekturmerkmale.
 \end{enumerate}  
 % ---
 \chapter{Grundlagen}
@@ -372,7 +378,7 @@ Für Verfeinerungen lassen sich mit jQuery auch Effekte und Animationen in die A
 \subsubsection{Callbacks und asynchrone Verarbeitung}
 Mithilfe von Callbacks lassen sich Funktionen als Argumente an eine andere Funktion übergeben. Sie werden erst dann ausgeführt, wenn die übergeordnete Funktion vollständig verarbeitet wurde. Dadurch lassen sich asynchrone Operationen, wie beispielsweise das Laden einer HTML-Datei mithilfe von \texttt{\$.get()}, steuern. Erst nach Abschluss des Ladevorgangs wird die Callback-Funktion aufgerufen. So kann verhindert werden, dass die Benutzeroberfläche während des Ladevorgangs einfriert. Callbacks sind besonders wichtig beim Laden externer Dateien, bei API-Aufrufen sowie bei Benutzerinteraktionen wie \texttt{onClick} oder \texttt{onSubmit}.
 
-\begin{lstlisting}[language=Java, caption={Verwendung eines Callbacks in jQuery}]
+\begin{lstlisting}[language=JavaScript, caption={Verwendung eines Callbacks in jQuery}]
 $.get("myhtmlpage.html", function() { 
     myCallBack(param1, param2); 
 });
@@ -508,7 +514,6 @@ Svelte besitzt reaktive Komponenten, die leicht zu erstellen und wiederzuverwend
 Die bestehenden Vergleiche fokussieren sich oft nur auf bestimmte Aspekte, wie die Rendering Performance oder Bundle-Größen. Dies sind wichtige Metriken, decken aber nur einen Teilaspekt ab. Hier ist eine ganzheitliche Betrachtung nötig, die auch den Entwicklungsaufwand, die Wartbarkeit sowie Skalierbarkeit berücksichtigt. Bisherige Vergleiche nutzen hauptsächlich Benchmarks und vergleichen anhand dieser die Frameworks. Für eine größere Vergleichsabdeckung ist ein Vergleich der Frameworks bei Nutzung in einem echten Nutzerszenario notwendig. 
 
 \section{Zusammenfassung der Problemstellung}
-\todo{überarbeiten klingt ähnlich wie vorheriges kapitel}
 Der steigende Einsatz von komponentenbasierten Frameworks wie React, Angular, Vue und weiteren bietet viele Vorteile hinsichtlich Wiederverwendbarkeit und Modularisierung. Jedoch entstehen auch Herausforderungen hinsichtlich des Entwicklungsaufwands, der Code-Komplexität und der langfristigen Wartbarkeit.
 
 Die Problemstellung der vorliegenden Forschungsarbeit ergibt sich aus einer Lücke, die bei bisherigen Vergleichen von komponentenbasierten Frameworks besteht. Diese konzentrieren sich oft nur auf spezifische Metriken wie Ladezeiten und stellen dadurch keinen umfassenden Vergleich dar.
@@ -520,22 +525,21 @@ Diese Forschungsarbeit schließt die Lücke, indem sie auf eine ganzheitliche An
 \label{cha:loesungskonzept}
 
 \section{Zielsetzung des Vergleichs}
-Ziel des Vergleichs ist es, verschiedene Frontend-Technologien anhand ihrer Modularität, ihres Entwicklungsaufwands, ihrer Skalierbarkeit, ihrer Wartbarkeit und ihres State-Managements zu vergleichen.
+Ziel des Vergleichs ist es, unterschiedliche Frontend-Technologien anhand ihrer Modularität, ihres Entwicklungsaufwands, ihrer Skalierbarkeit, ihrer Wartbarkeit und ihres State-Managements zu untersuchen.
 
 Untersucht werden das Framework Angular mit einer klassenbasierten Komponentenarchitektur, React mit einer funktionsbasierten Komponentenarchitektur, Web Components als frameworkfreie Lösung einer Komponentenarchitektur und jQuery als herkömmliche Frontend-Lösung.
 
-Der Vergleich findet anhand einer entwickelten E-Commerce-Plattform statt, da diese eine realistische Umgebung für Business-Logik durch Produktverwaltung, Warenkorb und Checkout bietet. Zudem besteht die Möglichkeit einer modularen Erweiterung durch Filter oder Bewertungen. Ein weiterer wichtiger Vergleichspunkt ist das State-Management, da jede Technologie unterschiedliche Ansätze zur Verwaltung des Anwendungszustands verfolgt.
+Der Vergleich findet anhand einer entwickelten E-Commerce-Plattform statt, da diese eine realistische Umgebung für Business-Logik durch Produktverwaltung, Warenkorb und Checkout bietet. Zudem besteht die Möglichkeit einer modularen Erweiterung durch Filter oder Bewertungen. Ein weiterer wichtiger Vergleichspunkt ist das State-Management, da jede Technologie unterschiedliche Ansätze zur Verwaltung des Anwendungszustands verfolgt, soll auch dies ausführlich untersucht werden.
 
 \section{Methodik}
-\todo{Methodiken anpassen, je nachdem welche relevant sind oder nicht durchgeführt werden}
-Der Vergleich der Arbeit erfolgt an mehreren Metriken. Es wird zum einen die Modularität und Wiederverwendbarkeit untersucht. Hierbei wird analysiert, inwieweit Komponenten sich wiederverwenden lassen und wie sich ein Projekt mithilfe dieser modularisieren lässt. Ebenfalls  wird die Performance erforscht, wobei alle Performance-Daten, die in den Entwicklungstools des Browsers ermittelt werden können, analysiert werden. Hierzu zählen Ladezeit (Loading Time), Time to First Byte (TTFB), First Contentful Paint (FCP), Largest Contentful Paint (LCP), Time to Interactive (TTI), Cumulative Layout Shift (CLS), Renderzeiten der Komponenten, die Anzahl und Größe der Netzwerk-Requests, die JavaScript-Execution-Time, die Speichernutzung (Memory Usage) sowie die Bildwiederholrate (Frames per Second, FPS). Mithilfe dieser Metriken wird eine umfassende Analyse der Frontend-Frameworks hinsichtlich der Performance ermöglicht. Außerdem wird der Entwicklungsaufwand untersucht. Hierbei wird die Implementationszeit der verschiedenen Features in jedem Framework miteinander verglichen. Ebenfalls wird auf Basis eines gleichen Endprodukts die Code-Komplexität und Lesbarkeit des Codes, der hierfür nötig war, miteinander verglichen. Des Weiteren wird die Skalierbarkeit untersucht, wobei ermittelt wird, wie einfach sich weitere Features wie Bewertungen oder Filter in die Anwendung integrieren lassen. Hierbei wird auch in Betracht gezogen, inwieweit bei großen Datenmengen die Performance bestehen bleibt. Ebenfalls untersucht wird die Wartbarkeit. Hierbei wird ermittelt, ob und wie einfach sich Komponenten ändern bzw. erweitern lassen.  
+Der Vergleich der Arbeit erfolgt an mehreren Metriken. Es wird zum einen die Modularität und Wiederverwendbarkeit untersucht. Hierbei wird analysiert, inwieweit Komponenten sich wiederverwenden lassen und wie sich ein Projekt mithilfe dieser modularisieren lässt. Ebenfalls  wird die Performance erforscht, wobei alle Performance-Daten, die in den Entwicklungstools des Microsoft Edge-Browsers ermittelt werden können, analysiert werden. Hierzu zählen Ladezeit (Loading Time), Time to First Byte (TTFB), First Contentful Paint (FCP), Largest Contentful Paint (LCP), Time to Interactive (TTI), Renderzeiten der Komponenten, die Anzahl und Größe der Netzwerk-Requests, die JavaScript-Execution-Time sowie die Speichernutzung (Memory Usage). Mithilfe dieser Metriken wird eine umfassende Analyse der Frontend-Frameworks hinsichtlich der Performance ermöglicht. Außerdem wird der Entwicklungsaufwand untersucht. Hierbei wird die Implementationszeit der verschiedenen Features in jedem Framework miteinander verglichen. Ebenfalls wird auf Basis eines gleichen Endprodukts die Code-Komplexität und Lesbarkeit des Codes, der hierfür nötig war, miteinander verglichen. Des Weiteren wird die Skalierbarkeit untersucht, wobei ermittelt werden soll, wie einfach sich weitere Features wie Bewertungen oder Filter in die Anwendung integrieren lassen. Hierbei wird auch in Betracht gezogen, inwieweit bei großen Datenmengen die Performance bestehen bleibt. Ebenfalls untersucht wird die Wartbarkeit. Hierbei wird ermittelt, ob und wie einfach sich Komponenten ändern bzw. erweitern lassen.  
 
 \section{Implementierungsstrategie und Testumgebung}
 
-Für den Vergleich wird eine E-Commerce-Platform als Testanwendung entwickelt, welche eine realistische Umgebung bietet. Die Anwendung besteht aus den Basisfunktionen Produktliste, Warenkorb, Checkout sowie User-Management. Mögliche Erweiterungen sind ein Bewertungssystem der Produkte sowie ein Filter und Suchsystem, um dem User zu ermöglichen, spezifische Produkte zu finden. 
-Um einen fairen Vergleich zu ermöglichen, in dem alle Frameworks unter den gleichen Bedingungen verglichen werden, wird die Analyse auf das Frontend fokussiert. Alle Datenbankabfragen verlaufen über ein Zentrales Backend, welches die API-Abfragen bearbeitet. 
+Die Anwendung besteht aus den Basisfunktionen Produktliste, Warenkorb, Checkout sowie User-Management. Mögliche Erweiterungen sind ein Bewertungssystem der Produkte sowie ein Filter und Suchsystem, um dem User zu ermöglichen, spezifische Produkte zu finden. 
+Um einen fairen Vergleich zu ermöglichen, in dem alle Frameworks unter den gleichen Bedingungen verglichen werden, wird die Analyse auf das Frontend fokussiert. Alle Datenbankabfragen verlaufen über ein zentrales Backend, welches die API-Abfragen bearbeitet. 
 Außerdem wird sichergestellt, dass die UI-Struktur aller Anwendungen gleich ist. 
-Für eine objektive Bewertung der Frameworks wird mithilfe von den Entwicklungstools des Browsers eine Performance Analyse aller entwickelten Lösungen durchgeführt. Hierbei können Messungen wie Ladezeiten und Rendering-Metriken gesammelt und dann verglichen werden. 
+Für eine objektive Bewertung der Frameworks wird mithilfe von den Entwicklungstools des Browsers eine Performance Analyse aller entwickelten Lösungen durchgeführt. Hierbei können Messungen wie Ladezeiten und Rendering-Metriken gesammelt und verglichen werden. 
 
 \section{Erwartete Ergebnisse und Nutzen der Analyse}
 
@@ -570,7 +574,6 @@ Alle Frontend-Anwendungen greifen hierbei über HTTP-Anfragen auf den Express Se
 
 In diesem Abschnitt wird der allgemeine Ablauf der Anwendungen dargestellt. Das folgende Sequenzdiagramm veranschaulicht, wie die verschiedenen Frontendlösungen mit dem zentralen Backend interagieren und welche Schritte bei der Kommunikation zwischen Client und Server ablaufen.
 
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/sequenzdiagramm}
@@ -578,24 +581,38 @@ In diesem Abschnitt wird der allgemeine Ablauf der Anwendungen dargestellt. Das 
     \label{fig:applikationsstruktur}
 \end{figure}
 
+Das Sequenzdiagramm ist 4 Abschnitte aufgeteilt, den Nutzer, dem Frontend, dem Backend und der Supabase Datenbank. Die Kommunikation erfolgt in allen Fällen gleich. 
+Zunächst füllt der Nutzer das Login-Formular im Frontend aus und sendet dann per "Login"-Button die Daten an das Backend. Das Backend leitet die Anfrage an Supabase Auth API zur Authentifizierung weiter. Nach einer erfolgreichen Anmeldung wird ein Auth Token zurückgegeben und an das Frontend weitergeleitet. Der Nutzer wird daraufhin bei erfolgreichen Login zu der Produktliste weitergeleitet.
+
+Nun erfolgt das Laden der Produktdaten. Bein öffnen der Seite wird eine Anfrage vom Frontend an das Backend geschickt. Das Backend holt die Produktdaten aus der Tabelle products in Supabase. Die Produkte werden dann zurück an das Frontend übermittelt und angezeigt.
+
+Der Nutzer kann nun die Produktliste ansehen und sich für gewissen Produkte entscheiden. Mit Klick auf den "Zum Warenkorb hinzufügen" Button kann ein Produkt zum Warenkorb hinzugefügt werden. Hierbei wird eine Anfrage vom Frontend an das Backend gesendet mit Angaben zu Benutzer ID- und Produkt-ID. Das Backend speichert die Daten in der Tabelle cart. 
+
+Der Nutzer kann nachdem er alle gewünschten Produkte zum Warenkorb hinzugefügt hat nun zum Warenkorb navigieren. Das Frontend sendet eine Anfrage an das Backend, um die Warenkorbinhalte abzurufen. Das Backend fragt die entsprechenden Daten aus cart und products Tabelle in Supabase ab und sendet den Warenkorbinhalt des Nutzers an das Frontend und zeigt diesen dann an. 
+
+Zuletzt kann der Nutzer wenn er sich vergewissert hat, dass alle gewünschten Produkte im Warenkorb liegen zum Checkout navigieren. Hierbei wird eine Abfrage der Checkout-Daten vom Frontend an das Backend gesendet. Das Backend holt die Daten aus cart und products Tabelle in Supabase. Die Daten werden an das Frontend übermittelt und dem Nutzer als Bestellübersicht dargestellt.
+
+Dieser Ablauf kann in allen Frontendvarianten identisch umgesetzt werden. 
+
+
 \section{Zentrales Backend-Modul (TypeScript mit Supabase)}
 \subsection{Modulstruktur}
 
-Das zentrale Backend besteht aus fünf modular aufgebauten TypeScript-Dateien, die alle ihre abgegrenzte Aufgabe übernehmen. Die Verbindung zur Datenbank wird zentral mithilfe der \texttt{supabase.ts} initialisiert. Auf dieser Basis stellt die \texttt{server.ts} API-Endpunkte bereit, mithilfe welcher die verschiedenen Frontend-Applikationen ihre Anfragen durchführen können. Hierfür werden verschiedene Services genutzt, die alle kontextabhängige Anfragen an Supabase schicken.
+Das zentrale Backend besteht aus fünf modular aufgebauten TypeScript-Dateien, die jeweils abgegrenzte Aufgaben übernehmen. Die Verbindung zur Datenbank wird zentral mit Hilfe der \texttt{supabase.ts} initialisiert. Auf dieser Basis stellt die \texttt{server.ts} API-Endpunkte bereit, mithilfe welcher die verschiedenen Frontend-Applikationen ihre Anfragen durchführen können. Hierfür werden verschiedene Services genutzt, die alle kontextabhängige Anfragen an Supabase schicken.
 
-Der erste dieser Services ist der \texttt{authService.ts}. Dieser behandelt alle relevanten Datenbankabfragen hinsichtlich der Authentifizierung des Users. Hierzu gehören Funktionen zur Registrierung, zum Login sowie zur Session-Verwaltung. Ein weiterer Service ist der \texttt{productService.ts}, welcher alle relevanten Datenbankabfragen hinsichtlich der Verwaltung der Produktliste enthält. Hierzu gehören Funktionen wie das Fetchen aller Produkte sowie das Fetchen von Produkten anhand einer bestimmten ID.
+Der erste dieser Services ist der \texttt{authService.ts}. Dieser behandelt alle relevanten Datenbankabfragen hinsichtlich der Authentifizierung des Users. Hierzu gehören Funktionen zur Registrierung, zum Login sowie zur Session-Verwaltung. Ein weiterer Service ist der \texttt{productService.ts}, welcher alle relevanten Datenbankabfragen hinsichtlich der Verwaltung der Produktliste enthält. Dazu gehören Funktionen wie das Fetchen aller Produkte sowie das Fetchen von Produkten anhand einer ID.
 
-Als Nächstes folgt der \texttt{cartService.ts}, welcher sich um alle im Warenkorb relevanten Operationen kümmert. Hierzu gehört das Hinzufügen von Produkten in den Warenkorb und das Holen aller im Warenkorb liegenden Produkte.
+Als Nächstes folgt der \texttt{cartService.ts}, welcher sich um alle im Warenkorb relevanten Operationen kümmert. Hierzu gehört das Hinzufügen von Produkten in den Warenkorb und das Abfragen aller im Warenkorb liegenden Produkte.
 
-Es folgt eine klar getrennte Struktur, die durch die \texttt{supabase.ts} als Infrastruktur, der Logik in den jeweiligen Services und den API-Zugriff über die \texttt{server.ts} definiert wird. Alle Services arbeiten über den zentral exportierten Supabase-Client. Durch diese Struktur kann gewährleistet werden, dass alle Frontends ihre Datenbankabfragen über das gleiche zentrale Backend durchführen.
+Es folgt eine klar getrennte Struktur, die durch die \texttt{supabase.ts} als Infrastruktur, der Logik in den jeweiligen Services und den API-Zugriff über die \texttt{server.ts} definiert wird. Alle Services arbeiten über den zentral exportierten Supabase-Client. Durch diese Struktur kann gewährleistet werden, dass alle Frontends ihre Datenbankabfragen über das gleiche Backend durchführen.
 
 \subsection{Supabase-Integration \texttt{supabase.ts}}
 
-Die \texttt{supabase.ts} ist die zentrale Schnittstelle zur Supabase-Datenbank. In ihr wird der Supabase-Client initialisiert, mithilfe der Projekt-URL \texttt{SUPABASE\_URL} sowie des API-Keys \texttt{SUPABASE\_ANON\_KEY}. Die entsprechenden Werte werden über eine \texttt{.env}-Datei übermittelt, um keine Datenbankinformationen über das GitHub-Repository zu verbreiten. Der zentral initialisierte Client kann dann in allen Services wiederverwendet werden, um Anfragen an Supabase zu schicken.
+Die \texttt{supabase.ts} ist die Schnittstelle zur Supabase-Datenbank. In ihr wird der Supabase-Client initialisiert, mithilfe der Projekt-URL \texttt{SUPABASE\_URL} sowie des API-Keys \texttt{SUPABASE\_ANON\_KEY}. Die entsprechenden Werte werden über eine \texttt{.env}-Datei übermittelt, um keine geheimen Datenbankinformationen über das GitHub-Repository zu verbreiten. Der zentral initialisierte Client kann im Anschluss in allen Services wiederverwendet werden, um Anfragen an Supabase zu schicken.
 
 \subsection{API-Schicht – \texttt{server.ts}}
 
-Die Datei \texttt{server.ts} dient als Verbindung zwischen dem zentralen Backend mit den jeweiligen Services und den Frontend. In ihr wird ein Express.js-Server definiert, welche HTTP-Endpunkte für die Services wie Authentifizierung, Produkte und Warenkorb definiert.
+Die Datei \texttt{server.ts} dient als Verbindung zwischen dem zentralen Backend mit den jeweiligen Services und dem Frontend. In ihr wird ein Express.js-Server definiert, welche HTTP-Endpunkte für die Services wie Authentifizierung, Produkte und Warenkorb definiert.
 
 Webbrowser blockieren standardmäßig Anfragen an einen Server, wenn dieser von einer anderen Domain stammt als die eigene. Wenn das Frontend lokal unter \texttt{localhost:4200} entwickelt wird, das Backend jedoch unter \texttt{localhost:3000} läuft, spricht man von sogenannten Cross-Origin-Anfragen.
 Mithilfe von \texttt{cors()} werden Cross-Origin-Anfragen ermöglicht, welche von einer anderen Domain stammen als der Server. Dadurch wird die Kommunikation zwischen Frontend und Backend trotz unterschiedlicher Ursprünge ermöglicht.
@@ -604,7 +621,7 @@ Durch \texttt{express.json()} können eingehende JSON-Daten im Request-Body vera
 Ein Beispiel für den Ablauf dieser API-Anfragen ist der \texttt{POST}–Endpoint \texttt{/api/login}, der Benutzer-Login-Anfragen entgegennimmt. Dieser verarbeitet die Login Anfrage mithilfe der Login Funktion aus dem \texttt{authService} und gibt dieses Ergebnis als JSON zurück. 
 
 
-\begin{lstlisting}[language=Java, caption={Auszug aus \texttt{server.ts}}]
+\begin{lstlisting}[language=TypeScript, caption={Auszug aus \texttt{server.ts}}]
 import express from 'express';
 import cors from 'cors';
 import { login } from './authService';
@@ -624,12 +641,12 @@ Diese modulare Struktur ermöglicht einfache Erweiterungen bei Integration von w
 
 \subsection{Authentifizierungsservice – \texttt{authService.ts}}
 
-Der \texttt{authService.ts} enthält alle Funktionen, die zur Benutzerauthentifizierung benötigt werden. Hierzu gehören die Registrierung und der Login. Bei der Registrierung wird mithilfe von Supabase Auth ein neuer Benutzeraccount erstellt, welcher später für alle relevanten Funktionen genutzt wird, wie z.\,B.\ die Darstellung des nutzerspezifischen Warenkorbs. Beim Login werden die übergebenen Login-Daten mit der Datenbank verglichen, und es wird zurückgegeben, ob eine erfolgreiche Anmeldung erfolgt ist.
+Der \texttt{authService.ts} enthält alle Funktionen, die zur Benutzerauthentifizierung benötigt werden. Hierzu gehören die Registrierung und der Login. Bei der Registrierung wird mithilfe des Authentication-Providers Supabase ein neuer Benutzeraccount erstellt, welcher später für alle relevanten Funktionen genutzt werden kann. Darunter fallen z.\,B.\ die Darstellung des nutzerspezifischen Warenkorbs oder das hinzufügen von Produkten in den nutzerspezifischen Warenkorb. Beim Login werden die übergebenen Login-Daten mit der Datenbank verglichen, und es wird zurückgegeben, ob eine erfolgreiche Anmeldung erfolgt ist.
 Alle Funktionen werden mithilfe des im \texttt{supabase.ts} definierten Clients durchgeführt.
 
 Ein Beispiel für eine Anfrage an Supabase ist die folgende Login-Funktion aus der \texttt{authService.ts}:
 
-\begin{lstlisting}[language=Java, caption={Login-Funktion im \texttt{authService.ts}}]
+\begin{lstlisting}[language=TypeScript, caption={Login-Funktion im \texttt{authService.ts}}]
 import { supabase } from './supabase';
 
 export async function login(email, password) {
@@ -638,64 +655,62 @@ export async function login(email, password) {
     password,
   });
 
-  if (error) throw error;
-  return data;
+  if (error) throw error;  return data;
 }
 \end{lstlisting}
 
-Diese Struktur ermöglicht eine einfache Erweiterung der in Supabase bestehenden Login-Möglichkeiten, wie z.\,B.\ die Integration von OAuth-Anbietern (z.\,B.\ Google oder GitHub) oder die Implementierung von Passwort-Zurücksetzen-Funktionen.
+Diese Struktur ermöglicht eine einfache Erweiterung der in Supabase bestehenden Login-Möglichkeiten, wie z.\,B.\ die Integration von OAuth-Anbietern (z.\,B.\ Google oder GitHub) oder die Implementierung einer Passwort-Zurücksetzen-Funktionalität.
 
 \section{Angular-Implementierung}
 \subsection{Struktur und Setup}
 
-Bei der Implementierung wird mit Angular Version 19 gearbeitet. Der Einstiegspunkt in der App findet in der \texttt{main.ts} statt, in welcher mit \texttt{bootstrapApplication()} die App gestartet wird. \texttt{app.config.ts} ist die zentrale Konfigurationsdatei, in welcher das Routing, Provider, HTTP etc. konfiguriert werden kann. Eine genaue Definition der Routen erfolgt in der \texttt{app.routes.ts}. Hier werden alle für die Navigation relevanten Komponenten importiert und in einem Array als Routenobjekte gespeichert. So ist beispielsweise der Pfad zur Warenkorbseite (CartPageComponent) in der app.routes.ts über \texttt{path: 'cart'} definiert. So kann global bei einer durchgeführten Navigation auf diese alle zugegriffen werden und hin navigiert werden. Die \texttt{index.html} stellt die Grundstruktur des HTML der Angular-Anwendung dar und stellt diese in \texttt{<app-root>} dar.
+Bei der Implementierung wird mit Angular Version 19 gearbeitet. Der Einstiegspunkt in der App findet in der \texttt{main.ts} statt, in welcher mit der \texttt{bootstrapApplication()}-Funktion die App gestartet wird. \texttt{app.config.ts} ist die zentrale Konfigurationsdatei, in welcher das Routing, Provider, HTTP etc. konfiguriert werden kann. Eine genaue Definition der Routen erfolgt in der \texttt{app.routes.ts}. Hier werden alle für die Navigation relevanten Komponenten importiert und in einem Array als Routenobjekte gespeichert. So ist beispielsweise der Pfad zur Warenkorbseite (CartPageComponent) in der app.routes.ts über \texttt{path: 'cart'} definiert. So kann global bei einer durchgeführten Navigation auf diese zugegriffen und navigiert werden. Die \texttt{index.html} definiert die Grundstruktur des HTML der Angular-Anwendung und diese im \texttt{<app-root>} Element.
 
-Die Anwendung ist in viele Komponenten geschnitten. Hierzu gehören Komponenten für die Authentifizierung, Warenkorb, Checkout und Produktliste. Die gesamte Kommunikation mit der Supabase-Datenbank erfolgt über die \texttt{supabase.service.ts}, welche passende API-Anfragen an das zentrale Backend schickt.
+Die Anwendung ist in viele Komponenten unterteilt. Hierzu gehören Komponenten für die Authentifizierung, Warenkorb, Checkout und Produktliste. Die gesamte Kommunikation mit der Supabase-Datenbank erfolgt über die \texttt{supabase.service.ts}, welche passende API-Anfragen an das zentrale Backend schickt.
 
 \subsection{Integration des Backend-Moduls}
 
 Für eine zentrale Kommunikation mit der Supabase-Datenbank enthält die \texttt{supabase.service.ts} alle relevanten Schnittstellen zum zentralen Backend.
-Der Service ist mit \texttt{@Injectable({ providedIn: 'root' })} deklariert, wodurch er zentral für das gesamte Projekt verfügbar ist. Der Supabase-Service wird per Dependency Injection über den Konstruktor in die jeweilige Komponente eingebunden. Der \texttt{HttpClient} wird verwendet, um HTTP-Anfragen wie (GET/POST) durchzuführen. Für die Benutzerverwaltung und Authentifizierung bestehen die Methoden \texttt{signUp(email, password)}, \texttt{login(email, password)}. In diesen wird der aktuelle Benutzer für benutzerspezifische Funktionen mithilfe des \texttt{BehaviorSubject} gespeichert. Dadurch wird jederzeit ein Zugriff auf den aktuellen User ermöglicht. Der User kann hierbei Produkte aus der Produktliste, die mithilfe von \texttt{fetchProducts()} geladen werden, zu seinem userspezifischen Warenkorb hinzufügen (\texttt{addToCart(userId, productId, quantity)}) und diesen auch darstellen mit \texttt{getCart(userId)}.
+Der Service ist mit \texttt{@Injectable({ providedIn: 'root' })} deklariert, wodurch er zentral für das gesamte Projekt verfügbar ist. Der Supabase-Service wird per Dependency Injection über den Konstruktor in die jeweilige Komponente eingebunden. Der \texttt{HttpClient} wird verwendet, um HTTP-Anfragen wie GET oder POST durchzuführen. Für die Benutzerverwaltung und Authentifizierung bestehen die Methoden \texttt{signUp(email, password)}, \texttt{login(email, password)}. In diesen wird der aktuelle Benutzer für benutzerspezifische Funktionen mithilfe des \texttt{BehaviorSubject} gespeichert. Dadurch wird jederzeit ein Zugriff auf den aktuellen User ermöglicht. Der User kann hierbei Produkte aus der Produktliste, die mithilfe von \texttt{fetchProducts()} geladen werden, zu seinem userspezifischen Warenkorb hinzufügen (\texttt{addToCart(userId, productId, quantity)}) und diesen mit \texttt{getCart(userId)} darstellen.
 
 \subsection{Authentifizierung \texttt{auth.component}}
 
-Die Authentifizierung eines Users erfolgt in der \texttt{auth.component} Komponente. Hier wird mithilfe von Reactive Forms ein Formular erstellt welches die Nutzerdaten entgegennimmt und bei Absendung abhängig vom Authentifizierungsmodus eine Anmeldung oder Registrierung aus dem Service auslöst. Bei einer erfolgreichen Anmeldung wird der Nutzer auf die Produktlisten Seite weitergeleitet und kann nun zwischen den verschiedenen Ansichten navigieren. Der Moduswechsel erfolgt durch eine einfache Umschaltfunktion (toggleRegisterMode()), die den State \texttt{isRegistering} entsprechend wechselt.
+Die Authentifizierung eines Users erfolgt in der \texttt{auth.component} Komponente. Hier wird mithilfe von Reactive Forms ein Formular erstellt, welches die Nutzerdaten entgegennimmt und bei Absendung abhängig vom Authentifizierungsmodus eine Anmeldung oder Registrierung aus dem Service auslöst. Bei einer erfolgreichen Anmeldung wird der Nutzer auf die Produktlisten-Seite weitergeleitet und kann nun zwischen den verschiedenen Ansichten navigieren. Der Moduswechsel erfolgt durch eine einfache Umschaltfunktion (toggleRegisterMode()), die den State \texttt{isRegistering} entsprechend wechselt.
 
 \subsection{Produktliste \texttt{product-list.component}}
 
 Beim Laden der Seite wird im Angular-\texttt{ngOnInit}-Lifecycle die Methode \texttt{fetchProducts()} aus dem \texttt{SupabaseService} aufgerufen und die Produkte werden in einem Produkt-Array gespeichert.
 
-Im Template wird dann mithilfe der Angular-\texttt{*ngFor}-Direktive die Anzeige in Form einer Liste generiert, die den Namen des Produkts, die Beschreibung, den Preis sowie jeweils einen Button enthält, um das Produkt zum Warenkorb hinzuzufügen.
-Durch Drücken des Buttons wird das aktuelle Produkt ausgelesen und die Produkt-ID zusammen mit der passenden User-ID über eine Funktion übergeben, wodurch der Artikel dem Warenkorb hinzugefügt wird.
+Im Template wird daraufhin mithilfe der Angular-\texttt{*ngFor}-Direktive die Anzeige in Form einer Liste generiert, die den Namen des Produkts, die Beschreibung, den Preis sowie jeweils einen Button enthält, um das Produkt zum Warenkorb hinzuzufügen.
+Durch Klicken des "Add to Cart"-Buttons wird das aktuelle Produkt ausgelesen und die Produkt-ID gemeinsam mit der passenden User-ID über eine Funktion übergeben, wodurch der Artikel dem Warenkorb hinzugefügt wird.
 Wenn die Produkte noch nicht geladen sind, wird mithilfe von Angulars \texttt{*ngIf}-Direktive und einem \texttt{<ng-template>} der Text \texttt{"Loading Products..."} angezeigt.
 
 
 \subsection{Warenkorb \texttt{cart.component}}
 
-Der Warenkorb stellt die vom User hinzugefügten Produkte dar. Beim Aufruf der Warenkorb-Seite wird beim Laden im \texttt{ngOnInit()}-Lifecycle direkt die Methode \texttt{getCartItems()} aufgerufen und speichert die vom Nutzer hinzugefügten Artikel in einem \texttt{cartItems}-Array. Im Template wird dann jedes Produkt mit dem Produktnamen, Preis und der gekauften Menge dargestellt. Bei einem leeren Warenkorb wird mit \texttt{"your cart is empty"} darauf hingewiesen.
+Der Warenkorb stellt die vom User hinzugefügten Produkte dar. Beim Aufruf der Warenkorb-Seite wird beim Laden im \texttt{ngOnInit()}-Lifecycle direkt die Methode \texttt{getCartItems()} aufgerufen und speichert die vom Nutzer hinzugefügten Artikel in einem \texttt{cartItems}-Array. Im Template wird jedes Produkt mit dem Produktnamen, Preis und der gekauften Menge dargestellt. Bei einem leeren Warenkorb wird mit \texttt{"your cart is empty"} darauf hingewiesen, dass sich keine Produkte im Warenkorb befinden.
 
 \subsection{Warenkorb-Seite \texttt{cart-page.component}}
 
-Die Warenkorb-Seite verwendet die \texttt{cart.component} als Komponente vollständig wieder und bindet diese neben der passenden Navigation zu den anderen Seiten ein. Wie in allen anderen Komponenten kann mit Hilfe von Angular-Routern durch zwei Buttons eine Navigation auf die anderen Seiten durchgeführt werden.
+Die Warenkorb-Seite verwendet die \texttt{cart.component} als Komponente vollständig wieder und bindet diese neben der passenden Navigation auf den anderen Seiten ein. Wie in allen anderen Komponenten kann mit Hilfe von Angular-Routern durch zwei Buttons eine Navigation auf die anderen Seiten durchgeführt werden.
 
-%\lstinputlisting {code/AuthPage.js}
-
+\lstinputlisting {code/cart-page.component.ts}
 
 Hier ist zu sehen, wie eine einfache Navigation zu beliebigen Angular-Komponenten umsetzbar ist. Die Einbindung einer Komponente erfolgt über den zugehörigen Selector, wie beispielsweise \texttt{<app-cart>}, und ermöglicht dadurch deren Wiederverwendung im Template.
 
 \subsection{Checkout \texttt{checkout.component}}
 
-Die Checkout-Komponente stellt den finalen Überblick über alle im Warenkorb enthaltenen Produkte Produkte sowie die Zahlungsinformationen dar. Zahlungsinformationen für den Code dar. Hierbei wird die Cart-Komponente wiederverwendet und über das Template mit \texttt{<app-cart>} eingebunden.
-Beim Laden der Seite wird im \texttt{ngOnInit}-Lifecycle der Cart abgerufen und direkt der Gesamtpreis der im Warenkorb enthaltenen Produkte berechnet. Die Zahlungsinformationen sind lesegeschützt, genauso wie der "Proceed to Payment"-Button, um den letzten Bestellungsschritt zu simulieren. Ebenfalls werden zwei Navigationsbuttons dargestellt für eine Navigation zu den anderen beiden Seiten. Dies wird analog zu den anderen Komponenten implementiert.
+Die Checkout-Komponente stellt den finalen Überblick über alle im Warenkorb enthaltenen Produkte sowie die Zahlungsinformationen für den Code dar. Hierbei wird die Cart-Komponente wiederverwendet und über das Template mit \texttt{<app-cart>} eingebunden.
+Beim Laden der Seite wird im \texttt{ngOnInit}-Lifecycle der Cart die entsprechenden Daten abgerufen und der Gesamtpreis der im Warenkorb enthaltenen Produkte berechnet. Die Zahlungsinformationen sind, genauso wie der "Proceed to Payment"-Button, um den letzten Bestellungsschritt zu simulieren, lesegeschützt. Auch werden zwei Navigationsbuttons, für eine Navigation zu den anderen beiden Seiten dargestellt. Dies wird analog zu den anderen Komponenten implementiert.
 
 \section{React-Implementierung}
 \subsection{Struktur und Setup}
 
-Bei der Implementierung wird mit React Version 19 gearbeitet. Der Einstiegspunkt erfolgt über die Datei App.js. Hier wird das Routing mithilfe von BrowserRouter in die Anwendung eingebunden. Dabei werden Routes definiert, die wiederum Route-Elemente zu den verschiedenen Ansichten der Anwendung enthalten. Die Navigation innerhalb der verschiedenen Komponenten erfolgt über Buttons, die mit useNavigate auf eine andere Komponente weiterleiten. Im Ordner pages befinden sich alle Hauptkomponenten, darunter die Authentifizierung, die Produktliste, der Warenkorb und der Checkout. Für nutzerspezifische Anfragen wird die Benutzer-ID im localStorage gespeichert und über die Datei authUtils.js verfügbar gemacht. Die Kommunikation mit dem zentralen Backend erfolgt über fetch()-Aufrufe, die passende Endpunkte des Backends ansprechen.
+Bei der Implementierung wird mit React Version 19 gearbeitet. Der Einstiegspunkt erfolgt über die Datei App.js. Hier wird das Routing mithilfe von BrowserRouter des React-Router Pakets in die Anwendung eingebunden. Dabei werden Routes definiert, die wiederum Route-Elemente zu den verschiedenen Ansichten der Anwendung enthalten. Die Navigation innerhalb der verschiedenen Komponenten erfolgt über Buttons, die mit useNavigate auf andere Komponenten weiterleiten. Im Ordner pages befinden sich alle Hauptkomponenten, darunter die Authentifizierung, die Produktliste, der Warenkorb und der Checkout. Für nutzerspezifische Anfragen wird die Benutzer-ID im localStorage gespeichert und über die Datei authUtils.js verfügbar gemacht. Die Kommunikation mit dem zentralen Backend erfolgt über fetch()-Aufrufe, die passende Endpunkte des Backends ansprechen.
 
 \subsection{Integration des Backend-Moduls}
 
-Die React-Komponenten kommunizieren mit dem zentralen Backend über HTTP-Requests. Hierfür wird \texttt{fetch()} verwendet – etwa für Anfragen wie Login, Produktabfrage, Warenkorb und Checkout. Die Daten werden über ein konsistentes Schema im \texttt{JSON}-Format gesendet und empfangen.
+Die React-Komponenten kommunizieren mit dem zentralen Backend über HTTP-Requests. Hierfür wird \texttt{fetch()} verwendet – etwa für Anfragen wie Login-, Produkt-, Warenkorb- und Checkoutabfragen. Die Daten werden über ein konsistentes Schema im \texttt{JSON}-Format gesendet und empfangen.
 Dabei wird ein Backend-Endpunkt angesprochen, der einem festen Schema folgt, beispielsweise \texttt{POST /api/login} oder \texttt{GET /api/products}. Die Benutzer-ID wird – abhängig vom jeweiligen Endpunkt – entweder als URL-Parameter oder im \texttt{Request Body} übermittelt.
 Insgesamt ist die Backend-Kommunikation direkt in den jeweiligen Komponenten eingebunden.
 
@@ -703,25 +718,23 @@ Insgesamt ist die Backend-Kommunikation direkt in den jeweiligen Komponenten ein
 
 Die Komponente \texttt{AuthPage.js} übernimmt sowohl die Registrierung als auch die Anmeldung eines Benutzers.
 Für die Speicherung von Daten wie \texttt{email}, \texttt{password} und dem aktuellen Authentifizierungsmodus wird \texttt{useState} verwendet. Abhängig vom aktuellen Authentifizierungsmodus, der im \texttt{isRegistering}-State gespeichert ist, wird der passende Endpunkt \texttt{/api/signup} oder \texttt{/api/login} verwendet.
-Anfragen werden über \texttt{fetch()} als \texttt{POST} im \texttt{JSON}-Format versendet.
-Nach einer erfolgreichen Authentifizierung wird die erhaltene \texttt{userId} im \texttt{localStorage} gespeichert, damit sie für spätere nutzerspezifische Funktionen verwendet werden kann. Es folgt eine automatische Weiterleitung mithilfe von \texttt{useNavigate('/products')} auf die Produktseite.
-Die Komponente stellt ein einfaches Formular mit zwei Eingabefeldern und einem Button dar. Zusätzlich besteht eine Umschaltfunktion (\texttt{toggleRegisterMode()}) in Form eines Buttons, um zwischen Login und Registrierung wechseln zu können.
+Anfragen werden über \texttt{fetch()} als \texttt{POST}-Request im \texttt{JSON}-Format versendet.
+Nach einer erfolgreichen Authentifizierung wird die erhaltene \texttt{userId} im \texttt{localStorage} gespeichert, damit sie für spätere nutzerspezifische Funktionen verwendet werden kann. Nach erfolgreicher Anmeldung folgt eine automatische Weiterleitung mithilfe von \texttt{useNavigate('/products')} auf die Produktseite.
+Die Login-Komponente stellt ein einfaches Formular mit zwei Eingabefeldern und einem Button dar. Zusätzlich besteht eine Umschaltfunktion (\texttt{toggleRegisterMode()}) in Form eines Buttons, um zwischen Login und Registrierung wechseln zu können.
 
 \subsection{Produktliste \texttt{ProductList.js}} 
 
 Die Komponente \texttt{ProductList.js} stellt eine Liste aller verfügbaren Produkte dar. Beim Laden der Komponente wird im \texttt{useEffect}-Hook ein \texttt{fetch()}-Aufruf an den Endpunkt \texttt{/api/products} durchgeführt. Hierbei werden alle empfangenen Produktdaten im \texttt{products}-State mithilfe von \texttt{useState} gespeichert. Während dieser Datenbankanfrage wird in der Komponente zwischenzeitlich der Text \texttt{"Loading product..."} angezeigt. Sobald die Produkte erfolgreich geladen wurden, werden sie in Form einer Liste dargestellt.
 
-Jeder Eintrag eines Produkts enthält den Namen, die Beschreibung und den jeweiligen Preis des Produkts. Zusätzlich wird für jedes Produkt ein \texttt{Add to Cart}-Button dargestellt, der es ermöglicht, Produkte in den Warenkorb zu legen. Beim Klick auf den Button wird ein \texttt{POST}-Request an \texttt{/api/cart/add} mit den Parametern \texttt{userId}, \texttt{productId} und \texttt{quantity = 1} gesendet. Die \texttt{userId} wird dabei über \texttt{getUserId()} aus der Datei \texttt{authUtils.js} gelesen.
+Jeder Eintrag eines Produkts enthält den Namen, die Beschreibung und den jeweiligen Preis des Produkts. Zusätzlich wird für jedes Produkt ein \texttt{Add to Cart}-Button dargestellt, der es ermöglicht, Produkte in den Warenkorb zu legen. Beim Klick auf den "Add to Cart"-Button wird ein \texttt{POST}-Request an \texttt{/api/cart/add} mit den Parametern \texttt{userId}, \texttt{productId} und \texttt{quantity = 1} gesendet. Die \texttt{userId} wird dabei über \texttt{getUserId()} aus der Datei \texttt{authUtils.js} gelesen.
 
-Um das hinzugefügte Produkt im Warenkorb einzusehen, kann mithilfe von zwei Navigationsbuttons entweder zum Warenkorb oder direkt zum Checkout navigiert werden. Dies erfolgt über \texttt{useNavigate}, welches das zentrale Routingsystem von React nutzt.
+Um das hinzugefügte Produkt im Warenkorb einzusehen, kann mithilfe von zwei Navigationsbuttons entweder zum Warenkorb oder direkt zum Checkout navigiert werden. Dies erfolgt über \texttt{useNavigate}, welches Teil von React Router ist, einem weit verbreiteten Routing-Package für React-Anwendungen. React selbst bietet keine native Routing-Lösung, weshalb \texttt{react-router-dom} hier verwendet wird.
 
 \subsection{Warenkorb-Komponente \texttt{CartComponent.js}} 
 
 Die Komponente \texttt{CartComponent.js} ist für die Darstellung der im Warenkorb enthaltenen Produkte zuständig. Sobald die Komponente geladen wird, erfolgt über den \texttt{useEffect}-Hook ein \texttt{fetch()}-Aufruf an den Endpunkt \texttt{/api/cart?userId=...}. Dadurch werden die Produkte aus dem Warenkorb geladen, die der Nutzer zuvor hinzugefügt hat.
 
-Die \texttt{userId} wird über die Methode \texttt{getUserId()} aus der Datei \texttt{authUtils.js} abgerufen. Für die Anzeige der Produktdetails wird für jedes Produkt ein weiterer \texttt{fetch()}-Aufruf an den Endpunkt \texttt{/api/products/:id} durchgeführt.
-
-Alle geladenen Daten werden anschließend in einer Liste dargestellt. Für jedes im Warenkorb enthaltene Produkt werden der Produktname, der Preis sowie die Stückzahl angezeigt. Falls der Warenkorb leer ist, wird der Nutzer durch den Hinweistext \texttt{"Your cart is empty"} darauf aufmerksam gemacht.
+Die \texttt{userId} wird über die Methode \texttt{getUserId()} aus der Datei \texttt{authUtils.js} abgerufen. Für die Anzeige der Produktdetails wird für jedes Produkt ein weiterer \texttt{fetch()}-Aufruf an den Endpunkt \texttt{/api/products/:id} durchgeführt, welcher den Namen,Preis und Stückzahl zu einem Produkt zurückgibt und darstellt.
 
 \subsection{Warenkorb-Seite \texttt{Cart.js}} 
 
@@ -731,7 +744,7 @@ Sie nutzt die Komponente \texttt{CartComponent.js}, um die Inhalte des Warenkorb
 \subsection{Checkout-Seite \texttt{Checkout.js}}
 
 Die Komponente \texttt{Checkout.js} stellt die Bestellübersicht vor einem Kauf dar.
-Die Produkte im Warenkorb werden erneut mithilfe der Komponente \texttt{CartComponent.js} eingebunden. Beim Laden der Seite wird im \texttt{useEffect}-Hook der Gesamtpreis aller Produkte im Warenkorb berechnet. Dabei werden alle Preise der Produkte addiert und als Gesamtbetrag unterhalb der Produktliste dargestellt.
+Die Produkte im Warenkorb werden erneut mithilfe der Komponente \texttt{CartComponent.js} eingebunden. Beim Laden der Seite wird durch den \texttt{useEffect}-Hook der Gesamtpreis aller Produkte im Warenkorb berechnet. Dabei werden alle Preise der Produkte addiert und als Gesamtbetrag unterhalb der Produktliste dargestellt.
 
 Zusätzlich wird ein Formular für die Zahlungsinformationen angezeigt, in dem Platzhalter eingefügt sind. Ein Button mit der Beschriftung \texttt{"Proceed to Payment"} soll symbolisch auf den möglichen Abschluss des Kaufs hinweisen.
 Zur Rücknavigation sind ebenfalls zwei Buttons enthalten, die zurück zur Produktliste bzw. zum Warenkorb navigieren.
@@ -740,21 +753,25 @@ Zur Rücknavigation sind ebenfalls zwei Buttons enthalten, die zurück zur Produ
 
 \subsection{Struktur und Setup}
 
-Gearbeitet wird mit nativem HTML, CSS und JavaScript. Hierzu werden Custom Elements und Shadow DOM verwendet. Der zentrale Einstiegspunkt erfolgt über die \texttt{main.js}, welche die Routing-Logik für die Anwendung enthält. Der aktuelle Pfad wird mithilfe von \texttt{window.location.pathname} ausgelesen. Mithilfe von \texttt{history.pushState()} wird die Navigation ausgeführt. Die Komponenten werden dann dynamisch in \texttt{<div id="app">} eingefügt. Es bestehen vier Komponenten für jeweils Authentifizierung, Produktliste, Warenkorb und Checkout. Alle Komponenten sind gesammelt in einem Verzeichnis und nutzen Services, um Backend-Zugriffe zu handhaben.
+Gearbeitet wird mit nativem HTML, CSS und JavaScript. Hierzu werden Custom Elements und das Shadow DOM verwendet. Der zentrale Einstiegspunkt erfolgt über die \texttt{main.js}, welche auch die Routing-Logik für die Anwendung enthält. Der aktuelle Pfad wird mithilfe von \texttt{window.location.pathname} ausgelesen. Mithilfe von \texttt{history.pushState()} wird die Navigation ausgeführt. Die Komponenten werden im Anschluss dynamisch in \texttt{<div id="app">} eingefügt. Es bestehen Komponenten für jeweils Authentifizierung, Produktliste, Warenkorb und Checkout. Alle Komponenten sind in einem Verzeichnis gesammelt und nutzen Services, um Backend-Zugriffe zu handhaben.
 
 \subsection{Integration des Backend-Moduls}
 
 Die Kommunikation mit dem zentralen Backend erfolgt über Service Dateien wie auth-service.js, product-service.js, cart-service.js und checkout-service.js. 
 Alle Services handhaben die HTTP-Anfragen an das zentrale Backend. Die Kommunikation erfolgt hierbei über fetch() im JSON-Format. 
 Bei der Authentifizierung erfolgt die Kommunikation wie folgt: 
-\todo{Code Fixen}
 
-%\lstinputlisting {code/cart-page.component.ts}
+\lstinputlisting {code/auth-service.js}
 
+Der Code definiert eine Klasse AuthService, die zur Handhabung des Authentifizierungsprozesses im Backend genutzt wird. Die Kommunikation erfolgt über HTTP-Anfragen, die mit der Funktion fetch() im JSON-Format gesendet werden. Die Basis-URL des Backends wird im Konstruktor definiert. 
+
+Bei der Funktion signUp wird ein POST-Request an die URL /signup des Backends gesendet. E-Mail und Passwort werden als JSON-Daten im Request-Body übermittelt. Die Antwort wird ebenfalls als JSON-Objekt (response.json()) zurückgegeben. 
+
+Der Login funktioniert ähnlich. Ein POST-Request wird an die URL /login mit denselben Daten gesendet. Zusätzlich werden bei der Anmeldung der zurückgegebene Token sowie die Benutzer-ID im sessionStorage bzw. im localStorage gespeichert, da diese für spätere Funktionalitäten wichtig sind.
 
 \subsection{Authentifizierung (\texttt{auth-component.js})}
 
-Diese Komponente stellt das Login- und Registrierungsformular dar. Der Nutzer kann mithilfe eines Buttons zwischen den beiden Formularen wechseln. Die E-Mail und das Passwort werden hierbei über Input-Felder eingegeben. Beim Abschicken des Formulars über den Button wird passend die Funktion \texttt{authService.login()} oder \texttt{authService.signUp()} aufgerufen. Dies geschieht abhängig vom Boolean-Flag \texttt{isRegistering}, welcher entsprechend gesetzt wird, sobald ein Nutzer zwischen den Ansichten für Login oder Registrierung wechselt. Bei einer erfolgreichen Anmeldung wird die \texttt{userId} im \texttt{localStorage} gespeichert, um später nutzerspezifische Anfragen durchführen zu können. Daraufhin erfolgt eine Weiterleitung zur Produktlistenseite.
+Diese Komponente stellt das Login- und Registrierungsformular dar. Der Nutzer kann mithilfe eines Buttons zwischen den beiden Formularen wechseln. Die E-Mail und das Passwort werden hierbei über Input-Felder eingegeben. Beim Abschicken des Formulars über den Button wird passend die Funktion \texttt{authService.login()} oder \texttt{authService.signUp()} aufgerufen. Dies geschieht abhängig vom Boolean-Flag \texttt{isRegistering}, welcher entsprechend gesetzt wird, sobald ein Nutzer zwischen den Ansichten für Login oder Registrierung wechseln kann. Bei einer erfolgreichen Anmeldung wird die \texttt{userId} im \texttt{localStorage} gespeichert, um später nutzerspezifische Anfragen durchführen zu können. Daraufhin erfolgt eine Weiterleitung zur Produktlistenseite.
 
 \subsection{Produktliste (\texttt{product-list-component.js})}
 
@@ -784,8 +801,8 @@ Beim Laden der Komponente wird der Gesamtpreis aller im Warenkorb liegenden Prod
 
 Die Eingabefelder für die Zahlungsinformationen sind enthalten, jedoch nicht funktional, sondern dienen lediglich als Platzhalter, um einen Kauf zu simulieren. Gleiches gilt für den Button \texttt{"Proceed to Payment"}.
 
-Zur Rücknavigation bestehen ebenfalls zwei Buttons, welche eine Navigation zu den Produkten sowie zum Warenkorb ermöglichen.
- 
+Für die Navigation auf eine vorherige Seite werden ebenfalls zwei Buttons dargestellt. Diese ermöglichen eine Navigation zu den Produkten sowie zum Warenkorb.
+
 
 \section{jQuery-Implementierung}
 
@@ -799,7 +816,7 @@ Jede HTML-Seite lädt das für sie passende jQuery-Skript zur Steuerung der jewe
 
 Die Nutzerverwaltung erfolgt über eine \texttt{userId}, welche nach erfolgreichem Login lokal im \texttt{localStorage} gespeichert wird. Mithilfe dieser \texttt{userId} können nutzerspezifische Anfragen durchgeführt werden.
 
-Beim initialen Laden der Seite werden die HTML-Inhalte statisch geladen. Anschließend werden dynamische Inhalte, wie z.\,B.\ Produktlisten oder Warenkorbdaten, mithilfe von jQuery ins \texttt{DOM} geschrieben.
+Beim initialen Laden der Seite werden die HTML-Inhalte statisch geladen. Anschließend werden dynamische Inhalte, wie z.\,B.\ Produktlisten oder Warenkorbdaten, mithilfe von jQuery abgerufen und ins \texttt{DOM} geschrieben.
 
 \subsection{Integration des Backend-Moduls}
 
@@ -811,19 +828,19 @@ Nach einer erfolgreichen Registrierung wird die vom Backend zurückgegebene \tex
 
 Für die Authentifizierung existieren zwei \texttt{.html}-Dateien – eine für die Anmeldung und eine für die Registrierung. Beide enthalten ein einfaches HTML-Formular mit Eingabefeldern für \texttt{E-Mail} und \texttt{Passwort}.
 
-Beim Absenden des Formulars wird dieses mithilfe von \texttt{preventDefault()} abgefangen. Anschließend werden die eingegebenen Werte ausgelesen und per \verb|$.post()| an das zentrale Backend gesendet. Nach einer erfolgreichen Anmeldung wird die vom Backend zurückgegebene \texttt{userId} im \texttt{localStorage} gespeichert, und der Nutzer wird automatisch auf die Produktseite weitergeleitet.
+Beim Absenden des Formulars wird dieses mithilfe von \texttt{preventDefault()} abgefangen. Dies soll das standardmäßige Neuladen der Seite verhindern und dient dazu, die Formulardaten asynchron verarbeiten zu können. Anschließend werden die eingegebenen Werte ausgelesen und per \verb|$.post()| an das zentrale Backend gesendet. Nach einer erfolgreichen Anmeldung wird die vom Backend zurückgegebene \texttt{userId} im \texttt{localStorage} gespeichert, und der Nutzer wird automatisch auf die Produktseite weitergeleitet.
 
 \subsection{Produktliste}
 
-Die Produktliste stellt alle Produkte in Form einer Liste dar. Das Grundgerüst besteht aus \texttt{<div id="product-list">} in welches dann die Produkte dynamisch geladen werden. Beim laden der Seite wird initial mit \verb|$.get('/api/products')| eine Anfrage an das zentrale Backend geschickt. Die geladenen Daten werden dann in das DOM geschrieben. Jedes Produkt zeigt jeweils den Namen, die Beschreibung, den Preis und einen \texttt{Add to Cart}-Button. 
+Die Produktliste stellt alle Produkte in Form einer Liste dar. Das Grundgerüst besteht aus \texttt{<div id="product-list">} in welches die Produkte dynamisch geladen werden. Beim laden der Seite wird initial mit \verb|$.get('/api/products')| eine Anfrage an das Backend geschickt. Die empfangenen Daten werden in das DOM geschrieben. Jedes Produkt zeigt jeweils den Namen, die Beschreibung, den Preis und einen \texttt{Add to Cart}-Button. 
 Mithilfe des jeweiligen Buttons kann ein Produkt in den Warenkorb des Nutzers gespeichert werden. Beim Klick auf den Button \texttt{Add to Cart} wird ein \verb|$.post('/api/cart/add')| mit dem Inhalt \texttt{userId} (aus \texttt{localStorage}), \texttt{productId} und \texttt{quantity = 1} an das Backend geschickt und damit das Produkt im Warenkorb des Nutzers gespeichert.
-Zur Navigation zum Warenkorb oder zum Checkout stehen 2 Buttons zur Verfügung, welche beide mithilfe von \texttt{<a href="...">}-Links den Nutzer auf die entsprechende Seite weiter navigieren. 
+Zur Navigation zum Warenkorb oder zum Checkout stehen 2 Buttons zur Verfügung, welche beide mithilfe von \texttt{<a href="...">}-Links den Nutzer auf die entsprechende Seite navigieren. 
 
 \subsection{Warenkorb-Komponente}
 
 Der Warenkorb stellt alle vom Nutzer hinzugefügten Produkte dar. Hierbei wird beim Laden der Seite direkt der aktuelle Nutzer mithilfe der im \texttt{localStorage} gespeicherten \texttt{userId} ausgelesen. Mit \verb|$.get('/api/cart?userId=...')| wird eine Anfrage an das Backend geschickt, um die nutzerspezifischen Warenkorbdaten zu erhalten.
 
-Für die im Warenkorb enthaltenen Produkte wird dann nochmals ein \verb|$.get('/api/products/:id')| durchgeführt, um die zugehörigen Produktdetails (Name, Preis etc.) zu erhalten. Diese Informationen werden anschließend dynamisch mit \verb|$('#cart').append(...)| in das DOM geschrieben.
+Für die im Warenkorb enthaltenen Produkte wird nochmals ein \verb|$.get('/api/products/:id')| durchgeführt. Dieser Aufruf dient dazu, die zugehörigen Produktdetails (Name, Preis etc.) zu erhalten. Diese Informationen werden anschließend dynamisch mit \verb|$('#cart').append(...)| in das DOM geschrieben.
 
 Die Navigation zurück zur Produktliste sowie zum Checkout erfolgt über zwei Buttons, welche mit \texttt{<a href="...">}-Links den Nutzer auf die jeweilige Seite weiterleiten.
 
@@ -832,11 +849,14 @@ Die Navigation zurück zur Produktliste sowie zum Checkout erfolgt über zwei Bu
 
 Der Checkout stellt den finalen Bestellvorgang dar und zeigt hierfür alle im Warenkorb enthaltenen Artikel sowie die Zahlungsinformationen. Beim Aufruf der Seite wird der \texttt{userId} aus dem \texttt{localStorage} ausgelesen. Diese wird verwendet, um mit \verb|$.get('/api/cart?userId=...')| die im Warenkorb enthaltenen Produkte vom zentralen Backend abzurufen. 
 
-Für jedes Element im Warenkorb werden erneut mit \verb|$.get('/api/products/:id')| die Produktinformationen der Produkte geladen. Alle Produkte werden dann im DOM angezeigt und gleichzeitig wird daraus der Gesamtpreis berechnet, indem \texttt{preis * menge} für jedes Produkt summiert wird. 
+Für jedes Element im Warenkorb werden erneut mit \verb|$.get('/api/products/:id')| die Produktinformationen der Produkte geladen. Alle Produkte werden daraufhin im DOM angezeigt. Gleichzeitig wird daraus der Gesamtpreis berechnet, indem \texttt{preis * menge} für jedes Produkt addiert wird. 
 
 Die Zahlungsinformationen sowie der \texttt{"Proceed to Payment"}-Button sind rein symbolisch und führen keine echte Transaktion aus. Zusätzlich befinden sich am unteren Rand der Seite zwei Navigationsbuttons, die zurück zur Produktliste bzw. zum Warenkorb führen.
 
 \section{Zusammenfassung}
+
+Die vier verschiedenen Frameworks wurden implementiert und haben hierfür verschiedene Lösungsansätze genutzt. Alle verwenden das zentrale Backend, mit dem Datenbankoperationen durchgeführt werden können. Hierfür wird die \texttt{server.ts}-Datei genutzt, welche die Endpunkte für die HTTP-Anfragen definiert. Die entsprechenden Services greifen dann über CRUD-Operationen auf die Supabase-Datenbank zu und holen sich hierüber die benötigten Daten. Für den Zugriff auf die Datenbank wurden verschiedene Lösungen umgesetzt. Ebenfalls wurden für State-Management und Routing verschiedene Lösungen passend zum jeweiligen Framework umgesetzt. Jede dieser Lösungen hat gewisse Vor- und Nachteile. Diese müssen nun ausführlich dargestellt und verglichen werden. Für den kommenden Vergleich im Kapitel Evaluierung werden auch weitere Aspekte untersucht, die nun mit der abgeschlossenen Implementierung betrachtet werden können. Hierzu gehören die Performance anhand von Messungen bestimmter Metriken, die Wartbarkeit, die Erweiterbarkeit, Skalierbarkeit, der Entwicklungsaufwand, die Modularität, die Wiederverwendbarkeit und die Komplexität des Codes.
+
 
 \chapter{Inbetriebnahme}
 Dieses Kapitel beschreibt die notwendigen Schritte, um die entwickelte Anwendung lokal zu installieren und auszuführen. Die Inbetriebnahme umfasst sowohl das zentrale Backend als auch die vier verschiedenen Frontend-Anwendungen, die auf Angular, React, Web Components und jQuery basieren.
@@ -844,15 +864,15 @@ Dieses Kapitel beschreibt die notwendigen Schritte, um die entwickelte Anwendung
 \section{Voraussetzungen}
 Bevor die Anwendung gestartet werden kann, müssen folgende Software-Komponenten installiert sein:
 \begin{itemize}
-    \item \textbf{Node.js} (mindestens Version 18.x)
-    \item \textbf{npm} (wird mit Node.js installiert)
-    \item \textbf{Git} (zur Versionsverwaltung und zum Klonen des Repositories)
+    \item \textbf{Node.js} Version 18.15.0
+    \item \textbf{npm} Version 9.5.0 
+    \item \textbf{Git} Version 2.33.0
 \end{itemize}
 
 \section{Repository klonen}
 Das Git-Repository der Anwendung muss zunächst lokal geklont werden. Dies geschieht mit folgendem Befehl:
 \begin{verbatim}
-git clone <Repository-URL>
+git clone https://github.com/Kechter/Bachelorarbeit.git
 \end{verbatim}
 
 \section{Installation der Abhängigkeiten}
@@ -905,13 +925,13 @@ Die Anwendung ist dann unter \texttt{http://localhost:3000} erreichbar.
 \begin{verbatim}
 npx serve
 \end{verbatim}
-Die Anwendung ist dann unter \texttt{http://localhost:5000} erreichbar.
+Die Anwendung ist dann unter \texttt{http://localhost:3000} erreichbar.
 
 \subsection{jQuery}
 \begin{verbatim}
 npx serve
 \end{verbatim}
-Die Anwendung ist dann unter \texttt{http://localhost:5000} erreichbar.
+Die Anwendung ist dann unter \texttt{http://localhost:3000} erreichbar.
 
 \section{Backend kompilieren und starten}
 Das zentrale Backend muss zuerst kompiliert werden, bevor es gestartet werden kann.
@@ -931,13 +951,13 @@ Nachdem alle Anwendungen und das Backend erfolgreich gestartet wurden, können d
 %---
 \chapter{Evaluierung}
 
-Die zuvor gezeigten Implementierungslösungen gilt es nun anhand passender Metriken zu evaluieren. Dabei wurde eine bestimmte Auswahl an Kriterien festgelegt, welche passende relevante Aspekte von modernen Webanwendungen umfasst um dadurch eine ganzheitliche Bewertung zu ermöglichen. Das Ziel ist es die entwickelten Frontendvarianten, Angular, React, Web Components und jQuery systematisch miteinander zu vergleichen. Das zentrale Backend dient als Grundlage für alle Lösungen und kann dadurch bei dem Vergleich nicht beachtet werden. 
+Die zuvor gezeigten Implementierungslösungen gilt es nun anhand passender Metriken zu evaluieren. Dabei wurde zuvor eine Auswahl an Kriterien festgelegt, welche relevante Aspekte von modernen Webanwendungen umfassen, um dadurch eine ganzheitliche Bewertung zu ermöglichen. Das Ziel ist es, die verwendeten Frontendtechnologien, Angular, React, Web Components und jQuery systematisch miteinander zu vergleichen. Das zentrale Backend dient als Grundlage für alle Lösungen und kann dadurch bei dem Vergleich außer Acht gelassen werden.
 
 Die Evaluierung erfolgt anhand verschiedener Qualitätsmerkmale einer Webanwendung, darunter die Performance, Wartbarkeit, Erweiterbarkeit, Skalierbarkeit, Entwicklungsaufwand, Modularität und Code-Komplexität. Damit lassen sich neben technischen Unterschieden auch praxisorientierte Rückschlüsse für die Technologiewahl ziehen. 
 
 \section{Performance}
-Ziel der Performance Analyse ist es die Ladezeit und andere Werte zu ermitteln und mithilfe dieser zu ermitteln, wie sich die verschiedenen Implementierungen hinsichtlich ihrer Performance unterscheiden.
-Die Messungen wurden mit den \texttt{Edge Dev Tools} durchgeführt, welche sowohl einen \texttt{Performance}- als auch einen \texttt{Netzwerk}-Tab bereitstellen. Dort lassen sich sämtliche relevanten Metriken auslesen. Im Rahmen der Analyse wurden insbesondere folgende Werte betrachtet:
+Ziel der Performance Analyse ist es, die Ladezeit sowie weitere Werte zu ermitteln und mithilfe dieser zu bestimmten, wie sich die verschiedenen Implementierungen hinsichtlich ihrer Performance voneinander unterscheiden.
+Die Messungen wurden mit den \texttt{Edge Dev Tools} durchgeführt, welche sowohl einen \texttt{Performance}- als auch einen \texttt{Netzwerk}-Tab bereitstellen. In diesem lassen sich sämtliche relevanten Metriken auslesen und begutachten. Im Rahmen der Analyse wurden insbesondere folgende Werte betrachtet:
 \begin{itemize}
   \item \texttt{Loading Time}
   \item \texttt{DOMContentLoaded}
@@ -951,10 +971,10 @@ Die Messungen wurden mit den \texttt{Edge Dev Tools} durchgeführt, welche sowoh
   \item \texttt{JavaScript}-Ausführungszeit
 \end{itemize}
 
-Für eine möglichst realistische und vergleichbare Ergebnisse wird bei der Messung ohne künstliche Netzwerkdrosselung durchgeführt. Für einen aussagekräftige Messung wurde der Cache deaktiviert, wodurch bei jedem Neuladen der Seite (via \texttt{F5}) sämtliche Ressourcen neu vom lokalen Webserver geladen werden. 
-Alle Seiten werden mit den gleichen Datenbank Daten befüllt, wodurch ein fairer Vergleich der Lösungen ermöglicht wird. 
-Verglichen werden alle relevanten Seiten der Anwendungen, beginnend mit dem Login, Produktliste, Warenkorb und Checkout.
-Beim Laden der Seite werden mehrere Refreshes durchgeführt und dann ein Wert genommen welcher den Durchschnittlichen Ladegeschwidigkeiten entspricht.
+Für möglichst realistische und vergleichbare Ergebnisse wird die Messung ohne eine künstliche Netzwerkdrosselung durchgeführt. Für eine aussagekräftige Messung wurde der Cache deaktiviert, wodurch bei jedem Neuladen der Seite (via \texttt{F5}) sämtliche Ressourcen neu vom lokalen Webserver geladen werden. 
+Alle Seiten werden mit den gleichen Daten aus einer Datenbank befüllt, wodurch ein fairer Vergleich der Lösungen ermöglicht wird. 
+Verglichen werden alle relevanten Seiten der Anwendungen, beginnend mit dem Login, Produktliste, Warenkorb und anschließend dem Checkout.
+Beim Laden der Seite werden mehrere Refreshes durchgeführt und ein Wert verwendet, welcher den durchschnittlichen Ladegeschwindigkeiten entspricht.
 
 \section{Vergleich der Messergebnisse}
 \subsection{Vergleich der Login-Seite}
@@ -978,15 +998,15 @@ JS-Execution-Time                & $\approx$61 ms       & $\approx$120 ms       
 \end{tabular}
 \end{table}
 
-Die Messwerte bei der Loginseite sind relativ ähnlich, da keine große Komponente bzw. Seite erstellt wurde. Trotzdem lassen sich schon hier deutliche Unterschiede erkennen.
+Bei der Betrachtung der Messergebnisse, lässt sich sagen, dass die Messwerte bei der Loginseite relativ ähnlich sind, da keine großen Komponenten bzw. Seiten erstellt wurden. Dennoch lassen sich hier bereits deutliche Unterschiede erkennen.
 
-jQuery schneidet hierbei insgesamt am besten ab. Die schnellste Ladezeit von 135 ms, die schnellste TTI von 0,072 Sekunden und eine solide JavaScript Execution Time von 29 ms zeigen, dass jQuery bei kleineren Seiten sehr effizient ist.
+jQuery schneidet insgesamt am besten ab. Die schnellste Ladezeit von 135 ms, die schnellste TTI von 0,072 Sekunden und eine solide JavaScript Execution Time von 29 ms zeigen, dass jQuery bei kleineren Seiten sehr effiziente Ladezeiten aufweist.
 
-Web Components schneiden ähnlich gut ab, allerdings mit einer leicht erhöhten Ladezeit von 257 ms. Dafür ist die TTI mit 0,1 Sekunden deutlich besser als bei React und Angular. Auch die JavaScript Execution Time von 19 ms ist hervorragend und besser als alle anderen Ansätze.
+Web Components schneiden ähnlich gut ab, allerdings mit einer leicht erhöhten Ladezeit von 257 ms. Dafür ist die TTI mit 0,1 Sekunden deutlich besser als bei React und Angular. Auch die JavaScript Execution Time von 19 ms ist hervorragend und besser als die getesteten Ansätze.
 
 React und Angular erreichen bei der Loginseite insgesamt schlechtere Werte. Die TTI von React (0,515 Sekunden) ist die langsamste, gefolgt von Angular (0,3 Sekunden). Besonders Angular leidet unter einer hohen JavaScript Execution Time von 120 ms und einer großen Dateigröße von 2,5 MB.
 
-Ein Blick auf FCP und LCP zeigt, dass jQuery und Web Components besonders schnell rendern, während React und Angular langsamer sind. React hat hier mit 0,489 Sekunden die schlechtesten Werte, während Angular mit 0,09 Sekunden solide, aber nicht optimal ist.
+Ein Blick auf FCP und LCP zeigt, dass jQuery und Web Components besonders schnell rendern, während React und Angular auch hier wieder langsamer sind. React hat hier mit 0,489 Sekunden die schlechtesten Werte, während Angular mit 0,09 Sekunden solide, aber nicht optimal ist.
 \subsection{Vergleich der Produkt-Seite}
 
 \begin{table}[H]
@@ -1008,7 +1028,7 @@ JS-Execution-Time                & $\approx$58 ms       & $\approx$129 ms       
 \end{tabular}
 \end{table}
 
-Beim Laden der Produktliste zeichnen sich ebenfalls Unterschiede zwischen den Technologien ab. jQuery und Web Components schneiden hierbei am besten ab. Die TTI ist mit 0,25 Sekunden (jQuery) und 0,26 Sekunden (Web Components) am schnellsten. jQuery zeigt zudem eine sehr schnelle FCP von 0,068 Sekunden und eine solide JavaScript Execution Time von 29 ms. Schwächen von jQuery sind hingegen die lange Ladezeit von 405 ms und der hohe TTFB von 265 ms.
+Beim Laden der Produktliste zeichnen sich ebenfalls Unterschiede zwischen den Technologien ab. jQuery und Web Components schneiden am besten ab. Die TTI ist mit 0,25 Sekunden (jQuery) und 0,26 Sekunden (Web Components) am schnellsten. jQuery zeigt zudem eine sehr schnelle FCP von 0,068 Sekunden und eine solide JavaScript Execution Time von 29 ms. Schwächen von jQuery sind hingegen die lange Ladezeit der gesamten Anwendung beim vollständigen Laden im Browser, in Höhe von 405 ms, sowie der hohe TTFB von 265 ms.
 
 Web Components zeigen ebenfalls gute Werte mit einer TTI von 0,26 Sekunden und einer schnellen JavaScript Execution Time von 27 ms. Die Dateigröße von 13,7 KB / 17,4 KB ist die kleinste im Vergleich, was sich positiv auf die Performance auswirkt. Schwächen sind ein TTFB von 63 ms sowie eine leicht erhöhte LCP von 0,26 Sekunden.
 
@@ -1041,7 +1061,7 @@ Beim Laden des Warenkorbs zeichnen sich erste Veränderungen ab. Angular schneid
 
 Web Components zeigt ebenfalls gute Werte mit einer TTI von 0,45 Sekunden sowie einer schnellen JavaScript Execution Time von 20 ms. Web Components hat eine kleine Dateigröße sowie relativ wenige Requests. Hohe Werte hat Web Components jedoch bei der TTFB von 122 ms sowie einer erhöhten LCP.
 
-Direkt darauf folgt React mit der gleichen TTI von 0,48 Sekunden, aber einer langsameren JavaScript Execution Time. React besitzt eine niedrige FCP, dafür aber eine erhöhte LCP. Die Dateigröße ist ähnlich wie bei Angular ziemlich hoch, ebenso wie die JavaScript Execution Time, die vergleichsweise lang ist.
+Direkt darauf folgt React mit der gleichen TTI von 0,48 Sekunden, aber einer langsameren JavaScript Execution Time. React besitzt eine niedrige FCP, dafür aber eine erhöhte LCP. Die Dateigröße ist ähnlich wie bei Angular relativ hoch, ebenso wie die JavaScript Execution Time, die vergleichsweise lang ist.
 
 jQuery hat diesmal die schlechtesten Werte mit einer langen TTI von 0,8 Sekunden sowie einer hohen LCP. Die FCP hingegen ist die geringste mit 0,09 Sekunden, ebenso wie die Anzahl der Netzwerk-Requests und die JavaScript Execution Time von 33 ms.
 
@@ -1076,50 +1096,58 @@ jQuery zeigt bei dieser Seite die schwächsten Ergebnisse. Mit einer TTI von 0,8
 
 \subsection{Fazit der Performance-Messungen}
 
-Insgesamt lässt sich beobachten, dass Web Components und jQuery auf den einfacheren Seiten (Login, Produktseite) die besten Ergebnisse erzielen. Je komplexer die Seiten werden (Warenkorb, Checkout), verbessert sich die Performance von Angular deutlich, während jQuery zunehmend an Effizienz verliert. Web Components bleibt über alle Seiten hinweg eine konstant gute Lösung und erreicht meist Platz 2 in den Performance-Messungen. React bewegt sich durchgehend im Mittelfeld und landet in den meisten Fällen auf dem dritten Platz.
+Insgesamt lässt sich beobachten, dass Web Components und jQuery auf wenig komplexen Seiten (Login, Produktseite) die besten Ergebnisse erzielen. Je komplexer die Seiten werden (Warenkorb, Checkout), desto mehr verbessert sich die Performance von Angular, während jQuery zunehmend an Effizienz verliert. Web Components bleibt über alle Seiten hinweg eine konstant gute Lösung und erreicht meist in den Performance-Messungen Platz zwei. React bewegt sich durchgehend im Mittelfeld und landet in den meisten Fällen auf dem dritten Platz.
 
 \section{Wartbarkeit}
 Die Wartbarkeit eines Systems lässt bestimmen Anhand wie einfach folgende Dinge getan werden können: 
 \begin{itemize}
     \item \textbf{Fehlerbehebung:} Wie leicht können Bugs identifiziert und behoben werden?
-    \item \textbf{Anpassungen:} Wie schnell lassen sich bestehende Komponenten ändern, um neue Anforderungen zu erfüllen?
+    \item \textbf{Anpassungen:} Wie schnell lassen sich bestehende Komponenten anpassen, um neue Anforderungen zu erfüllen?
     \item \textbf{Refactoring:} Wie einfach kann der Code umstrukturiert werden, um die Qualität zu verbessern, ohne die Funktionalität zu verändern?
 \end{itemize}
 
 \subsection{Fehlerbehebung}
 
-Angular biete durch die Nutzung von Typescript grundlegend eine Typensicherung schon zur Compile-Zeit. Dadurch können z.b. falsche Typen und fehlende Imports frühzeitig erkannt werden. Mithilfe der Angular CLI werden viele Fehler in der Konsole dargestellt. 
+Angular bietet durch die Nutzung von Typescript bereits zur Compile-Zeit eine grundlegende Typensicherung. Dadurch können z.B. falsche Typen und fehlende Imports frühzeitig erkannt werden. Mithilfe der Angular CLI werden viele Fehler in der Konsole dargestellt und können somit schneller behoben werden. 
 
-React kann mithilfe der Developer Tools auf Fehler analyisiert werden. Hierbei können mithilfe eines Browser Plugins die Komponenten und Datenflüsse detailliert dargestellt werden. In React können ErrorBoundarys implementiert werden, welche bei einem Fehler die Anwendung isoliert darstellen und den Fehler übermitteln. Ebenfalls bietet React eine Typescript unterstützung wodurch wie bei Angular falsche Typen zur Compilezeit erkannt werden können. 
+React-Code kann mithilfe der Developer Tools auf Fehler analysiert werden. Hierbei können beispielsweise mithilfe eines Browser Plugins die Komponenten und Datenflüsse detailliert dargestellt werden. In React können Error Boundaries implementiert werden, welche bei einem Fehler die Anwendung isoliert darstellen und den Fehler übermitteln. Dies hat den Vorteil, dass nicht die gesamte Anwendung abstürzt, sondern nur der betroffene Komponentenbaum. Dadurch können gezielt Fehlermeldungen angezeigt oder alternative Inhalte gerendert werden. Ebenfalls bietet React eine Typescript Unterstützung, wodurch wie bei Angular falsche Typen zur Compilezeit erkannt und behoben werden können. 
 
-Web Components bietet keine Framework-Unterstüzung für die Fehlerbehebung. Mit Web Compmonents muss die Fehlerbehandlung manuell implementiert werden. 
+Web Components bietet keine Framework-Unterstüzung für die Fehlerbehebung. Mit Web Components muss die Fehlerbehandlung manuell implementiert werden. 
 
 jQuery bietet ebenfalls keine umfangreiche Fehlerbehebungsunterstützung, ermöglicht jedoch zumindest mit AJAX-Methoden wie .ajax(), .get(), oder .post() ein standardisiertes Error Handling für Serveranfragen.
 
 \subsection{Anpassungen}
 
+Angular bietet eine klare Strukturierung durch Module und Services. Dadurch können gezielte Änderungen vorgenommen werden, um bestimmte Strukturen anzupassen. Die Typisierung durch TypeScript hilft dabei, Fehler frühzeitig zu erkennen. Bei größeren Anpassungen ist die strikte Architektur von Angular hilfreich, da sie eine konsistente Handhabung ermöglicht. Dies kann jedoch aufwändig werden, wenn viele verschachtelte Komponenten betroffen sind.
+
+React bietet Flexibilität durch funktionale Komponenten und Hooks, was Anpassungen prinzipiell unkompliziert macht. Der Virtual DOM erleichtert Änderungen durch eine direkte Visualisierung. Die hohe Flexibilität kann bei größeren Projekten jedoch auch zum Nachteil werden, da eigene sinnvolle Strukturen geschaffen werden müssen, um Fehler bei Anpassungen zu vermeiden.
+
+Web Components bieten ebenfalls eine hohe Flexibilität durch die Unabhängigkeit von einem Framework. Anpassungen sind möglich, indem einzelne Komponenten angepasst oder erweitert werden. Bei komplexen Anwendungen kann die fehlende Strukturierung jedoch zu einem höheren Zeitaufwand führen.
+
+jQuery ermöglicht durch die direkte Manipulation des DOM einfache Anpassungen, die jedoch oft unübersichtlich werden. Änderungen in größeren Projekten sind zwar möglich, aber schwerer nachzuvollziehen, da keine klare Struktur vorgegeben ist.
+
 \subsection{Refactoring}
 
 \section{Erweiterbarkeit}
 
-Die mögliche Erweiterbarkeit der Frontendlösungen wird anhand eines Produktfilters skiziert und hierbei wird analysiert wie einfach eine Solche Erweiterung in den jeweiligen Lösungen möglich wäre. 
+Die mögliche Erweiterbarkeit der Frontendlösungen wird anhand eines Produktfilters skizziert. Hierbei wird analysiert wie einfach eine solche Erweiterung in den jeweiligen Lösungen möglich wäre. 
 
 \subsection{Angular}
 
-In Angular müsste für die Logik des Filters ein zentraler Filterservice implementiert werden. Dieser Service (\texttt{filterService.ts}) wird in der \texttt{ProductListComponent.ts} importiert und angewendet. Im HTML der Produktliste wird mithilfe eines Filterformulars auf den Service zugegriffen, um die gefilterten Produkte anzuzeigen.
+In Angular müsste für die Logik des Filters ein zentraler Filterservice implementiert werden. Dieser Service (\texttt{filterService.ts}) wird in der \texttt{ProductListComponent.ts} importiert und angewandt. Im HTML der Produktliste wird mithilfe eines Filterformulars auf den Service zugegriffen, um die gefilterten Produkte anzuzeigen.
 
 \subsection{React}
 
-In React müsste die Logik des Filters in einer zentralen useFilter.js implemtiert werden. Diese kann dann in der ProductListComponent importiert und mithilfe von Hooks angewendet werden. Zusätzlich muss die render Logik passend angepasst werden. 
+In React müsste die Logik des Filters in einer zentralen useFilter.js implementiert werden. Diese kann daraufhin in der ProductListComponent importiert und mithilfe von Hooks verwendet werden. Zusätzlich muss die render Logik passend angepasst werden. 
 
 \subsection{Web Components}
 
-In Web Components müsste die Logik des Filters in einer eigenen produkt-filter.js implementiert werden. Das Custom Element muss dann muss dann in der Produktliste eingefügt werden. 
+In Web Components müsste die Logik des Filters in einer eigenen produkt-filter.js implementiert werden. Das benutzerdefinierte Element muss daraufhin muss dann in der Produktliste eingefügt werden. 
 
 \subsection{jQuery}
 
 In jQuery könnte die Logik des Filters in einer filterService.js implementiert werden. 
-Dieser Service wird in der product.js eingefügt um die Logik zu nutzen und in der products.html das Filterformular hinzufügen. 
+Dieser Service wird in der product.js eingefügt um die Logik zu nutzen und das Filterformular in der \texttt{products.html} hinzufügen. 
 
 \section{Skalierbarkeit}
 
@@ -1132,7 +1160,7 @@ Angular bietet durch seine modulare Architektur eine gute Skalierbarkeit. Die Ve
 
 \subsection{React}
 
-React ist aufgrund seiner komponentenbasierten Struktur ebenfalls gut skalierbar. Komponenten sind wiederverwendbar und lassen sich einfach aufteilen. Durch Werkzeuge wie Redux oder Context API kann das State Management effizient umgesetzt werden. Auch Server-Side Rendering (SSR) bietet Möglichkeiten zur Performance-Optimierung bei größeren Anwendungen. Die Verwendung von Hooks erleichtert das Erstellen wiederverwendbarer Logiken. Dennoch kann es bei großen Projekten zu Performance-Problemen kommen, wenn das State Management nicht sauber implementiert wird.
+React ist aufgrund seiner komponentenbasierten Struktur ebenfalls gut skalierbar. Komponenten sind wiederverwendbar und lassen sich einfach in kleinere (Unter-)Komponenten aufteilen. Durch Werkzeuge wie Redux oder die Context API kann das State Management effizient umgesetzt werden. Auch Server-Side Rendering (SSR) bietet Möglichkeiten zur Performance-Optimierung bei größeren Anwendungen. Die Verwendung von Hooks erleichtert das Erstellen wiederverwendbarer Logiken. Dennoch kann es bei großen Projekten zu Performance-Problemen kommen, wenn das State Management nicht sauber implementiert wird.
 
 \subsection{Web Components}
 
@@ -1146,42 +1174,64 @@ jQuery bietet keine vorgegebene Struktur, was die Skalierbarkeit stark beeinträ
 
 Der Gesamtaufwand für das Frontend, in welchem vier Frameworks und das zentrale Backend implementiert wurden, beträgt ca. einen Monat. Die Schätzungen basieren auf einer Sammlung aus Tracking-Tools sowie Git-Commits und werden auf Tage geschätzt.
 
-Vor der eigentlichen Implementierung habe ich mich mit den verwendeten Frameworks grundlegend befasst um erste Erfahrungen zu sammeln und ein Basisverständnis zu erlangen. Hierdurch sollte die Ungleichheit des Vorwissens mit Angular angepasst werden.
+Vor der eigentlichen Implementierung wurde sich mit den verwendeten Frameworks grundlegend befasst. Dies diente dazu, erste Erfahrungen mit den verwendeten Tools zu sammeln und ein Basisverständnis zu erlangen. Hierdurch sollte die Ungleichheit des bestehenden Vorwissens mit Angular angepasst werden.
 
-Der Aufwand je Frontend-Framework unterschied sich hierbei wie folgt: Angular war mit ca. 6-7 Tage die am schnellsten implementierte Lösung. Durch die vorgegebene Struktur durch Komponenten konnte die Anwendung schnell umgesetzt werden. Bei kleineren Problemen konnte mit der ausführlichen Dokumentation und Tutorials schnell eine Lösung gefunden werden.
+Der Aufwand je Frontend-Framework unterschied sich hierbei wie folgt: Angular war mit ca. 6-7 Tage die am schnellsten implementierte Lösung. Durch die vorgegebene Struktur durch Komponenten konnte die Anwendung schnell umgesetzt werden. Bei kleineren Problemen konnte mit der ausführlichen Dokumentation und Tutorials zügig eine Lösung gefunden werden.
 
 Der Aufwand in React betrug ca. 8-9 Tage. Zunächst musste erarbeitet werden, wie sich Angular-Lösungen von React-Lösungen unterscheiden. Hierbei musste gelernt werden, wie man Templates in React rendert und wie der Umgang mit useState zu handhaben ist. Aspekte wie das Routing ließen sich hingegen leicht umsetzen und erleichterten die Implementierung. Bei kleineren Problemen konnte mit der ausführlichen Dokumentation und Tutorials schnell eine Lösung gefunden werden.
 
-Der Aufwand in jQuery betrug ca. 10-11 Tage. Der Umgang mit der DOM-Manipulation war zunächst ungewohnt, und die Verwaltung von Zuständen und Daten wurde recht schnell komplex. Durch die fehlende Erfahrung war ein erhöhter Debugging-Aufwand erforderlich, um ein Verständnis für die entstandenen Probleme zu erlangen. Bei einfachen Problemen konnte die Dokumentation schnell helfen. Je komplexerer die Probleme desto eher musste auf andere Ressourcen wie StackOverflow oder Blogs ausgewichen werden welche großteils veraltet waren.  
+Der Aufwand in jQuery betrug ca. 10-11 Tage. Der Umgang mit der DOM-Manipulation war zunächst ungewohnt, und die Verwaltung von Zuständen und Daten wurde recht schnell komplex. Durch die fehlende Erfahrung war ein erhöhter Debugging-Aufwand erforderlich, um ein Verständnis für die entstandenen Probleme zu erlangen. Bei einfachen Problemen konnte die Dokumentation schnell helfen. Je komplexerer die Probleme wurden, desto eher musste auf andere Ressourcen wie StackOverflow oder Blogs ausgewichen werden, welche großteils veraltet waren.  
 
-Der Aufwand in Web Components betrug ca. 12-13 Tage. Da Web Components mit Ausnahme der Lösung für das Erstellen von eigenen HTML-Tags in Form von Komponenten keine Unterstützung für komplexere Aufgaben bieten, entstand hier der größte Zeitaufwand. Bei Problemen war die Dokumentation oft nicht ausreichend da nur grundlegende Dinge erklärt werden. Das Finden von Lösungen für spezifische Probleme erfolgt dadurch oft viel Recherche.
+Der Aufwand zur Entwicklung der Applikation unter der Verwendung von Web Components betrug ca. 12-13 Tage. Da Web Components mit Ausnahme der Lösung für das Erstellen von eigenen HTML-Tags in Form von Komponenten keine Unterstützung für komplexere Aufgaben bieten, entstand hier der größte Zeitaufwand. Bei Problemen war die Dokumentation oft nicht ausreichend, da hiervon nur grundlegende Dinge erklärt wurden. Das Finden von Lösungen für spezifische Probleme erfordert oft viel Recherche.
 
-Die grundlegende Navigation zwischen Seiten stellte sich als schwierig dar, da Web Components keine native Routing-Lösung besitzen. Die dynamische Erweiterung der Seiten beim Laden von neuen Dateien war ebenfalls aufwendig. Hierbei entstand ein erhöhter Debugging-Aufwand, um ein Verständnis für die entstandenen Probleme zu erlangen.
+Die grundlegende Navigation zwischen Seiten stellte sich als schwierig dar, da Web Components keine native Routing-Lösung besitzen. Die dynamische Erweiterung der Seiten beim Laden von neuen Dateien war ebenfalls aufwändig. Hierbei entstand ein erhöhter Debugging-Aufwand, um ein Verständnis für die entstandenen Probleme zu erlangen.
 
 \section{Modularität und Wiederverwendbarkeit}
 
-Die Modularität einer Anwendung bezieht sich auf die Möglichkeit, die Anwendung in kleiner unabhängige Teile zu zerlegen. Diese Module sollten eigene abgegrenzte Funktionen haben und dabei möglichst unabhängig getestet und entwickelt werden können. 
+Die Modularität einer Anwendung bezieht sich auf die Möglichkeit, die Anwendung in kleine, unabhängige Teile zu zerlegen. Diese Module sollten eigene abgegrenzte Funktionen haben und dabei möglichst unabhängig getestet und entwickelt werden können. 
 Die Wiederverwendbarkeit bezieht sich auf die Möglichkeit, Module oder Komponenten in verschiedenen Kontexten oder Projekte wiederzuverwenden. 
 
-In Angular wurde die Anwendung in mehrere Komponenten unterteilt, wodurch die Funktionalitäten und Darstellung klar getrennt wurden. Komponenten sind ohne große Konfiguration wiederverwendbar in anderen Teilen der Anwendung.  
+In Angular wurde die Anwendung in mehrere Komponenten unterteilt, wodurch die Funktionalitäten und Darstellung klar getrennt wurden. Komponenten sind ohne große Konfiguration in anderen Teilen der Anwendung wiederverwendbar.  
 
-In React wurde die Anwendung ebenfalls in mehrere Komponenten aufgeteilt. Mithilfe von \texttt{Props} für nutzerspezifische Komponenten und Funktionen sowie Hooks wie \texttt{useState} und \texttt{useEffect} für den Zustand und die Datenabfrage jeder Komponente wird eine klare Strukturierung erreicht. Das State-Management kann mithilfe von \texttt{useState} gut umgesetzt werden. Alle Komponenten sind unabhängig voneinander erstellt und tragen zur Modularität bei.  
+In React wurde die Anwendung ebenfalls in mehrere Komponenten aufgeteilt. Mithilfe von \texttt{Props} für nutzerspezifische Komponenten und Funktionen sowie Hooks wie \texttt{useState} und \texttt{useEffect} für den Zustand und die Datenabfrage jeder Komponente wird eine klare Strukturierung erreicht. Das State-Management kann mithilfe von \texttt{useState} gut umgesetzt werden. Alle Komponenten sind unabhängig voneinander entwickelt worden und tragen zur Modularität bei.  
 
-jQuery bietet keine native Unterstützung für Modularisierung. Die Seiten können durch das Aufteilen der Logik in separate Dateien wie \texttt{cart.js}, \texttt{checkout.js} oder \texttt{product.js} modular strukturiert werden. Eine Wiederverwendbarkeit ist grundsätzlich möglich, aber sie wird durch den starken Einsatz von ID-Selektoren (\texttt{\$("\#id")}) erschwert. Funktionen müssen manuell geschrieben und global verfügbar gemacht werden, um sie auf mehreren Seiten nutzen zu können. Diese Struktur ist zwar funktional, aber komplexer und weniger flexibel als moderne Framework-Ansätze.
+jQuery bietet keine native Unterstützung für eine Modularisierung. Die Seiten können durch das Aufteilen der Logik in separate Dateien wie \texttt{cart.js}, \texttt{checkout.js} oder \texttt{product.js} modular strukturiert werden. Eine Wiederverwendbarkeit ist grundsätzlich möglich, aber sie wird durch den starken Einsatz von ID-Selektoren (\texttt{\$("\#id")}) erschwert. Funktionen müssen zudem manuell geschrieben und global verfügbar gemacht werden, um sie auf mehreren Seiten nutzen zu können. Diese Struktur ist zwar funktional, aber komplexer und weniger flexibel als moderne Framework-Ansätze.
 
-In Web Components wird die Nutzung von Custom Elements zur Erstellung einzelner Komponenten eingesetzt, was zur Modularität beiträgt. Die erstellten Komponenten lassen sich einfach in Templates einbinden und bei Bedarf wiederverwenden. Mithilfe des \texttt{Shadow DOM} wird eine isolierte Umgebung geschaffen, in der Stil und Logik getrennt von der Hauptseite gehalten werden können. Dadurch werden Modularität und Wiederverwendbarkeit gefördert, da die Komponenten unabhängig voneinander funktionieren.
+In Web Components wird die Nutzung von Custom Elements zur Erstellung einzelner Komponenten eingesetzt, was zur Modularität beiträgt. Die erstellten Komponenten lassen sich einfach in Templates einbinden und bei Bedarf wiederverwenden. Mithilfe des \texttt{Shadow DOM} wird eine isolierte Umgebung geschaffen, in der Stil und Logik getrennt von der Hauptseite gehalten werden können. Dadurch werden Modularität und Wiederverwendbarkeit gefördert, da die Komponenten unabhängig voneinander agieren.
 
-\section{Komplexität und Code-Vergleich}
+\section{Komplexität}
 
-Um die Komplexität der Lösungen zu vergleichen wird zunächst auf die Anzahl der Lines of Code eingegangen. Diese wurden getrennt erfasst an allen relevanten JavaScript, TypeScript, HTML oder CSS Dateien. Durch die Nutzung eines Autoformatters wurden die Dateien hinsichtlich der optimalen Codeformatierung angepasst. 
+Um die Komplexität der Lösungen zu vergleichen, wird zunächst auf die Anzahl der Lines of Code eingegangen. Diese wurden von an allen relevanten JavaScript, TypeScript, HTML oder CSS Dateien getrennt erfasst. Durch die Nutzung eines Autoformatters wurden die Dateien hinsichtlich der optimalen Codeformatierung formatiert. 
 
-React besitzt mit 298 LoC am wenigsten. Das Framework bietet eine effiziente Strukturierung der Komponenten und Hooks. Mithilfe von JSX wird es ermöglicht Logik und Darstellung einer Komponente in einer Datei zu kombinieren wodurch zusätzlicher Code vermieden werden kann. 
+React besitzt mit 298 LoC am wenigsten Codezeilen. Das Framework bietet eine effiziente Strukturierung der Komponenten und Hooks. Mithilfe von JSX wird es ermöglicht, Logik und Darstellung einer Komponente in einer Datei zu kombinieren, wodurch zusätzlicher Code vermieden werden kann. 
 
 Als nächstes folgt Angular mit 469 LoC. Ein starker Anstieg ist zu erkennen, der durch die Verwendung von dem automatisch generierten Projekt sowie Komponenten und den dadurch automatisch entstandenen Boilerplate Code entsteht. 
 
-jQuery folgt direkt mit 480 LoC. Durch das fehlende Framework zur Strukturierung wird nur einfacher Code ohne Boilerplate erstellt. Die fehlenden Komponenten führen zu einer schwerer überschaubaren Codebasis. Die Logik ist über mehrere Dateien verteilt und basiert auf ID-Selektoren was die Komplexität stark erhöht. 
+jQuery folgt an dritter Stelle mit 480 LoC. Durch das fehlende Framework zur Strukturierung wird nur einfacher Code ohne Boilerplate erstellt. Die fehlenden Komponenten führen zu einer schwer überschaubaren Codebasis. Die Logik ist über mehrere Dateien verteilt und basiert auf ID-Selektoren,  was die Komplexität stark erhöht. 
 
-Zuletzt kommt Web Components mit 522 LoC und hat damit den höchsten Codeumfang. Dieser ist entstanden durch das manuelle Implementieren von Komponenten ohne die Unterstützung eines Frameworks. Das implementieren des Shadow DOMs und von Custom Elements für die Wiederverwendbarkeit von Komponenten sorgen für einen größeren Codeanteil. 
+Zuletzt kommt Web Components mit 522 LoC und hat damit den höchsten Codeumfang. Dieser ist durch das manuelle Implementieren von Komponenten ohne die Unterstützung eines Frameworks entstanden. Das Implementieren des Shadow DOMs und von Custom Elements für die Wiederverwendbarkeit von Komponenten sorgen für einen größeren Codeanteil. 
+
+\section{Code Vergleich}
+
+\lstinputlisting {code/checkout.component.ts}
+
+In Angular wird der Checkout-Prozess mithilfe des Observable-Pattern \texttt{.subscribe()} umgesetzt, um Daten asynchron abzurufen. Die Navigation erfolgt über den Angular Router per \texttt{this.router.navigate}
+
+\lstinputlisting {code/checkout.component.html}
+
+Die Komponente Cart wird mit dem Tag \texttt{<app-cart>} eingebunden und wiederverwendet. Der Gesamtpreis wird dynamisch an das Template gebunden und automatisch aktualisiert wenn sich der Wert der Komponente ändert.
+
+\lstinputlisting {code/checkout.js}
+
+In React wird fetch() in Kombination mit useEffect() und Promiese.all für eine parallele Datenverarbeitung genutzt. Die Anzeige von Komponente erfolgt über den Tag \texttt{<CartComponent/>}. Für das State Management wird useState() verwendet.
+Die Navigation wird über den React Router mit \texttt{useNavigate()} gesteuert. 
+
+\lstinputlisting {code/jqcheckout.js}
+
+Der Checkout-Prozess
+
+\lstinputlisting {code/checkout-component.js}
+
 
 \section{Zusammenfassung der Evaluierung}
 

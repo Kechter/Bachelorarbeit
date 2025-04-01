@@ -242,6 +242,41 @@
 	morestring=[b]"
 }
 
+\lstdefinelanguage{JavaScript}{
+    morekeywords={const, let, var, function, if, else, for, while, return, switch, case, break, continue, typeof, new, this, class, extends, constructor, import, export, default, async, await, try, catch, finally, throw},
+    sensitive=true,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]',
+    morestring=[b]`
+}
+
+\lstdefinelanguage{HTML}{
+    sensitive=true,
+    morecomment=[s]{<!--}{-->},
+    morestring=[b]",
+    tag=[s],
+    otherkeywords={
+        <!DOCTYPE, <html, </html, <head, </head, <title, </title, <body, </body,
+        <div, </div, <span, </span, <h1, </h1, <h2, </h2, <h3, </h3, <h4, </h4, <h5, </h5, <h6, </h6,
+        <p, </p, <a, </a, <ul, </ul, <li, </li, <img, <br, <hr,
+        <table, </table, <tr, </tr, <td, </td, <th, </th, <thead, </thead, <tbody, </tbody,
+        <form, </form, <input, <button, </button, <select, </select, <option, </option, <textarea, </textarea,
+        <script, </script, <style, </style, <link, <meta, <header, </header, <footer, </footer, <nav, </nav, <section, </section, <article, </article
+    }
+}
+
+\lstdefinelanguage{TypeScript}{
+    morekeywords={const, let, var, function, if, else, for, while, return, switch, case, break, continue, typeof, new, this, class, extends, constructor, import, export, default, async, await, try, catch, finally, throw, interface, type, enum, readonly, public, private, protected, implements},
+    sensitive=true,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]',
+    morestring=[b]`
+}
+
 
 % Error information should be more than the default.
 \setcounter{errorcontextlines}{5}
