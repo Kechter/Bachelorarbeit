@@ -215,6 +215,7 @@
         {>}{{\textgreater}}1
         {'}{{\textquotesingle}}1
         {"}{{\textquotedbl}}1
+        {$}{{\$}}1
 		}
 }
 
@@ -243,14 +244,20 @@
 }
 
 \lstdefinelanguage{JavaScript}{
-    morekeywords={const, let, var, function, if, else, for, while, return, switch, case, break, continue, typeof, new, this, class, extends, constructor, import, export, default, async, await, try, catch, finally, throw},
-    sensitive=true,
-    morecomment=[l]{//},
-    morecomment=[s]{/*}{*/},
-    morestring=[b]",
-    morestring=[b]',
-    morestring=[b]`
+  keywords={typeof, new, true, false, catch, function, return, null, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
 }
+
 
 \lstdefinelanguage{HTML}{
     sensitive=true,

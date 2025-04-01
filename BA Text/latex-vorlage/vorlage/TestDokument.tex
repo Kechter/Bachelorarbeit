@@ -4,7 +4,6 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{float}
-\hypersetup{draft}
 
 % ----------------------------------------------------------------------
 
@@ -80,24 +79,7 @@
 
 %---
 \begin{abstract}
-  Ziel der Kurzfassung ist es, einen (eiligen) Leser zu informieren, so 
-  dass dieser entscheiden kann, ob der Bericht für ihn hilfreich ist oder 
-  nicht (neudeutsch: Management Summary). Die Kurzfassung gibt daher eine 
-  kurze Darstellung
 
-  \begin{itemize}
-    \item des in der Arbeit angegangenen Problems
-    \item der verwendeten Methode(n)
-    \item des in der Arbeit erzielten Fortschritts.
-  \end{itemize}
-
-  Dabei sollte nicht auf die Struktur der Arbeit eingegangen werden, also 
-  Kapitel~\ref{cha:grundlagen} etc. denn die Kurzfassung soll ja gerade 
-  das Wichtigste der Arbeit vermitteln, ohne dass diese gelesen werden muss.
-  Eine Kapitelbezogene Darstellung sollte sich in Kapitel~%
-  \ref{cha:einleitung} unter Vorgehen befinden.
-
-  Länge: Maximal 1 Seite.
 \end{abstract}
 %-----------------------------------------------------------------------
 \cleardoublepage
@@ -380,11 +362,12 @@ Für Verfeinerungen lassen sich mit jQuery auch Effekte und Animationen in die A
 \subsubsection{Callbacks und asynchrone Verarbeitung}
 Mithilfe von Callbacks lassen sich Funktionen als Argumente an eine andere Funktion übergeben. Sie werden erst dann ausgeführt, wenn die übergeordnete Funktion vollständig verarbeitet wurde. Dadurch lassen sich asynchrone Operationen, wie beispielsweise das Laden einer HTML-Datei mithilfe von \texttt{\$.get()}, steuern. Erst nach Abschluss des Ladevorgangs wird die Callback-Funktion aufgerufen. So kann verhindert werden, dass die Benutzeroberfläche während des Ladevorgangs einfriert. Callbacks sind besonders wichtig beim Laden externer Dateien, bei API-Aufrufen sowie bei Benutzerinteraktionen wie \texttt{onClick} oder \texttt{onSubmit}.
 
-\begin{lstlisting}[language=JavaScript, caption={Verwendung eines Callbacks in jQuery}]
-$.get("myhtmlpage.html", function() { 
-    myCallBack(param1, param2); 
-});
-\end{lstlisting}
+\begin{figure}[H] %
+    \centering
+    \includegraphics[width=\linewidth]{images/jqbeispiel.png}
+    \caption{Beispiel Implementierung in jQuery}
+    \label{fig:bspjq}
+\end{figure}
 
 In diesem Beispiel wird die Funktion \texttt{myCallBack(param1, param2)} erst ausgeführt, wenn der Inhalt der Datei \texttt{myhtmlpage.html} erfolgreich geladen wurde. Dadurch wird sichergestellt, dass die abhängige Verarbeitung erst nach Abschluss des Ladevorgangs beginnt (vgl. \parencite{jquery_api}).  
 
@@ -410,19 +393,12 @@ Express ist ein minimalistisches und flexibles Webanwendungs-Framework für \tex
 
 Ein einfaches Beispiel zur Definition einer Route mit Express:  
 
-\begin{verbatim}
-const express = require('express')
-const app = express()
-const port = 3000
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
-\end{verbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/express.png}
+    \caption{Screenshot von Express-Beispiel}
+    \label{fig:rcheckout}
+\end{figure}
 
 In diesem Beispiel wird mit \texttt{app.get()} eine Route erstellt, die auf HTTP GET-Anfragen an \texttt{/} reagiert und eine einfache Nachricht zurücksendet. Der Server wird anschließend auf Port 3000 gestartet.  
 
@@ -622,22 +598,12 @@ Durch \texttt{express.json()} können eingehende JSON-Daten im Request-Body vera
 
 Ein Beispiel für den Ablauf dieser API-Anfragen ist der \texttt{POST}–Endpoint \texttt{/api/login}, der Benutzer-Login-Anfragen entgegennimmt. Dieser verarbeitet die Login Anfrage mithilfe der Login Funktion aus dem \texttt{authService} und gibt dieses Ergebnis als JSON zurück. 
 
-
-\begin{lstlisting}[language=TypeScript, caption={Auszug aus \texttt{server.ts}}]
-import express from 'express';
-import cors from 'cors';
-import { login } from './authService';
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-app.post('/api/login', async (req, res) => {
-  const { email, password } = req.body;
-  const data = await login(email, password);
-  res.json(data);
-});
-\end{lstlisting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/serverts.png}
+    \caption{Screenshot von server.ts}
+    \label{fig:rcheckout}
+\end{figure}
 
 Diese modulare Struktur ermöglicht einfache Erweiterungen bei Integration von weiteren Endpunkten. 
 
@@ -648,18 +614,7 @@ Alle Funktionen werden mithilfe des im \texttt{supabase.ts} definierten Clients 
 
 Ein Beispiel für eine Anfrage an Supabase ist die folgende Login-Funktion aus der \texttt{authService.ts}:
 
-\begin{lstlisting}[language=TypeScript, caption={Login-Funktion im \texttt{authService.ts}}]
-import { supabase } from './supabase';
 
-export async function login(email, password) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-
-  if (error) throw error;  return data;
-}
-\end{lstlisting}
 
 Diese Struktur ermöglicht eine einfache Erweiterung der in Supabase bestehenden Login-Möglichkeiten, wie z.\,B.\ die Integration von OAuth-Anbietern (z.\,B.\ Google oder GitHub) oder die Implementierung einer Passwort-Zurücksetzen-Funktionalität.
 
@@ -696,7 +651,7 @@ Der Warenkorb stellt die vom User hinzugefügten Produkte dar. Beim Aufruf der W
 
 Die Warenkorb-Seite verwendet die \texttt{cart.component} als Komponente vollständig wieder und bindet diese neben der passenden Navigation auf den anderen Seiten ein. Wie in allen anderen Komponenten kann mit Hilfe von Angular-Routern durch zwei Buttons eine Navigation auf die anderen Seiten durchgeführt werden.
 
-\lstinputlisting {code/cart-page.component.ts}
+%\lstinputlisting {code/cart-page.component.ts}
 
 Hier ist zu sehen, wie eine einfache Navigation zu beliebigen Angular-Komponenten umsetzbar ist. Die Einbindung einer Komponente erfolgt über den zugehörigen Selector, wie beispielsweise \texttt{<app-cart>}, und ermöglicht dadurch deren Wiederverwendung im Template.
 
@@ -762,8 +717,6 @@ Gearbeitet wird mit nativem HTML, CSS und JavaScript. Hierzu werden Custom Eleme
 Die Kommunikation mit dem zentralen Backend erfolgt über Service Dateien wie auth-service.js, product-service.js, cart-service.js und checkout-service.js. 
 Alle Services handhaben die HTTP-Anfragen an das zentrale Backend. Die Kommunikation erfolgt hierbei über fetch() im JSON-Format. 
 Bei der Authentifizierung erfolgt die Kommunikation wie folgt: 
-
-\lstinputlisting {code/auth-service.js}
 
 Der Code definiert eine Klasse AuthService, die zur Handhabung des Authentifizierungsprozesses im Backend genutzt wird. Die Kommunikation erfolgt über HTTP-Anfragen, die mit der Funktion fetch() im JSON-Format gesendet werden. Die Basis-URL des Backends wird im Konstruktor definiert. 
 
@@ -1130,6 +1083,14 @@ jQuery ermöglicht durch die direkte Manipulation des DOM einfache Anpassungen, 
 
 \subsection{Refactoring}
 
+Angular ist gut geeignet für Refactoring, da die starke Typisierung hierbei eine klare Übersicht ermöglicht. Es bestehen klare Modulstrukturen, und Dependency Injection erleichtert eine Umstrukturierung. Ein Refactoring kann jedoch komplexer werden, wenn tief verschachtelte Komponenten in größeren, komplexen Projekten beteiligt sind.
+
+React bietet ein einfaches Refactoring durch funktionale Komponenten und die Trennung von Logik und Darstellung. Hooks erleichtern das Refactoring, können aber auch unübersichtlich werden, wenn sie schlecht strukturiert sind. Komponentenbasierte Strukturen ermöglichen gezieltes Refactoring, ohne große Auswirkungen auf andere Bereiche.
+
+Web Components bieten isolierte Komponenten, die einfach zu refaktorisieren sind. Änderungen an einer Komponente sind meist möglich, ohne andere Komponenten zu beeinflussen. Bei größeren Anpassungen ist der Aufwand jedoch sehr hoch, da alle Komponenten manuell angepasst werden müssen. Durch die fehlende Typensicherheit und Struktur besteht eine höhere Fehlerrate.
+
+Das Refaktorisieren von Implementierungen mit jQuery ist oft schwierig, da keine klaren Strukturen vorliegen. Umstrukturierungen erfordern oft viel Zeit und das Neuschreiben von Code. Durch die fehlende Typensicherheit und Struktur besteht ebenfalls eine höhere Fehlerrate.
+
 \section{Erweiterbarkeit}
 
 Die mögliche Erweiterbarkeit der Frontendlösungen wird anhand eines Produktfilters skizziert. Hierbei wird analysiert wie einfach eine solche Erweiterung in den jeweiligen Lösungen möglich wäre. 
@@ -1156,7 +1117,6 @@ Dieser Service wird in der product.js eingefügt um die Logik zu nutzen und das 
 Skalierbarkeit beschreibt die Fähigkeit eines Systems, bei wachsendem Umfang weiterhin effizient zu funktionieren. Die untersuchten Frameworks unterscheiden sich hier vor allem in der Art und Weise, wie sie Modularisierung, Datenmanagement und Komponentenstruktur unterstützen.
 
 \subsection{Angular}
-\todo{neu formulieren}
 
 Angular bietet durch seine modulare Architektur eine gute Skalierbarkeit. Die Verwendung von Modulen (\texttt{app.routes.ts}, \texttt{app.config.ts}) ermöglicht eine klare Trennung der Anwendung in einzelne Teile, was Wartung und Erweiterung vereinfacht. Durch Dependency Injection lassen sich Services effizient managen und wiederverwenden. Angular unterstützt Lazy Loading, bei dem Module nur bei Bedarf geladen werden, was besonders bei großen Anwendungen die Performance verbessert. Allerdings kann die Change Detection bei sehr komplexen Projekten zu Performance-Problemen führen, wenn nicht mit der \texttt{OnPush}-Strategie gearbeitet wird.
 
@@ -1215,23 +1175,49 @@ Zuletzt kommt Web Components mit 522 LoC und hat damit den höchsten Codeumfang.
 
 \section{Code Vergleich}
 
-\lstinputlisting[caption={Angular Component}] {code/checkout.component.ts}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/acheckoutcomponent.png}
+    \caption{Screenshot von checkout.component.ts}
+    \label{fig:acheckout}
+\end{figure}
+
 
 In Angular wird der Checkout-Prozess mithilfe des Observable-Pattern \texttt{.subscribe()} umgesetzt, um Daten asynchron abzurufen. Die Navigation erfolgt über den Angular Router per \texttt{this.router.navigate}.
 
-\lstinputlisting[caption={Angular Template}] {code/checkout.component.html}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/acheckoutcomponenthtml.png}
+    \caption{Screenshot von checkout.component.html}
+    \label{fig:ahtmlcheckout}
+\end{figure}
 
 Die Komponente Cart wird mit dem Tag \texttt{<app-cart>} eingebunden und wiederverwendet. Der Gesamtpreis wird dynamisch an das Template gebunden und automatisch aktualisiert, wenn sich der Wert der Komponente ändert.
 
-\lstinputlisting[caption={React Component}] {code/checkout.js}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/rcheckout.png}
+    \caption{Screenshot von checkout.js}
+    \label{fig:rcheckout}
+\end{figure}
 
 In React wird \texttt{fetch()} in Kombination mit \texttt{useEffect()} und \texttt{Promise.all()} für eine parallele Datenverarbeitung genutzt. Die Anzeige von Komponente erfolgt über den Tag \texttt{<CartComponent/>}. Für das State Management wird \texttt{useState()} verwendet. Die Navigation wird über den React Router mit \texttt{useNavigate()} gesteuert.
 
-\lstinputlisting[caption={Web Components}] {code/checkout-component.js}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/wcheckoutcomponent.png}
+    \caption{Screenshot von checkout-component.js}
+    \label{fig:wcheckout}
+\end{figure}
 
-Der Checkout-Prozess in Web Components erfolgt über \texttt{fetch()}-Requests und \texttt{Promise.all()}. Die Darstellung erfolgt mithilfe des \texttt{Shadow DOM}. Die Navigation wird manuell gesteuert mit \texttt{window.navigateTo() welches eine Navigation mit \texttt{window.location.href} durchführt}.
+Der Checkout-Prozess in Web Components erfolgt über \texttt{fetch()}-Requests und \texttt{Promise.all()}. Die Darstellung erfolgt mithilfe des \texttt{Shadow DOM}. Die Navigation wird manuell gesteuert mit \texttt{window.navigateTo()} welches eine Navigation mit \texttt{window.location.href} durchführt.
 
-\lstinputlisting[caption={jQuery Component}] {code/jqcheckout.js}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/jqcheckout.png}
+    \caption{Screenshot von checkout.js}
+    \label{fig:wcheckout}
+\end{figure}
 
 jQuery verwendet \texttt{\$.ajax()} für Datenabrufe und \texttt{Promise.all()} zur Parallelisierung. Die Datenanzeige erfolgt mithilfe des DOM, welcher mit \texttt{.append()} die Darstellung hinzufügt. Die Navigation erfolgt mithilfe von \texttt{window.location.href}.
 
@@ -1284,6 +1270,7 @@ Zusammenfassend lässt sich sagen, dass Web Components eine konstant gute Perfor
 %---
 \chapter{Zusammenfassung und Ausblick}
 \label{cha:zusammenfassung}
+
 \section{Erreichte Ergebnisse}
 \label{sec:ergebnisse}
 
@@ -1315,8 +1302,6 @@ Durch die Erweiterung der Anwendung um zusätzliche Funktionen wie ein Filtersys
 Die Filterung könnte klassisch über eine Produktsuche erfolgen oder mithilfe von erweiterten Filtern wie Kategorien, Preisbereichen oder Bewertungen. Solche komplexeren Operationen würden noch klarer zeigen, wie Frameworks mit guter Unterstützung für State Management und Datenverarbeitung abschneiden, während frameworkfreie Lösungen wie Web Components oder jQuery auf manuelle Implementierungen angewiesen wären.
 
 Eine Bewertungsfunktion könnte die Interaktivität mit den einzelnen Produkten deutlich erhöhen. Gleichzeitig würde sie neue Herausforderungen hinsichtlich der Datenverwaltung und Speicherung aufwerfen, insbesondere bei der effizienten Verwaltung großer Datenmengen. Dies würde eine realistischere Bewertung der Skalierbarkeit und Performance der Frameworks ermöglichen.
-
-
 
 \subsection{Übertragbarkeit der Ergebnisse}
 \label{sub:uebertragbarkeit}
